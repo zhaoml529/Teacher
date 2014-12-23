@@ -238,6 +238,7 @@ h1 { font-size: 24px; }
     .form-control {
     	width: 300px;
     }
+    .form-control-feedback {right: 15px; width: 510px; }
     .templatemo-sidebar.navbar-collapse.in {
         border-top: 0 !important;
         margin: 90px 0px 0px 0px;

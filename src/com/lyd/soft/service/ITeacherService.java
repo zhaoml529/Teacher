@@ -16,6 +16,8 @@ public interface ITeacherService {
 	
 	public List<Teacher> toList() throws Exception;
 	
+	public List<Teacher> findByDept(Integer dept_id) throws Exception;
+	
 	public Teacher findByName(String name) throws Exception;
 	
 	public Teacher findById(Integer id) throws Exception;

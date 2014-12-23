@@ -48,4 +48,10 @@ public class TeacherServiceImpl extends BaseServiceImpl<Teacher> implements ITea
 		}
 	}
 
+	@Override
+	public List<Teacher> findByDept(Integer dept_id) throws Exception {
+		List<Teacher> list = findByPage("Teacher", new String[]{"department"}, new String[]{dept_id.toString()});
+		return list;
+	}
+
 }

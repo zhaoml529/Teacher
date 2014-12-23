@@ -32,9 +32,10 @@ public class LoginAction {
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(@RequestParam("username")String name, @RequestParam("password")String passwd, HttpServletRequest request, Model model) throws Exception{
-		logger.info("login - username=" + name + ", password=" + passwd);
 		HttpSession session = request.getSession();
+		logger.info("login - username=" + name + ", password=" + passwd);
 		Teacher user = teacherService.findByName(name);
+		model.addAttribute("username", name);
 		if(!BeanUtils.isBlank(user)){
 			if(passwd.equals(user.getPassWord())){
 				UserUtils.saveUserToSession(session, user);
