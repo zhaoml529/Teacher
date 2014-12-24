@@ -31,11 +31,11 @@ public class Message implements Serializable {
 	@Column(name = "CONTENT")
 	private String content;			//内容
 	
-	@Column(name = "FROM_USER")
-	private Integer fromUser;		//来自谁
+	@Column(name = "FROM_USER_ID")
+	private String fromUser;		//来自谁
 	
-	@Column(name = "TO_USER")
-	private Integer toUser;			//发给谁
+	@Column(name = "TO_USER_ID")
+	private String toUser;			//发给谁
 	
 	@Column(name = "REVIEW")
 	private Integer review;			//1.已读 0.未读
@@ -70,19 +70,19 @@ public class Message implements Serializable {
 		this.content = content;
 	}
 
-	public Integer getFromUser() {
+	public String getFromUser() {
 		return fromUser;
 	}
 
-	public void setFromUser(Integer fromUser) {
+	public void setFromUser(String fromUser) {
 		this.fromUser = fromUser;
 	}
 
-	public Integer getToUser() {
+	public String getToUser() {
 		return toUser;
 	}
 
-	public void setToUser(Integer toUser) {
+	public void setToUser(String toUser) {
 		this.toUser = toUser;
 	}
 

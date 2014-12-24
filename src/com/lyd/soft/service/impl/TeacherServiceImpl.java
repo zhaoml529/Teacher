@@ -40,11 +40,11 @@ public class TeacherServiceImpl extends BaseServiceImpl<Teacher> implements ITea
 
 	@Override
 	public Teacher findByName(String name) throws Exception {
-		Teacher teacher = getUnique("Teacher", new String[]{"name"}, new String[] {name});
-		if(BeanUtils.isBlank(teacher)){
+		Teacher Teacher = getUnique("Teacher", new String[]{"name"}, new String[] {name});
+		if(BeanUtils.isBlank(Teacher)){
 			return null;
 		}else{
-			return teacher;
+			return Teacher;
 		}
 	}
 

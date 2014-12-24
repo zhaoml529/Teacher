@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -34,6 +36,10 @@ public class Subject implements Serializable {
 	@Column(name = "ID", unique = true)
 	private Integer id;			
 
+	@OneToOne
+	@JoinColumn(name="TEACHER_ID")
+	private Teacher teacher;	
+	
 	@Column(name = "SUB_ID")
 	private String subId;			//课题编号
 	
@@ -102,6 +108,14 @@ public class Subject implements Serializable {
 
 	public void setIsDelete(Integer isDelete) {
 		this.isDelete = isDelete;
+	}
+
+	public Teacher getTeacher() {
+		return teacher;
+	}
+
+	public void setTeacher(Teacher teacher) {
+		this.teacher = teacher;
 	}
 	
 }

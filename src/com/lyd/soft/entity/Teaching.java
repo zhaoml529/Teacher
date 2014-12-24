@@ -8,7 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -32,6 +32,10 @@ public class Teaching implements Serializable {
 	@Column(name = "ID", unique = true)
 	private Integer id;		
 
+	@OneToOne
+	@JoinColumn(name="TEACHER_ID")
+	private Teacher teacher;			
+	
 	@Column(name = "SCHOOL_YEAR")
 	private String schoolYear;			//学年
 	
@@ -44,12 +48,8 @@ public class Teaching implements Serializable {
 	@Column(name = "REMINDER")
 	private String reminder;			//其他教学科研说明
 
-	@ManyToOne(targetEntity = Teacher.class)
-	@JoinColumn(name="TEACHING_ID",updatable=false)
-	private Teacher teacher;
-	
 	@Column(name = "IS_DELETE")
-	private Integer isDelete;		//删除
+	private Integer isDelete;			//删除
 	
 	public Integer getId() {
 		return id;

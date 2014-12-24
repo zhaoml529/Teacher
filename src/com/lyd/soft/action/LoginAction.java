@@ -37,7 +37,7 @@ public class LoginAction {
 		Teacher user = teacherService.findByName(name);
 		model.addAttribute("username", name);
 		if(!BeanUtils.isBlank(user)){
-			if(passwd.equals(user.getPassWord())){
+			if(passwd.equals(user.getPassword())){
 				UserUtils.saveUserToSession(session, user);
 				return "index";
 			}else{

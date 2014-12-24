@@ -73,7 +73,16 @@ public class Department implements Serializable{
 		this.isDelete = isDelete;
 	}
 
+	public Set<Teacher> getTeacher() {
+		return teacher;
+	}
+
+	public void setTeacher(Set<Teacher> teacher) {
+		this.teacher = teacher;
+	}
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+	
 }
