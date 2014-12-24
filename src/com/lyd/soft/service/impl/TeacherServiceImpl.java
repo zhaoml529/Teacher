@@ -34,13 +34,18 @@ public class TeacherServiceImpl extends BaseServiceImpl<Teacher> implements ITea
 	}
 
 	@Override
-	public Teacher findById(Integer id) throws Exception {
-		return getUnique("Teacher", new String[]{"id"}, new String[]{id.toString()});
+	public Teacher findById(String teacherId) throws Exception {
+		Teacher Teacher = getUnique("Teacher", new String[]{"teacherId"}, new String[] {teacherId});
+		if(BeanUtils.isBlank(Teacher)){
+			return null;
+		}else{
+			return Teacher;
+		}
 	}
 
 	@Override
 	public Teacher findByName(String name) throws Exception {
-		Teacher Teacher = getUnique("Teacher", new String[]{"name"}, new String[] {name});
+		Teacher Teacher = getUnique("Teacher", new String[]{"teacherName"}, new String[] {name});
 		if(BeanUtils.isBlank(Teacher)){
 			return null;
 		}else{

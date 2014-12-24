@@ -11,10 +11,10 @@
   <meta name="viewport" content="width=device-width">        
 </head>
 <body>
-  <%@include file="top.jsp" %>
+  <c:import url="top.jsp" />
   <div class="container"> 
     <div class="template-page-wrapper">
- 	<%@include file="menu.jsp" %>
+ 	<c:import url="menu.jsp" />
     <div class="templatemo-content-wrapper">
         <div class="templatemo-content">
           <ol class="breadcrumb">

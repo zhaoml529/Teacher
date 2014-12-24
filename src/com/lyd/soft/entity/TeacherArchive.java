@@ -46,6 +46,9 @@ public class TeacherArchive implements Serializable {
 	@Column(name = "TEACHER_NAME")
 	private String teacherName;		//教师姓名
 	
+	@Column(name = "TEACHER_PICTURE")
+	private String teacherPic;		//照片
+	
 	//统计
 	@Column(name = "SEX")
 	private Integer sex;			//0.female女 1.male  男
