@@ -43,7 +43,7 @@ public class Teacher implements Serializable{
 	@Column(name = "LOGIN_DATE")
 	private Date lgoinDate;				//上次登录时间-下拉显示慢慢的隐藏
 	
-	@Column(name = "IPAddress")
+	@Column(name = "IP_ADDRESS")
 	private String IPAddress;			//上次登录IP
 	
 	
