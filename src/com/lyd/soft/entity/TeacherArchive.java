@@ -23,7 +23,7 @@ import org.springframework.format.annotation.DateTimeFormat;
  */
 
 @Entity
-@Table(name = "T_TEACHER")
+@Table(name = "T_TEACHER_ARCHIVE")
 public class TeacherArchive implements Serializable {
 
 	/**
