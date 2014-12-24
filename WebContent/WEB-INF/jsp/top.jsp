@@ -34,3 +34,17 @@
       	  </div>
       </div>
   </div>
+  
+  <div class="subnav navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        	<div class="style-switcher pull-right">
+                <a href="javascript:chooseStyle('style1', 60);"><span class="style" style="background-color:#0088CC;"></span></a>
+                <a href="javascript:chooseStyle('style2', 60);"><span class="style" style="background-color:#7c5706;"></span></a>
+                <a href="javascript:chooseStyle('style3', 60);"><span class="style" style="background-color:#468847;"></span></a>
+                <a href="javascript:chooseStyle('style4', 60);"><span class="style" style="background-color:#4e4e4e;"></span></a>
+                <a href="javascript:chooseStyle('style5', 60);"><span class="style" style="background-color:#d85515;"></span></a>
+                <a href="javascript:chooseStyle('style6', 60);"><span class="style" style="background-color:#a00a69;"></span></a>
+                <a href="javascript:chooseStyle('style7', 60);"><span class="style" style="background-color:#a30c22;"></span></a>
+           </div>
+    </div><!-- navbar-inner -->
+</div><!-- subnav -->

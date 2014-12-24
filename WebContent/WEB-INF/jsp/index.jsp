@@ -8,7 +8,15 @@
   <title>教师档案管理系统</title>
   <meta name="keywords" content="" />
   <meta name="description" content="" />
-  <meta name="viewport" content="width=device-width">        
+  <meta name="viewport" content="width=device-width">    
+  <link rel="alternate stylesheet" type="text/css" media="screen" title="style1" href="${ctx }/css/style-blue.css" />
+  <link rel="alternate stylesheet" type="text/css" media="screen" title="style2" href="${ctx }/css/style-brown.css" />
+  <link rel="alternate stylesheet" type="text/css" media="screen" title="style3" href="${ctx }/css/style-green.css" />
+  <link rel="alternate stylesheet" type="text/css" media="screen" title="style4" href="${ctx }/css/style-grey.css" />
+  <link rel="alternate stylesheet" type="text/css" media="screen" title="style5" href="${ctx }/css/style-orange.css" />
+  <link rel="alternate stylesheet" type="text/css" media="screen" title="style6" href="${ctx }/css/style-purple.css" />
+  <link rel="alternate stylesheet" type="text/css" media="screen" title="style7" href="${ctx }/css/style-red.css" />  
+    
 </head>
 <body>
   <c:import url="top.jsp" />

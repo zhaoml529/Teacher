@@ -8,5 +8,6 @@
 <link rel="stylesheet" href="${ctx}/css/font-awesome.min.css" type="text/css" />
 <script type="text/javascript" src="${ctx}/js/jquery-1.10.2.min.js"></script>
 <script type="text/javascript" src="${ctx}/js/util.js"></script>
+<script type="text/javascript" src="${ctx}/js/styleswitch.js"></script>
 <script type="text/javascript" src="${ctx}/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="${ctx}/js/templatemo_script.js"></script>

@@ -43,6 +43,25 @@ h1 { font-size: 24px; }
   z-index: 9995 !important;
 }
 
+.subnav.navbar-fixed-top {
+  top:40px;
+  z-index:1;
+}
+
+/*Style switcher*/
+.style-switcher
+{
+	padding-top:13px;
+}
+.style-switcher span.style
+{
+	width:16px; 
+	height:16px; 
+	display:block;
+	margin-right:5px;
+	float:left;
+}
+
 .template-page-wrapper {
 	margin:0 auto;
 }
