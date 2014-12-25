@@ -79,6 +79,6 @@ ul.yiiPager .selected a {
 	background-color: #a30c22!important;
 }
 
-.navbar-inverse {
-	background-color: #ffffff;
+blockquote {
+	border-left: 5px solid #a30c22!important;
 }

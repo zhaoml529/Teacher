@@ -78,3 +78,7 @@ ul.yiiPager .selected a {
 	border: 1px solid #4e4e4e!important;
 	background-color: #4e4e4e!important;
 }
+
+blockquote {
+	border-left: 5px solid #4e4e4e!important;
+}
