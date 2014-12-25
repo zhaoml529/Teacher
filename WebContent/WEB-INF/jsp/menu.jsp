@@ -28,6 +28,7 @@
     </ul>
   </li>
   <li><a href="${ctx }/teacherAction/1/toList_page" target="content"><i class="fa fa-users"></i>教师列表</a></li>
+  <li><a href="${ctx }/teacherAction/1/toList_page" target="content"><i class="glyphicon glyphicon-calendar"></i>日程管理</a></li>
   <li><a href="preferences.html"><i class="fa fa-cog"></i>系统设置</a></li>
   <li><a href="javascript:;" data-toggle="modal" data-target="#confirmModal"><i class="fa fa-sign-out"></i>退出</a></li>
 </ul>

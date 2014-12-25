@@ -13,6 +13,7 @@ import com.lyd.soft.entity.Teacher;
 public class UserUtils {
 
     public static final String USER = "user";
+    public static final String USER_ID = "user_id";
 
     /**
      * 设置用户到session
@@ -22,6 +23,7 @@ public class UserUtils {
      */
     public static void saveUserToSession(HttpSession session, Teacher user) {
         session.setAttribute(USER, user);
+        session.setAttribute(USER_ID, user.getTeacherId());
     }
 
     /**

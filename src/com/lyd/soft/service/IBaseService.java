@@ -25,4 +25,5 @@ public interface IBaseService<T> {
 	 
 	public List<T> findByPage(String tableSimpleName,String[] columns,String[] values) throws Exception;
 	
+	public List<T> getRangeDate(String tableSimpleName,String[] columns,String[] values) throws Exception;
 }

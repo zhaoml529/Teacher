@@ -73,3 +73,8 @@ ul.yiiPager .selected a {
   text-shadow:#CCCCCC 0 0 0;
   font-weight:bold;
 }
+
+.fc-event {
+	border: 1px solid #a00a69!important;
+	background-color: #a00a69!important;
+}

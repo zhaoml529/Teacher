@@ -73,3 +73,12 @@ ul.yiiPager .selected a {
   text-shadow:#CCCCCC 0 0 0;
   font-weight:bold;
 }
+
+.fc-event {
+	border: 1px solid #a30c22!important;
+	background-color: #a30c22!important;
+}
+
+.navbar-inverse {
+	background-color: #ffffff;
+}

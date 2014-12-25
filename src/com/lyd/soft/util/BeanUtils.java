@@ -19,7 +19,7 @@ public class BeanUtils {
 		}
 		return false;
 	}
-	public static boolean isBlank(List list){
+	public static boolean isBlank(List<Object> list){
 		if(list == null || list.size()<=0){
 			return true;
 		}

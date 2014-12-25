@@ -165,4 +165,22 @@ public class BaseServiceImpl<T> implements IBaseService<T> {
         }
 	}
 
+	/**
+	 * 固定参数 columns 和 values 
+	 * columns[]{"teacher", "beginDate"}
+	 * values[]{teacher_id, beginDate, endDate}
+	 */
+	@Override
+	@Transactional(propagation=Propagation.NOT_SUPPORTED, readOnly=true)
+	public List<T> getRangeDate(String tableSimpleName, String[] columns,
+			String[] values) throws Exception {
+    	StringBuffer sb = new StringBuffer();  
+        sb.append("select a from ").append(tableSimpleName).append( " a where a.").append(columns[0]); 
+        sb.append("='").append(values[0]).append("'").append(" and a.").append(columns[1]); 
+        sb.append(" BETWEEN '").append(values[1]).append("' and '").append(values[2]).append("'");
+        String sub = sb.toString();
+        List<T> list = this.baseDao.createQuery(sub);
+        return list.size()>0?list:null;
+	}
+
 }
