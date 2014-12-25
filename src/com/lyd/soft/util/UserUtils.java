@@ -8,7 +8,7 @@ import com.lyd.soft.entity.Teacher;
 
 /**
  * 用户工具
- * @author ZML
+ * @author LYD
  */
 public class UserUtils {
 
