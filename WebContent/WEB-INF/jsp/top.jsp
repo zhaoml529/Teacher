@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<c:set var="ctx" value="${pageContext.request.contextPath}" />
 <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 	<div class="navbar-inner">
 	<div class="container-fluid">
@@ -16,7 +18,7 @@
 		<li class="item-test"><a href="/guetoj/index.html">首页</a></li>
 		<li class="item-test"><a href="/guetoj/news.html">新闻</a></li>
 		<li class="item-test"><a href="#"><span class="badge pull-right">9</span>站内信</a></li>
-		<li class="item-test"><a href="/guetoj/problems.html">用户中心</a></li>
+		<li class="item-test"><a href="${ctx }/teacherAction/details">用户中心</a></li>
 	  </ul>          
 	</div><!-- nav-collapse -->
    </div><!-- navbar-inner -->

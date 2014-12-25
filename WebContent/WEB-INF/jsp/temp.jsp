@@ -12,6 +12,7 @@
 </head>
 <body>
   <%@include file="top.jsp" %>
+  <%-- <c:import url="top.jsp" /> --%>
   <div class="container"> 
     <div class="template-page-wrapper">
  	<c:import url="menu.jsp" />

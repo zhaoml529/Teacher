@@ -92,7 +92,7 @@
           <div class="row-fluid">
     	  <div class="jumbotron">
 	    	  <div class="page-header">
-	            <h2>欢迎来到 高校教师档案管理系统</h2>
+	            <h2>欢迎使用 高校教师档案管理系统</h2>
 	          </div>
 	            <p>File Manager System 由邯郸学院信息工程学院(CIE/HDC)11级计算机科学与技术专接本班提供技术支持。</p>
 	            <p>你可以进行以下操作：</p>
@@ -157,10 +157,6 @@
       
     </div>
     </div>
-	<footer class="templatemo-footer">
-        <div class="templatemo-copyright">
-          <p>Copyright &copy; 2084 Your Company Name Collect from <a href="#" title="" target="_blank">教师档案</a> - More About </p>
-        </div>
-    </footer>
+	<c:import url="footer.jsp" />
 </body>
 </html>
