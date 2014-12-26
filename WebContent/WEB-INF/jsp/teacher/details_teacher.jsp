@@ -19,7 +19,7 @@
         <div class="templatemo-content">
 			<ol class="breadcrumb">
 			  <li><a href="index.html">主页</a></li>
-			  <li><a href="#">用户中心</a></li>
+			  <li class="active">用户中心</li>
 			</ol>
 			<blockquote>
 				<h4><span class="glyphicon glyphicon-user"></span>&nbsp;${teacher.teacherName } 的信息&nbsp;<span class="caret"></span></h4>
