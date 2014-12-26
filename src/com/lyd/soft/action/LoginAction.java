@@ -52,16 +52,21 @@ public class LoginAction {
 		}
 	}
 	
-	@RequestMapping("/logout")
+	@RequestMapping(value = "/logout")
 	public String logout(HttpSession session){
 		UserUtils.removeUserFromSession(session);
 		return "login";
 	}
 	
-	@RequestMapping("/login_view")
+	@RequestMapping(value = "/login_view")
 	public String login_view(){
 		logger.info("跳转登录页面");
 		return "login";
+	}
+	
+	@RequestMapping(value = "/main")
+	public String main() {
+		return "index";
 	}
 	
 }
