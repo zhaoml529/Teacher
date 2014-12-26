@@ -43,11 +43,30 @@ altsheets[randomnumber].disabled=false
 return (typeof randomize!="undefined" && altsheets[randomnumber]!="")? altsheets[randomnumber].getAttribute("title") : "" //if in "random" mode, return "title" of randomly enabled alt stylesheet
 }
 
-function chooseStyle(styletitle, days){ //Interface function to switch style sheets plus save "title" attr of selected stylesheet to cookie
+/**
+ * modify zml 配合美化checkbox 和 radio 插件 icheck.js 使用
+ * @param styletitle
+ * @param days
+ * @param type
+ */
+function chooseStyle(styletitle, days, type){ //Interface function to switch style sheets plus save "title" attr of selected stylesheet to cookie
 if (document.getElementById){
 setStylesheet(styletitle)
 setCookie("mysheet", styletitle, days)
 }
+//modify
+var style;
+if(type == 'none'){
+	style = '';
+}else{
+	style = '-'+type;
+}
+
+$('input').iCheck({
+	checkboxClass: 'icheckbox_square'+style,
+	radioClass: 'iradio_square'+style,
+	increaseArea: '20%' // optional
+});
 }
 
 function indicateSelected(element){ //Optional function that shows which style sheet is currently selected within group of radio buttons or select menu
