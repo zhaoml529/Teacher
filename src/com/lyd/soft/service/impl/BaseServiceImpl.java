@@ -43,7 +43,7 @@ public class BaseServiceImpl<T> implements IBaseService<T> {
                 if(i < columns.length-1){  
                     sb.append(" and ");  
                 }  
-           }  
+           }
            T entity = this.baseDao.unique(sb.toString());  
            return entity; 
         }else{  
@@ -55,16 +55,25 @@ public class BaseServiceImpl<T> implements IBaseService<T> {
 	@Override
 	@Transactional(propagation=Propagation.NOT_SUPPORTED, readOnly=true)
 	public List<T> findByWhere(String tableSimpleName, String[] columns,
-			String[] values) throws Exception{
+			String[] values, String[] orderBy) throws Exception{
 		StringBuffer sb = new StringBuffer();  
         sb.append("select a from ").append(tableSimpleName).append( " a where ");  
         if(columns.length==values.length){  
-            for(int i = 0; i < columns.length; i++){  
-                sb.append("a.").append(columns[i]).append("='").append(values[i]).append("'");  
-                if(i < columns.length-1){  
-                    sb.append(" and ");  
-                }  
+           for(int i = 0; i < columns.length; i++){  
+	            sb.append("a.").append(columns[i]).append("='").append(values[i]).append("'");  
+	            if(i < columns.length-1){  
+	                sb.append(" and ");  
+	            }  
            }  
+           if(orderBy.length > 0){
+        	   sb.append(" order by ");
+        	   for(int i = 0; i < orderBy.length; i++){
+        		   sb.append("a.").append(orderBy[i]);
+        		   if(i < orderBy.length-1){
+        			   sb.append(", ");
+        		   }
+        	   }
+           }
            List<T> list = this.baseDao.createQuery(sb.toString());  
             return list.size()>0?list:null;  
         }else{  
@@ -112,7 +121,7 @@ public class BaseServiceImpl<T> implements IBaseService<T> {
 
 	@Override
 	@Transactional(propagation=Propagation.NOT_SUPPORTED, readOnly=true)
-	public List<T> findByPage(String tableSimpleName, String[] columns, String[] values) throws Exception{
+	public List<T> findByPage(String tableSimpleName, String[] columns, String[] values, String[] orderBy) throws Exception{
 		Pagination pagination = PaginationThreadUtils.get();
 		if (pagination == null) {
 			pagination = new Pagination();
@@ -124,7 +133,7 @@ public class BaseServiceImpl<T> implements IBaseService<T> {
 			if(columns.length <= 0 && values.length <= 0){
 				list = getAllList(tableSimpleName);
 			}else{
-				list = findByWhere(tableSimpleName, columns, values);
+				list = findByWhere(tableSimpleName, columns, values, orderBy);
 			}
 			if(BeanUtils.isBlank(list)){
 				pagination.setTotalSum(0);

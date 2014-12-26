@@ -3,11 +3,14 @@ package com.lyd.soft.service.impl;
 import java.io.Serializable;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.lyd.soft.entity.Awarding;
 import com.lyd.soft.entity.Message;
 import com.lyd.soft.service.IMessageService;
 import com.lyd.soft.util.BeanUtils;
 
+@Service
 public class MessageServiceImpl extends BaseServiceImpl<Message> implements
 		IMessageService {
 
@@ -30,7 +33,7 @@ public class MessageServiceImpl extends BaseServiceImpl<Message> implements
 
 	@Override
 	public List<Message> toList(String teacherId) throws Exception {
-		List<Message> list = findByPage("Message", new String[]{"toUser"}, new String[]{teacherId});
+		List<Message> list = findByPage("Message", new String[]{"toUser"}, new String[]{teacherId}, new String[]{"review"});
 		if(BeanUtils.isBlank(list)){
 			return null;
 		}else{

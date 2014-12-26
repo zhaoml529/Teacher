@@ -50,7 +50,7 @@ public class CanendarServiceImpl extends BaseServiceImpl<Calendar> implements
 
 	@Override
 	public List<Calendar> findByTeacherId(String teacher_id) throws Exception {
-		List<Calendar> list = findByWhere("Calendar", new String[]{"teacher"}, new String[]{teacher_id});
+		List<Calendar> list = findByWhere("Calendar", new String[]{"teacher"}, new String[]{teacher_id}, new String[]{});
 		if(BeanUtils.isBlank(list)){
 			return null;
 		}else{

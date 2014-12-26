@@ -27,7 +27,7 @@ public class TeachingServiceImpl extends BaseServiceImpl<Teaching> implements IT
 
 	@Override
 	public List<Teaching> toList() throws Exception {
-		List<Teaching> list = findByPage("Teaching", new String[]{}, new String[]{});
+		List<Teaching> list = findByPage("Teaching", new String[]{}, new String[]{}, new String[]{});
 		return list;
 	}
 

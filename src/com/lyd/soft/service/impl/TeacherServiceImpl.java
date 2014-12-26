@@ -29,7 +29,7 @@ public class TeacherServiceImpl extends BaseServiceImpl<Teacher> implements ITea
 
 	@Override
 	public List<Teacher> toList() throws Exception {
-		List<Teacher> list = findByPage("Teacher", new String[]{}, new String[]{});
+		List<Teacher> list = findByPage("Teacher", new String[]{}, new String[]{}, new String[]{});
 		return list;
 	}
 
@@ -55,7 +55,7 @@ public class TeacherServiceImpl extends BaseServiceImpl<Teacher> implements ITea
 
 	@Override
 	public List<Teacher> findByDept(Integer dept_id) throws Exception {
-		List<Teacher> list = findByPage("Teacher", new String[]{"department"}, new String[]{dept_id.toString()});
+		List<Teacher> list = findByPage("Teacher", new String[]{"department"}, new String[]{dept_id.toString()}, new String[]{});
 		return list;
 	}
 

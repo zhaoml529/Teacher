@@ -29,7 +29,7 @@ public class PaperServiceImpl extends BaseServiceImpl<Paper> implements
 
 	@Override
 	public List<Paper> toList() throws Exception {
-		List<Paper> list = findByPage("Paper", new String[]{}, new String[]{});
+		List<Paper> list = findByPage("Paper", new String[]{}, new String[]{}, new String[]{});
 		return list;
 	}
 
