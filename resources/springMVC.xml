@@ -48,7 +48,8 @@
     <mvc:resources mapping="/css/**" location="/WEB-INF/css/" cache-period="31556926"/>
 	<mvc:resources mapping="/images/**" location="/WEB-INF/images/" cache-period="31556926"/>
 	<mvc:resources mapping="/fonts/**" location="/WEB-INF/fonts/" cache-period="31556926"/>
-   
+	<mvc:resources mapping="/css/skins/**" location="/WEB-INF/css/skins/" cache-period="31556926"/>
+	<mvc:resources mapping="/kindeditor/**" location="/WEB-INF/kindeditor-4.1.10/" cache-period="31556926"/>
 	<!-- 全局异常配置 -->  
      <bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">  
          <property name="exceptionMappings">  
@@ -87,8 +88,7 @@
 		重写CommonsMultipartResolver中的isMultipart方法解决问题。
 		com.hdc.interceptors.DefaultMultipartResolver
 	-->
-	<bean id="multipartResolver"
-		class="com.lyd.soft.interceptor.DefaultMultipartResolver">
+	<bean id="multipartResolver" class="com.lyd.soft.interceptor.DefaultMultipartResolver">
 	 	<property name="maxInMemorySize">
 			<value>104857600</value><!-- 最大10M -->
 		</property>
