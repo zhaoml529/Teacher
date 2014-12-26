@@ -91,6 +91,13 @@ h1 { font-size: 24px; }
 	border-color: #ffffff;
 }
 
+#action_btn {
+	margin-bottom: 10px;
+}
+
+#btn_checkbox {
+	padding: 3px 10px!important;
+}
 /*end custom css*/
 
 .template-page-wrapper {
@@ -298,13 +305,18 @@ h1 { font-size: 24px; }
 }
 
 /* Desktops and laptops ----------- */
-@media only screen and (min-width : 1224px) {
+@media screen and (min-width : 1224px) {
 	.navbar .brand {margin-left:-90px;}
-	.style-switcher{margin-left:-220px;}
+	.style-switcher{margin-left:-75px;}
+}
+
+@media screen and (min-width : 1366px) {
+	.navbar .brand {margin-left:-90px;}
+	.style-switcher{margin-left:-75px;}
 }
 
 /* Large screens ----------- */
-@media only screen and (min-width : 1824px) {
+@media screen and (min-width : 1824px) {
 	.navbar .brand {margin-left:-90px;}
 	.style-switcher{margin-left:-350px;}
 }
