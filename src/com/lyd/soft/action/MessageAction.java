@@ -1,14 +1,20 @@
 package com.lyd.soft.action;
 
+import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.lyd.soft.entity.Message;
 import com.lyd.soft.entity.Teacher;
@@ -38,8 +44,34 @@ public class MessageAction {
 	@RequestMapping(value = "/details/{id}")
 	public String details(@PathVariable("id") Integer id, Model model) throws Exception {
 		Message msg = this.messageService.findById(id);
+		msg.setReview(1);
+		this.messageService.doUpdate(msg);
 		model.addAttribute("msg", msg);
 		return "message/details_message";
 	}
 	
+	@RequestMapping(value = "/doAdd")
+	public String doAdd(
+			@ModelAttribute("message") @Valid Message message,BindingResult results, 
+			RedirectAttributes redirectAttributes, 
+			HttpServletRequest request,
+			HttpSession session, 
+			Model model) throws Exception{
+		
+		if(results.hasErrors()){
+        	model.addAttribute("message", message);
+        	return "message/details_message";
+        }
+		
+		Teacher user = UserUtils.getUserFromSession(session);
+		
+		message.setFromUser(user.getTeacherId());
+		message.setReview(0);
+		message.setCreateDate(new Date());
+		message.setIsDelete(0);
+		this.messageService.doAdd(message);
+		
+		return "redirect:/messageAction/toList_page";
+	}
+
 }
