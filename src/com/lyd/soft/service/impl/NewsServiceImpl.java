@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.lyd.soft.entity.News;
 import com.lyd.soft.service.INewsService;
@@ -30,8 +32,9 @@ public class NewsServiceImpl extends BaseServiceImpl<News> implements
 	}
 
 	@Override
+	@Transactional(propagation=Propagation.NOT_SUPPORTED, readOnly=true)
 	public List<News> toList() throws Exception {
-		List<News> list = getAllList("News", new String[]{"updateDate"}, new String[]{"DESC"});
+		List<News> list = findByPage("News", new String[]{"isDelete"}, new String[]{"0"}, new String[]{"updateDate"}, new String[]{"DESC"});
 		return list;
 	}
 
