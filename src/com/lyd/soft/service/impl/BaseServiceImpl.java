@@ -31,7 +31,7 @@ public class BaseServiceImpl<T> implements IBaseService<T> {
         if(orderBy.length > 0 && orderBy.length == orderType.length){
            sff.append(" order by ");
      	   for(int i = 0; i < orderBy.length; i++){
-     		  sff.append("a.").append(orderBy[i]).append(" ").append(orderType);
+     		  sff.append("a.").append(orderBy[i]).append(" ").append(orderType[i]);
      		   if(i < orderBy.length-1){
      			  sff.append(", ");
      		   }
@@ -117,7 +117,7 @@ public class BaseServiceImpl<T> implements IBaseService<T> {
 	}
 
 	@Override
-	@Transactional(rollbackFor=Exception.class)
+	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
 	public void update(T bean) throws Exception{
 		this.baseDao.update(bean);
 	}
@@ -169,7 +169,16 @@ public class BaseServiceImpl<T> implements IBaseService<T> {
                 if(i < columns.length-1){  
                     sb.append(" and ");  
                 }  
-           } 
+           }
+	       if(orderBy.length > 0 && orderBy.length == orderType.length){
+	     	   sb.append(" order by ");
+	     	   for(int i = 0; i < orderBy.length; i++){
+	     		   sb.append("a.").append(orderBy[i]).append(" ").append(orderType[i]);
+	     		   if(i < orderBy.length-1){
+	     			   sb.append(", ");
+	     		   }
+	     	   }
+	       }
 	       String hql = sb.toString();
 	       if(hql.endsWith("where ")){
 	    	   hql = hql.substring(0, hql.length()-6);
@@ -201,4 +210,5 @@ public class BaseServiceImpl<T> implements IBaseService<T> {
         return list.size()>0?list:null;
 	}
 
+	
 }
