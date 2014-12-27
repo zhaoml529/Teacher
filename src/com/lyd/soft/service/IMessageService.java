@@ -14,5 +14,6 @@ public interface IMessageService {
 	
 	public List<Message> toList(String teacherId) throws Exception;
 	
-	public  Message findById(Integer id) throws Exception;
+	public Message findById(Integer id) throws Exception;
+	
 }
