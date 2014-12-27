@@ -25,9 +25,18 @@ public class BaseServiceImpl<T> implements IBaseService<T> {
 	
 	@Override
 	@Transactional(propagation=Propagation.NOT_SUPPORTED, readOnly=true)
-	public List<T> getAllList(String tableSimpleName) throws Exception{
+	public List<T> getAllList(String tableSimpleName, String[] orderBy, String[] orderType) throws Exception{
 		StringBuffer sff = new StringBuffer();  
-        sff.append("select a from ").append(tableSimpleName).append(" a ");  
+        sff.append("select a from ").append(tableSimpleName).append(" a "); 
+        if(orderBy.length > 0 && orderBy.length == orderType.length){
+           sff.append(" order by ");
+     	   for(int i = 0; i < orderBy.length; i++){
+     		  sff.append("a.").append(orderBy[i]).append(" ").append(orderType);
+     		   if(i < orderBy.length-1){
+     			  sff.append(", ");
+     		   }
+     	   }
+        }
         List<T> list = this.baseDao.createQuery(sff.toString());  
         return list; 
 	}
@@ -55,7 +64,7 @@ public class BaseServiceImpl<T> implements IBaseService<T> {
 	@Override
 	@Transactional(propagation=Propagation.NOT_SUPPORTED, readOnly=true)
 	public List<T> findByWhere(String tableSimpleName, String[] columns,
-			String[] values, String[] orderBy) throws Exception{
+			String[] values, String[] orderBy, String[] orderType) throws Exception{
 		StringBuffer sb = new StringBuffer();  
         sb.append("select a from ").append(tableSimpleName).append( " a where ");  
         if(columns.length==values.length){  
@@ -65,10 +74,10 @@ public class BaseServiceImpl<T> implements IBaseService<T> {
 	                sb.append(" and ");  
 	            }  
            }  
-           if(orderBy.length > 0){
+           if(orderBy.length > 0 && orderBy.length == orderType.length){
         	   sb.append(" order by ");
         	   for(int i = 0; i < orderBy.length; i++){
-        		   sb.append("a.").append(orderBy[i]);
+        		   sb.append("a.").append(orderBy[i]).append(" ").append(orderType[i]);
         		   if(i < orderBy.length-1){
         			   sb.append(", ");
         		   }
@@ -121,7 +130,7 @@ public class BaseServiceImpl<T> implements IBaseService<T> {
 
 	@Override
 	@Transactional(propagation=Propagation.NOT_SUPPORTED, readOnly=true)
-	public List<T> findByPage(String tableSimpleName, String[] columns, String[] values, String[] orderBy) throws Exception{
+	public List<T> findByPage(String tableSimpleName, String[] columns, String[] values, String[] orderBy, String[] orderType) throws Exception{
 		Pagination pagination = PaginationThreadUtils.get();
 		if (pagination == null) {
 			pagination = new Pagination();
@@ -131,9 +140,9 @@ public class BaseServiceImpl<T> implements IBaseService<T> {
 		if (pagination.getTotalSum() == 0) {
 			List<T> list = new ArrayList<T>();
 			if(columns.length <= 0 && values.length <= 0){
-				list = getAllList(tableSimpleName);
+				list = getAllList(tableSimpleName, orderBy, orderType);
 			}else{
-				list = findByWhere(tableSimpleName, columns, values, orderBy);
+				list = findByWhere(tableSimpleName, columns, values, orderBy, orderType);
 			}
 			if(BeanUtils.isBlank(list)){
 				pagination.setTotalSum(0);

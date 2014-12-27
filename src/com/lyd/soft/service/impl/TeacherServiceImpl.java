@@ -29,13 +29,13 @@ public class TeacherServiceImpl extends BaseServiceImpl<Teacher> implements ITea
 
 	@Override
 	public List<Teacher> toList() throws Exception {
-		List<Teacher> list = findByPage("Teacher", new String[]{}, new String[]{}, new String[]{});
+		List<Teacher> list = findByPage("Teacher", new String[]{}, new String[]{}, new String[]{}, new String[]{});
 		return list;
 	}
 
 	@Override
 	public Teacher findById(String teacherId) throws Exception {
-		Teacher Teacher = getUnique("Teacher", new String[]{"teacherId"}, new String[] {teacherId});
+		Teacher Teacher = getBean(Teacher.class, teacherId);
 		if(BeanUtils.isBlank(Teacher)){
 			return null;
 		}else{
@@ -55,7 +55,7 @@ public class TeacherServiceImpl extends BaseServiceImpl<Teacher> implements ITea
 
 	@Override
 	public List<Teacher> findByDept(Integer dept_id) throws Exception {
-		List<Teacher> list = findByPage("Teacher", new String[]{"department"}, new String[]{dept_id.toString()}, new String[]{});
+		List<Teacher> list = findByPage("Teacher", new String[]{"department"}, new String[]{dept_id.toString()}, new String[]{}, new String[]{});
 		return list;
 	}
 

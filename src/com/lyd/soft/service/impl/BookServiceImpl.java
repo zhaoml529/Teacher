@@ -28,7 +28,7 @@ public class BookServiceImpl extends BaseServiceImpl<Book> implements IBookServi
 
 	@Override
 	public List<Book> toList() throws Exception {
-		List<Book> list = findByPage("Book", new String[]{}, new String[]{}, new String[]{});
+		List<Book> list = findByPage("Book", new String[]{}, new String[]{}, new String[]{}, new String[]{});
 		return list;
 	}
 

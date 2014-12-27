@@ -33,7 +33,7 @@ public class MessageServiceImpl extends BaseServiceImpl<Message> implements
 
 	@Override
 	public List<Message> toList(String teacherId) throws Exception {
-		List<Message> list = findByPage("Message", new String[]{"toUser"}, new String[]{teacherId}, new String[]{"review"});
+		List<Message> list = findByPage("Message", new String[]{"toUser"}, new String[]{teacherId}, new String[]{"review"}, new String[]{});
 		if(BeanUtils.isBlank(list)){
 			return null;
 		}else{
@@ -43,7 +43,12 @@ public class MessageServiceImpl extends BaseServiceImpl<Message> implements
 
 	@Override
 	public Message findById(Integer id) throws Exception {
-		return getUnique("Message", new String[]{"id"}, new String[]{id.toString()});
+		Message msg = getBean(Message.class, id);
+		if(BeanUtils.isBlank(msg)){
+			return null;
+		}else{
+			return msg;
+		}
 	}
 
 }

@@ -54,7 +54,7 @@ public class BaseDaoImpl<T> implements IBaseDao<T> {
 	@SuppressWarnings("unchecked")
 	@Override
 	public T getBean(Class<T> obj, Serializable id) throws Exception{
-		return (T) getSession().get(obj.getClass(), id);
+		return (T) getSession().get(obj, id);
 	}
 	
 	@SuppressWarnings("unchecked")

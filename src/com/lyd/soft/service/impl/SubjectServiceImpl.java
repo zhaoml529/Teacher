@@ -27,7 +27,7 @@ public class SubjectServiceImpl extends BaseServiceImpl<Subject> implements ISub
 
 	@Override
 	public List<Subject> toList() throws Exception {
-		List<Subject> list = findByPage("Subject", new String[]{}, new String[]{}, new String[]{});
+		List<Subject> list = findByPage("Subject", new String[]{}, new String[]{}, new String[]{}, new String[]{});
 		return list;
 	}
 

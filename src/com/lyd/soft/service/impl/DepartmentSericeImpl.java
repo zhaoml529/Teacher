@@ -28,7 +28,7 @@ public class DepartmentSericeImpl extends BaseServiceImpl<Department> implements
 
 	@Override
 	public List<Department> toList() throws Exception {
-		List<Department> list = findByPage("Department", new String[]{}, new String[]{}, new String[]{});
+		List<Department> list = findByPage("Department", new String[]{}, new String[]{}, new String[]{}, new String[]{});
 		return list;
 	}
 

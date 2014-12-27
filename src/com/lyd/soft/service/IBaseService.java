@@ -5,11 +5,11 @@ import java.util.List;
 
 public interface IBaseService<T> {
 	
-	public List<T> getAllList(String tableSimpleName) throws Exception;
+	public List<T> getAllList(String tableSimpleName, String[] orderBy, String[] orderType) throws Exception;
 	 
 	public T getUnique(String tableSimpleName,String[] columns,String[] values) throws Exception;
 	 
-	public List<T> findByWhere(String tableSimpleName,String[] columns,String[] values,String[] orderBy) throws Exception;
+	public List<T> findByWhere(String tableSimpleName,String[] columns,String[] values, String[] orderBy, String[] orderType) throws Exception;
 	 
 	public List<T> getCount(String tableSimpleName) throws Exception;
 	 
@@ -23,7 +23,7 @@ public interface IBaseService<T> {
 	 
 	public T getBean(final Class<T> obj,final Serializable id) throws Exception;
 	 
-	public List<T> findByPage(String tableSimpleName,String[] columns,String[] values, String[] orderBy) throws Exception;
+	public List<T> findByPage(String tableSimpleName,String[] columns,String[] values, String[] orderBy, String[] orderType) throws Exception;
 	
 	public List<T> getRangeDate(String tableSimpleName,String[] columns,String[] values) throws Exception;
 }

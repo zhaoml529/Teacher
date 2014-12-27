@@ -28,7 +28,7 @@ public class AwardingServiceImpl extends BaseServiceImpl<Awarding> implements IA
 
 	@Override
 	public List<Awarding> toList() throws Exception {
-		List<Awarding> list = findByPage("Awarding", new String[]{}, new String[]{}, new String[]{});
+		List<Awarding> list = findByPage("Awarding", new String[]{}, new String[]{}, new String[]{}, new String[]{});
 		return list;
 	}
 
