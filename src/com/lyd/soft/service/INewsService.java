@@ -14,5 +14,5 @@ public interface INewsService {
 	
 	public List<News> toList() throws Exception;
 	
-	public  News findById(Integer id) throws Exception;
+	public News findById(Integer id) throws Exception;
 }
