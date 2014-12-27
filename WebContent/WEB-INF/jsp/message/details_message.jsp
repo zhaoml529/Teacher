@@ -64,24 +64,24 @@
           
           <div class="row-fluid">
           <div class="panel panel-default">
-          	<form action="" method="post">
+          	<form action="${ctx }/messageAction/doAdd" method="post">
 			  <div class="panel-body">
 			    <p>收件人:</p>
 			    <div class="form-group">
 				    <label class="sr-only" for="exampleInputEmail2">To User</label>
-				    <input type="text" class="form-control" value="${msg.fromUser }" placeholder="Enter receiver" readonly>
+				    <input type="text" name="toUser" class="form-control" value="${msg.fromUser }" placeholder="Enter receiver" readonly>
 			    </div>
 			    <p>标题:</p>
 			    <div class="form-group">
 				    <label class="sr-only" for="exampleInputEmail2">Title</label>
-				    <input type="text" class="form-control" placeholder="Enter title">
+				    <input type="text" name="title" class="form-control" placeholder="Enter title">
 			    </div>
 			    <p>内容:</p>
 			    <textarea id="editor_id1" class="form-control" name="content" rows="3" cols="20">
 					&lt;strong&gt;站内信&lt;/strong&gt;
 				</textarea>
 			  </div>
-			  <div class="panel-footer"><button type="button" class="btn btn-primary btn-sm">回复</button></div>
+			  <div class="panel-footer"><button type="submit" class="btn btn-primary btn-sm">回复</button></div>
 			</form>
 		  </div>
           </div><!-- row-fluid -->

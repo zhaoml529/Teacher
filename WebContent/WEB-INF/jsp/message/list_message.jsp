@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@ page language="java" import="java.util.*" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ include file="/WEB-INF/taglibs/taglibs.jsp"%>
 <!DOCTYPE html>
 <html lang="zh-CN">
@@ -65,7 +65,7 @@
   			 <div class="btn-group" id="action_btn">
 			 	<button type="button" class="btn btn-danger btn-sm">删除</button>
 			 </div>
-		     
+		     <form action="${ctx }/messageAction/toList_page" method="post">
              <table class="table table-striped table-hover table-bordered">
                <thead>
                  <tr>
@@ -79,7 +79,7 @@
                <tbody>
                <c:forEach items="${messageList }" var="msg">
                  <tr>
-                 	<td><input type="checkbox" id="1"/></td>
+                 	<td><input type="checkbox" id="1"/> ${msg.review }</td>
                  	<td>
                  	<c:choose>
               			<c:when test="${msg.review == 0 }">
@@ -97,10 +97,11 @@
                  </tr>
                </c:forEach>
                <tr>
-              		<td class="fun_area" colspan="5" align="center">${page }</td>
+              		<td colspan="5" align="center">${page }</td>
                </tr>
                </tbody>
              </table>
+             </form>
            </div><!-- table-responsive -->
           
           

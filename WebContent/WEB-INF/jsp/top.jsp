@@ -16,7 +16,7 @@
     <div class="nav-collapse">
       <ul class="pull-right nav navbar-nav">
 		<li class="item-test"><a href="${ctx }/loginAction/main">首页</a></li>
-		<li class="item-test"><a href="/guetoj/news.html">新闻</a></li>
+		<li class="item-test"><a href="${ctx }/newsAction/toList_page">新闻</a></li>
 		<li class="item-test"><a href="${ctx }/messageAction/toList_page"><span class="badge pull-right">9</span>站内信</a></li>
 		<li class="item-test"><a href="${ctx }/teacherAction/details">用户中心</a></li>
 	  </ul>          

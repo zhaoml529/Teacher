@@ -98,6 +98,12 @@ h1 { font-size: 24px; }
 #btn_checkbox {
 	padding: 3px 10px!important;
 }
+
+.meta {
+	padding: 0 0 0 15px!important;
+	font-size: 16px!important;
+}
+
 /*end custom css*/
 
 .template-page-wrapper {
