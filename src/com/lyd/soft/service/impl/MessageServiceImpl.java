@@ -38,7 +38,7 @@ public class MessageServiceImpl extends BaseServiceImpl<Message> implements
 	@Override
 	@Transactional(propagation=Propagation.NOT_SUPPORTED, readOnly=true)
 	public List<Message> toList(String teacherId) throws Exception {
-		List<Message> list = findByPage("Message", new String[]{"toUser"}, new String[]{teacherId}, new String[]{"review"}, new String[]{});
+		List<Message> list = findByPage("Message", new String[]{"toUser"}, new String[]{teacherId}, new String[]{"createDate"}, new String[]{"DESC"});
 		if(BeanUtils.isBlank(list)){
 			return null;
 		}else{
