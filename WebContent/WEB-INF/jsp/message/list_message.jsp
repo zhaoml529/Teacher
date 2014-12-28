@@ -18,11 +18,11 @@
      <div class="templatemo-content-wrapper">
         <div class="templatemo-content">
           <ol class="breadcrumb">
-            <li><a href="${ctx }/loginAction/login_view">主页</a></li>
-            <li><a href="#">站内信</a></li>
+            <li><span class="glyphicon glyphicon-home"></span>&nbsp;<a href="${ctx }/loginAction/login_view">主页</a></li>
+            <li class="active">站内信</li>
           </ol>
           <blockquote>
-				<h4><span class="glyphicon glyphicon-envelope"></span>&nbsp;我的信箱&nbsp;<span class="caret"></span></h4>
+				<span class="glyphicon glyphicon-envelope"></span>&nbsp;我的信箱&nbsp;<span class="caret"></span>
 		  </blockquote>
           
           <div class="table-responsive">
@@ -59,7 +59,7 @@
 		     </div>
 		     
 		     <div class="btn-group" id="action_btn">
-			 	<button type="button" class="btn btn-default btn-sm">写信</button>
+			 	<a href="${ctx }/messageAction/toAdd" class="btn btn-default btn-sm" role="button">写信</a>
 			 </div>
 		     
   			 <div class="btn-group" id="action_btn">

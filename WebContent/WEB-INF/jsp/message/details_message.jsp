@@ -11,32 +11,7 @@
   <meta name="viewport" content="width=device-width">
   <script charset="utf-8" src="${ctx}/kindeditor/kindeditor-min.js"></script>
   <script charset="utf-8" src="${ctx}/kindeditor/plugins/code/prettify.js"></script>
-  
-  <script type="text/javascript">
-    	KindEditor.ready(function(K) {
-			var editor1 = K.create('textarea[name="content"]', {
-				uploadJson : 'uploadJson/file_upload',
-				fileManagerJson : 'uploadJson/file_manager',
-				minWidth : '500px',
-				allowFileManager : true,
-				items : [
-						'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
-						'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
-						'insertunorderedlist', '|', 'emoticons', 'image', 'link'],
-				afterCreate : function() {
-					var self = this;
-					K.ctrl(document, 13, function() {
-						self.sync();
-					});
-					K.ctrl(self.edit.doc, 13, function() {
-						self.sync();
-					});
-				}
-			});
-			prettyPrint();
-		});
-    	
-    </script>
+  <script charset="utf-8" src="${ctx}/js/kindeditor.js"></script>
   
 </head>
 <body>
@@ -47,8 +22,8 @@
      <div class="templatemo-content-wrapper">
         <div class="templatemo-content">
           <ol class="breadcrumb">
-            <li><a href="index.html">首页</a></li>
-            <li><a href="#">站内信</a></li>
+            <li><span class="glyphicon glyphicon-home"></span>&nbsp;<a href="index.html">首页</a></li>
+            <li><a href="${ctx }/messageAction/toList_page">站内信</a></li>
             <li class="active">详情</li>
           </ol>
           
@@ -63,27 +38,31 @@
           </div><!-- row-fluid -->
           
           <div class="row-fluid">
-          <div class="panel panel-default">
-          	<form action="${ctx }/messageAction/doAdd" method="post">
+          <form:form action="${ctx }/messageAction/doAdd" modelAttribute="message" method="POST">
+          	<div class="panel panel-default">
+			  <input type="hidden" name="messageId" value="${msg.id }"/>
 			  <div class="panel-body">
-			    <p>收件人:</p>
+			    <label class="control-label">收件人:</label>
 			    <div class="form-group">
-				    <label class="sr-only" for="exampleInputEmail2">To User</label>
+				    <form:errors path="toUser"></form:errors>
 				    <input type="text" name="toUser" class="form-control" value="${msg.fromUser }" placeholder="Enter receiver" readonly>
 			    </div>
-			    <p>标题:</p>
+			    <label class="control-label">标题:</label>
 			    <div class="form-group">
-				    <label class="sr-only" for="exampleInputEmail2">Title</label>
+				    <form:errors path="title" cssClass="valid_text"></form:errors>
 				    <input type="text" name="title" class="form-control" placeholder="Enter title">
 			    </div>
-			    <p>内容:</p>
+			    <label class="control-label">内容:</label>
+			    <div class="form-group">
+			    <form:errors path="content"></form:errors>
 			    <textarea id="editor_id1" class="form-control" name="content" rows="3" cols="20">
 					&lt;strong&gt;站内信&lt;/strong&gt;
 				</textarea>
+				</div>
 			  </div>
 			  <div class="panel-footer"><button type="submit" class="btn btn-primary btn-sm">回复</button></div>
-			</form>
-		  </div>
+		  	</div>
+		  </form:form>
           </div><!-- row-fluid -->
           
 	  	</div>

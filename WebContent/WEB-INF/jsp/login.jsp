@@ -22,7 +22,7 @@
           <div class="col-md-12">
             <label for="username" class="col-sm-2 control-label">用户名</label>
             <div class="col-sm-10">
-              <label id="errorUserName" class="control-label sr-only" for="inputError1">${msg }</label>
+              <label id="errorUserName" class="control-label sr-only">${msg }</label>
               <input type="text" class="form-control" name="username" value="${username }" placeholder="Username">
               <span id="username_sr" class="glyphicon glyphicon-remove form-control-feedback sr-only"></span>
             </div>
@@ -32,7 +32,7 @@
           <div class="col-md-12">
             <label for="password" class="col-sm-2 control-label">密&nbsp;&nbsp;码</label>
             <div class="col-sm-10">
-              <label id="errorPassWord" class="control-label sr-only" for="inputError1">${msg }</label>
+              <label id="errorPassWord" class="control-label sr-only">${msg }</label>
               <input type="password" class="form-control" name="password" placeholder="Password">
               <span id="password_sr" class="glyphicon glyphicon-remove form-control-feedback sr-only"></span>
             </div>

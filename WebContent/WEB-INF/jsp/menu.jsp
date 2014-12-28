@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<c:set var="ctx" value="${pageContext.request.contextPath}" />
 <div class="navbar-collapse collapse templatemo-sidebar">
 <div class="well" style="padding: 8px 3px;">
 <ul class="templatemo-sidebar-menu">
@@ -27,8 +29,8 @@
       <li><a href="#">获奖情况</a></li>
     </ul>
   </li>
-  <li><a href="${ctx }/teacherAction/1/toList_page" target="content"><i class="fa fa-users"></i>教师列表</a></li>
-  <li><a href="${ctx }/teacherAction/1/toList_page" target="content"><i class="glyphicon glyphicon-calendar"></i>日程管理</a></li>
+  <li><a href="${ctx }/teacherAction/toList_page"><i class="fa fa-users"></i>教师列表</a></li>
+  <li><a href="${ctx }/teacherAction/toList_page"><i class="glyphicon glyphicon-calendar"></i>日程管理</a></li>
   <li><a href="preferences.html"><i class="fa fa-cog"></i>系统设置</a></li>
   <li><a href="javascript:;" data-toggle="modal" data-target="#confirmModal"><i class="fa fa-sign-out"></i>退出</a></li>
 </ul>

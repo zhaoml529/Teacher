@@ -22,7 +22,7 @@
             <li class="active">新闻列表</li>
           </ol>
           <blockquote>
-				<h4><span class="glyphicon glyphicon-th-list"></span>&nbsp;新闻&nbsp;<span class="caret"></span></h4>
+				<span class="glyphicon glyphicon-th-list"></span>&nbsp;新闻&nbsp;<span class="caret"></span>
 		  </blockquote>
 		  <c:forEach items="${newsList }" var="news" varStatus="i">
 			  <div class="page-header">
