@@ -19,6 +19,7 @@
 <link rel="stylesheet" href="${ctx}/css/bootstrap-datetimepicker.min.css" type="text/css" />
 <script type="text/javascript" src="${ctx}/js/jquery-1.10.2.min.js"></script>
 <script type="text/javascript" src="${ctx}/js/util.js"></script>
+<script type="text/javascript" src="${ctx}/js/moment.min.js"></script>
 <script type="text/javascript" src="${ctx}/js/icheck.min.js"></script>
 <script type="text/javascript" src="${ctx}/js/styleswitch.js"></script>
 <script type="text/javascript" src="${ctx}/js/bootstrap.min.js"></script>
