@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 /**
  * 授课情况表
  * @author LYD
@@ -34,15 +36,19 @@ public class Teaching implements Serializable {
 
 	@OneToOne
 	@JoinColumn(name="TEACHER_ID")
+	@NotEmpty(message="{teachering.teacher.not.empty}")
 	private Teacher teacher;			
 	
 	@Column(name = "SCHOOL_YEAR")
+	@NotEmpty(message="{teachering.schoolYear.not.empty}")
 	private String schoolYear;			//学年
 	
 	@Column(name = "COURSE")
+	@NotEmpty(message="{teachering.teacher.not.empty}")
 	private String course;				//所教课程
 	
 	@Column(name = "PERIOD")
+	@NotEmpty(message="{teachering.period.not.empty}")
 	private String period;				//课时
 	
 	@Column(name = "REMINDER")

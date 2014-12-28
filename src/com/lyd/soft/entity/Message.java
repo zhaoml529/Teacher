@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 /**
  * 站内信
  * @author LYD
@@ -31,15 +33,18 @@ public class Message implements Serializable {
 	private Integer id;	
 	
 	@Column(name = "TITLE")
+	@NotEmpty(message="{message.title.not.empty}")
 	private String title;			//标题
 	
 	@Column(name = "CONTENT")
+	@NotEmpty(message="{message.content.not.empty}")
 	private String content;			//内容
 	
 	@Column(name = "FROM_USER_ID")
 	private String fromUser;		//来自谁
 	
 	@Column(name = "TO_USER_ID")
+	@NotEmpty(message="{message.toUser.not.empty}")
 	private String toUser;			//发给谁
 	
 	@Column(name = "REVIEW")
