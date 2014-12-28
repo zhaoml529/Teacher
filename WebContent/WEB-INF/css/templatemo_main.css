@@ -104,6 +104,10 @@ h1 { font-size: 24px; }
 	font-size: 16px!important;
 }
 
+.valid_text {
+	color: #a30c22;
+}
+
 /*end custom css*/
 
 .template-page-wrapper {
