@@ -14,6 +14,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.lyd.soft.entity.Message;
@@ -21,6 +22,7 @@ import com.lyd.soft.entity.Teacher;
 import com.lyd.soft.pagination.Pagination;
 import com.lyd.soft.pagination.PaginationThreadUtils;
 import com.lyd.soft.service.IMessageService;
+import com.lyd.soft.util.BeanUtils;
 import com.lyd.soft.util.UserUtils;
 
 @Controller
@@ -41,27 +43,41 @@ public class MessageAction {
 		
 	}
 	
+	@RequestMapping(value = "/toAdd")
+	public String toAdd(Model model) {
+		if(!model.containsAttribute("message")){
+			model.addAttribute("message", new Message());
+		}
+        return "message/add_message";
+	}
+	
 	@RequestMapping(value = "/details/{id}")
 	public String details(@PathVariable("id") Integer id, Model model) throws Exception {
-		Message msg = this.messageService.findById(id);
-		msg.setReview(1);
-		this.messageService.doUpdate(msg);
-		model.addAttribute("msg", msg);
+		Message message = this.messageService.findById(id);
+		message.setReview(1);
+		this.messageService.doUpdate(message);
+		model.addAttribute("msg", message);
 		return "message/details_message";
 	}
 	
 	@RequestMapping(value = "/doAdd")
 	public String doAdd(
-			@ModelAttribute("message") @Valid Message message,BindingResult results, 
+			@ModelAttribute("message") @Valid Message message,BindingResult results,
+			@RequestParam("messageId") Integer messageId,
 			RedirectAttributes redirectAttributes, 
 			HttpServletRequest request,
 			HttpSession session, 
 			Model model) throws Exception{
 		
 		if(results.hasErrors()){
-        	model.addAttribute("message", message);
-        	return "message/details_message";
-        }
+			model.addAttribute("message", message);
+			if(BeanUtils.isBlank(messageId)){
+				return "message/add_message";
+			}else{
+				return details(messageId, model);
+			}
+//        	return "redirect:/messageAction/toList_page";
+		}
 		
 		Teacher user = UserUtils.getUserFromSession(session);
 		

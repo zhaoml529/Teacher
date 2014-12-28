@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.lyd.soft.entity.Teacher;
 import com.lyd.soft.pagination.Pagination;
@@ -33,15 +34,16 @@ private static final Logger logger = Logger.getLogger(TeacherAction.class);
 	@Autowired
 	private ITeacherService teacherService;
 	
-	@RequestMapping("/{dept_id}/toList_page")
-	public String toList(@PathVariable("dept_id") Integer dept_id , Model model) throws Exception{
-		if(!BeanUtils.isBlank(dept_id)){
+	@RequestMapping("/toList_page")
+	public String toList(@RequestParam("dept_id") Integer dept_id , Model model) throws Exception{
+		
+		if(BeanUtils.isBlank(dept_id)){
+			dept_id = 1;
+		}else{
 			List<Teacher> list = this.teacherService.findByDept(dept_id);
 			Pagination pagination = PaginationThreadUtils.get();
 			model.addAttribute("page", pagination.getPageStr());
 			model.addAttribute("list", list);
-		}else{
-			logger.error("dept_id 为空！");
 		}
 		return "teacher/list_teacher";
 	}
