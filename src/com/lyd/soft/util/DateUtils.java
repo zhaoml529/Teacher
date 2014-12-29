@@ -1,13 +1,14 @@
 package com.lyd.soft.util;
 
 import java.text.DateFormat;
+import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 /**
  * 
  * @ClassName: DateUtil
- * @Description:TODO(时间转换工具�?
+ * @Description:时间转换工具
  * @author: zml
  * @date: 2014-4-18 上午10:20:40
  *
@@ -103,7 +104,7 @@ public class DateUtils {
 			int day = ct / 86400 ;	
 			return day + " days ago";			
 		}
-		if(ct >= 2592000 && ct < 62208000) //�?4个月
+		if(ct >= 2592000 && ct < 62208000) //�?4个月
 			return ct / 2592000 + " months ago";
 		return ct / 31104000 + " years ago";
 	}
@@ -122,7 +123,7 @@ public class DateUtils {
 		return c.get(java.util.Calendar.MONTH) + 1;
 	}
 
-	// 返回�?
+	// 返回天
 	public static int getDay(Date date) {
 		Calendar c = Calendar.getInstance();
 		c.setTime(date);
@@ -170,4 +171,5 @@ public class DateUtils {
 		Date d = new Date();
 		return sdf.format(d);
 	}
+	
 }
