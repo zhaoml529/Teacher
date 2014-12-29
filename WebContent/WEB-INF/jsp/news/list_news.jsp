@@ -18,8 +18,8 @@
      <div class="templatemo-content-wrapper">
         <div class="templatemo-content">
           <ol class="breadcrumb">
-            <li><a href="${ctx }/loginAction/main">主页</a></li>
-            <li class="active">新闻列表</li>
+            <li><span class="glyphicon glyphicon-home"></span>&nbsp;<a href="${ctx }/loginAction/main">主页</a></li>
+            <li class="active">新闻</li>
           </ol>
           <blockquote>
 				<span class="glyphicon glyphicon-th-list"></span>&nbsp;新闻&nbsp;<span class="caret"></span>
@@ -28,7 +28,7 @@
 			  <div class="page-header">
 				 <h3>
 				 	<span class="glyphicon glyphicon-paperclip"></span>
-				 	${news.title }
+				 	<a href="${ctx }/newsAction/details/${news.id }">${news.title }</a>
 				 </h3>
 				 <blockquote class="meta">
 				 	<p>
@@ -43,7 +43,7 @@
 				 <div id="displayPart${i.index }" displayLength="200">
 				 	${news.content }
 				 </div>
-				 <a href="">Read more</a>
+				 <a href="${ctx }/newsAction/details/${news.id }">Read more..</a>
 			  </div>	
 		  </c:forEach>
 		  <form action="${ctx }/newsAction/toList_page" method="post">

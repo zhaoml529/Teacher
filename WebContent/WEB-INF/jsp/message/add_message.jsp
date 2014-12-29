@@ -10,7 +10,6 @@
   <meta name="description" content="" />
   <meta name="viewport" content="width=device-width">
   <script charset="utf-8" src="${ctx}/kindeditor/kindeditor-min.js"></script>
-  <script charset="utf-8" src="${ctx}/kindeditor/plugins/code/prettify.js"></script>
   <script charset="utf-8" src="${ctx}/js/kindeditor.js"></script>
 </head>
 <body>
@@ -21,7 +20,7 @@
      <div class="templatemo-content-wrapper">
         <div class="templatemo-content">
           <ol class="breadcrumb">
-            <li><span class="glyphicon glyphicon-home"></span>&nbsp;<a href="index.html">首页</a></li>
+            <li><span class="glyphicon glyphicon-home"></span>&nbsp;<a href="index.html">主页</a></li>
             <li><a href="${ctx }/messageAction/toList_page">站内信</a></li>
             <li class="active">写信</li>
           </ol>

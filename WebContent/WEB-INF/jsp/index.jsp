@@ -110,7 +110,7 @@
 		  <div class="row-fluid">
 		  <div class="panel panel-default">
 			  <!-- Default panel contents -->
-			  <div class="panel-heading">最新新闻<a href="#" class="more">more>>&nbsp;</a></div>
+			  <div class="panel-heading"><span class="glyphicon glyphicon-th-list"></span>&nbsp;最新新闻<a href="${ctx }/newsAction/toList_page" class="more">more>>&nbsp;</a></div>
 			  <div class="panel-body">
 			    <p>高校教师档案管理系统V1.0上线...</p>
 			  </div>
@@ -129,7 +129,7 @@
 		  <!-- Calendar -->
 		  <div class="row-fluid">
 		  	<div class="panel panel-default">
-			  <div class="panel-heading">日程</div>
+			  <div class="panel-heading"><span class="glyphicon glyphicon-calendar"></span>&nbsp;日程</div>
 			  <div class="panel-body">
 			    <div id="calendar"></div>
 			  </div>

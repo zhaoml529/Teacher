@@ -12,17 +12,21 @@
 </head>
 <body>
   <%@include file="top.jsp" %>
-  <%-- <c:import url="top.jsp" /> --%>
+  <%-- <c:import url="../top.jsp" /> --%>
   <div class="container"> 
     <div class="template-page-wrapper">
- 	<c:import url="menu.jsp" />
+ 	<c:import url="../menu.jsp" />
      <div class="templatemo-content-wrapper">
         <div class="templatemo-content">
           <ol class="breadcrumb">
-            <li><a href="index.html">Admin Panel</a></li>
+            <li><span class="glyphicon glyphicon-home"></span>&nbsp;<a href="${ctx }/loginAction/main">首页</a></li>
             <li><a href="#">Manage Users</a></li>
             <li class="active">Tables</li>
           </ol>
+          <div class="row-fluid">
+          
+          </div><!-- row-fluid -->
+          
 	  	</div>
 	 </div>
 	</div>

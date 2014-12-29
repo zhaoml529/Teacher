@@ -31,7 +31,15 @@
   </li>
   <li><a href="${ctx }/teacherAction/toList_page"><i class="fa fa-users"></i>教师列表</a></li>
   <li><a href="${ctx }/teacherAction/toList_page"><i class="glyphicon glyphicon-calendar"></i>日程管理</a></li>
-  <li><a href="preferences.html"><i class="fa fa-cog"></i>系统设置</a></li>
+  <li class="sub">
+    <a href="javascript:;">
+      <i class="fa fa-cog"></i>系统设置 <div class="pull-right"><span class="caret"></span></div>
+    </a>
+    <ul class="templatemo-submenu">
+      <li><a href="${ctx }/newsAction/toAdd">发布新闻</a></li>
+      <li><a href="#">档案管理</a></li>
+    </ul>
+  </li>
   <li><a href="javascript:;" data-toggle="modal" data-target="#confirmModal"><i class="fa fa-sign-out"></i>退出</a></li>
 </ul>
 </div>

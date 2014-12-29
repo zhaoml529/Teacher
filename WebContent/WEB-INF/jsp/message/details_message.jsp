@@ -22,7 +22,7 @@
      <div class="templatemo-content-wrapper">
         <div class="templatemo-content">
           <ol class="breadcrumb">
-            <li><span class="glyphicon glyphicon-home"></span>&nbsp;<a href="index.html">首页</a></li>
+            <li><span class="glyphicon glyphicon-home"></span>&nbsp;<a href="index.html">主页</a></li>
             <li><a href="${ctx }/messageAction/toList_page">站内信</a></li>
             <li class="active">详情</li>
           </ol>
