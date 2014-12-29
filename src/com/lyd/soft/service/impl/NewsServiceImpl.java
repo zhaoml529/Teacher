@@ -15,17 +15,20 @@ public class NewsServiceImpl extends BaseServiceImpl<News> implements
 		INewsService {
 
 	@Override
+	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
 	public Serializable doAdd(News entity) throws Exception {
 		return add(entity);
 	}
 
 	@Override
+	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
 	public void doUpdate(News entity) throws Exception {
 		update(entity);
 
 	}
 
 	@Override
+	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
 	public void doDelete(News entity) throws Exception {
 		delete(entity);
 
@@ -39,8 +42,9 @@ public class NewsServiceImpl extends BaseServiceImpl<News> implements
 	}
 
 	@Override
+	@Transactional(propagation=Propagation.NOT_SUPPORTED, readOnly=true)
 	public News findById(Integer id) throws Exception {
-		return getUnique("News", new String[]{}, new String[]{});
+		return getBean(News.class, id);
 	}
 
 }
