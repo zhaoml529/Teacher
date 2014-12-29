@@ -9,8 +9,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * 站内信
@@ -32,7 +35,7 @@ public class Message implements Serializable {
 	@Column(name = "ID", unique = true)
 	private Integer id;	
 	
-	@Column(name = "TITLE")
+	@Column(name = "TITLE", nullable = false)
 	@NotEmpty(message="{message.title.not.empty}")
 	private String title;			//标题
 	
@@ -50,6 +53,8 @@ public class Message implements Serializable {
 	@Column(name = "REVIEW")
 	private Integer review;			//1.已读 0.未读
 	
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@Column(name = "CREATE_DATE")
 	private Date createDate;		//创建时间
 	

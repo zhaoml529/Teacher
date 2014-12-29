@@ -43,18 +43,18 @@ public class Calendar implements Serializable {
 	@Column(name = "ALL_DAY")
 	private Integer allDay;					//1.全天  0.不是全天
 	
-	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:dd")
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@Column(name = "BEGIN_DATE")
 	private Date beginDate;					//开始时间
 	
-	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:dd")
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@Column(name = "END_DATE")
 	private Date endDate;					//结束时间
 	
-	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:dd")
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@Column(name = "CREATE_DATE")
 	private Date createDate;				//创建时间
 	

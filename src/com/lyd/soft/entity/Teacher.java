@@ -27,10 +27,10 @@ public class Teacher implements Serializable{
 	@Column(name = "TEACHER_ID", unique = true, nullable = false )
 	private String teacherId;			//教师编号
 	
-	@Column(name = "TEACHER_NAME")
+	@Column(name = "TEACHER_NAME", nullable = false)
 	private String teacherName;			//教师姓名
 	
-	@Column(name = "PASSWORD")
+	@Column(name = "PASSWORD", nullable = false)
 	private String password;			//登录密码
 	
 	@Temporal(TemporalType.DATE)

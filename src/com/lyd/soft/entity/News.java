@@ -14,6 +14,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -33,22 +34,23 @@ public class News implements Serializable {
 	@JoinColumn(name="TEACHER_ID")
 	private Teacher teacher;				//创建人
 	
-	@Column(name = "TITLE", unique = true)
+	@Column(name = "TITLE", nullable = false)
+	@NotEmpty(message="{news.title.not.empty}")
 	private String title;					//新闻标题
 	
-	@Column(name = "CONTENT", unique = true)
+	@Column(name = "CONTENT")
 	private String content;					//新闻内容
 	
-	@Column(name = "VIEW", unique = true)
+	@Column(name = "VIEW")
 	private Integer view;					//查看次数
 	
-	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:dd")
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@Column(name = "CREATE_DATE")
 	private Date createDate;				//新闻创建时间
 	
-	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:dd")
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@Column(name = "UPDATE_DATE")
 	private Date updateDate;				//新闻修改时间
 	
