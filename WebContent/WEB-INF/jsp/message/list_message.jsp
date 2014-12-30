@@ -28,14 +28,14 @@
           <div class="table-responsive">
          	 <div class="btn-group" id="action_btn">
 			  <button type="button" id="btn_checkbox" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
-			    <input type="checkbox" /> <span class="caret"></span>
+			    <input id="checkAll" type="checkbox" /> <span class="caret"></span>
 			  </button>
 			  <ul class="dropdown-menu" role="menu">
-			    <li><a href="#">全选</a></li>
-			    <li><a href="#">不选</a></li>
+			    <li><a href="#" onclick="selectAll(true);">全选</a></li>
+			    <li><a href="#" onclick="unSelect(false);">不选</a></li>
 			    <li class="divider"></li>
-			    <li><a href="#">已读</a></li>
-			    <li><a href="#">未读</a></li>
+			    <li><a href="#" onclick="viewSelect(true);">已读</a></li>
+			    <li><a href="#" onclick="viewSelect(false);">未读</a></li>
 			  </ul>
 			 </div>
 			 
@@ -77,9 +77,9 @@
                  </tr>
                </thead>
                <tbody>
-               <c:forEach items="${messageList }" var="msg">
-                 <tr>
-                 	<td><input type="checkbox" id="1"/> ${msg.review }</td>
+               <c:forEach items="${messageList }" var="msg" varStatus="i">
+                 <tr id="checked_${i.count }">
+                 	<td><input name="checkAll" id="view${msg.review }" type="checkbox"/></td>
                  	<td>
                  	<c:choose>
               			<c:when test="${msg.review == 0 }">
