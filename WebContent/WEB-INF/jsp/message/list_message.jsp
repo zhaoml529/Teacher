@@ -9,6 +9,55 @@
   <meta name="keywords" content="" />
   <meta name="description" content="" />
   <meta name="viewport" content="width=device-width">
+  <script type="text/javascript">
+  	function delSelect() {
+  		var chk = document.getElementsByName("checkAll");
+	    var count = 0;
+	    for (var i = 0; i < chk.length; i++) {
+	        if (chk[i].checked) {
+	                count++;
+	        }
+	    }
+		if(count == 0){
+			bootbox.alert("<h4><span class='label label-warning'>Warning!</span>&nbsp;&nbsp;至少选择一条记录！</h4>");
+			return;
+		}
+  		bootbox.confirm("<h4><span class='label label-warning'>Warning!</span>&nbsp;&nbsp;您确定删除所选信息吗?</h4>", function(result) {
+  			if(result){
+  				document.message.action="${ctx}/messageAction/delSelect"; 
+  	  	  		message.submit();
+  			}
+  		});
+
+  	}
+  	
+  	function setReview( obj ) {
+  		var chk = document.getElementsByName("checkAll");
+	    var count = 0;
+	    for (var i = 0; i < chk.length; i++) {
+	        if (chk[i].checked) {
+	                count++;
+	        }
+	    }
+		if(count == 0 && obj != 3){
+			bootbox.alert("<h4><span class='label label-warning'>Warning!</span>&nbsp;&nbsp;至少选择一条记录！</h4>");
+			return;
+		}
+		if(obj == 1){
+			document.message.action="${ctx}/messageAction/setReviewYES";
+		}else if(obj == 2){
+			document.message.action="${ctx}/messageAction/setReviewNO";
+		}else if(obj == 3){
+			document.message.action="${ctx}/messageAction/setReviewALL";
+		}
+  		message.submit();
+  	}
+  	
+  	function orderBy( option ) {
+		document.getElementById("orderBy").value = option;
+		message.submit();
+  	}
+  </script>
 </head>
 <body>
   <c:import url="../top.jsp" />
@@ -43,9 +92,9 @@
 		      <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
 		      	标记为 <span class="caret"></span></button>
 		      <ul class="dropdown-menu" role="menu">
-		        <li><a href="#">已读</a></li>
-		        <li><a href="#">未读</a></li>
-		        <li><a href="#">全部设为已读</a></li>
+		        <li><a href="#" onclick="setReview(1);">已读</a></li>
+		        <li><a href="#" onclick="setReview(2);">未读</a></li>
+		        <li><a href="#" onclick="setReview(3);">全部设为已读</a></li>
 		      </ul>
 		     </div>
           
@@ -53,8 +102,8 @@
 		      <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
 		      	排序 <span class="caret"></span></button>
 		      <ul class="dropdown-menu" role="menu">
-		        <li><a href="#">日期升序</a></li>
-		        <li><a href="#">日期降序</a></li>
+		        <li><a href="#" onclick="orderBy('ASC');">日期升序</a></li>
+		        <li><a href="#" onclick="orderBy('DESC');">日期降序</a></li>
 		      </ul>
 		     </div>
 		     
@@ -63,9 +112,10 @@
 			 </div>
 		     
   			 <div class="btn-group" id="action_btn">
-			 	<button type="button" class="btn btn-danger btn-sm">删除</button>
+			 	<button type="button" class="btn btn-danger btn-sm" onclick="delSelect();">删除</button>
 			 </div>
-		     <form action="${ctx }/messageAction/toList_page" method="post">
+		     <form name="message" action="${ctx }/messageAction/toList_page" method="post">
+             <input name="orderBy" id="orderBy" type="hidden" />
              <table class="table table-striped table-hover table-bordered">
                <thead>
                  <tr>
@@ -79,7 +129,7 @@
                <tbody>
                <c:forEach items="${messageList }" var="msg" varStatus="i">
                  <tr id="checked_${i.count }">
-                 	<td><input name="checkAll" id="view${msg.review }" type="checkbox"/></td>
+                 	<td><input name="checkAll" id="view${msg.review }" value="${msg.id }" type="checkbox"/></td>
                  	<td>
                  	<c:choose>
               			<c:when test="${msg.review == 0 }">

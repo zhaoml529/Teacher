@@ -12,8 +12,10 @@ public interface IMessageService {
 	
 	public void doDelete(Message entity) throws Exception;
 	
-	public List<Message> toList(String teacherId) throws Exception;
+	public List<Message> toList(String teacherId, String option) throws Exception;
 	
 	public Message findById(Integer id) throws Exception;
+	
+	public List<Message> findAll() throws Exception;
 	
 }

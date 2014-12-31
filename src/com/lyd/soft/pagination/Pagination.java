@@ -1,19 +1,19 @@
 package com.lyd.soft.pagination;
 
 public class Pagination {
-	protected String pageStr = "";
-	protected Integer totalSum = 0;  	//共多少记录
-	protected Integer totalPage = 0;	//共多少页
-	protected Integer currentPage = 1;
-	protected Integer prePage = 0;
-	protected Integer nextPage = 0;	
-	protected Integer pageNumDefault = 10;
-	protected Integer pageNum = null;
-	protected Integer firstResult = 0;
-	protected Integer maxResult = 0;
-	protected String orderStr;
-	protected String orderColumn;
-	protected String preName = "";
+	private String pageStr = "";
+	private Integer totalSum = 0;  	//共多少记录
+	private Integer totalPage = 0;	//共多少页
+	private Integer currentPage = 1;
+	private Integer prePage = 0;
+	private Integer nextPage = 0;	
+	private Integer pageNumDefault = 2;
+	private Integer pageNum = null;
+	private Integer firstResult = 0;
+	private Integer maxResult = 0;
+	private String orderStr;
+	private String orderColumn;
+	private String preName = "";
 	
 	
 	public String getOrderStr() {
@@ -111,15 +111,15 @@ public class Pagination {
 		this.setMaxResult(this.getPageNum() > this.getTotalSum() ? this.getTotalSum() : this.getPageNum());
 		
 		StringBuffer str = new StringBuffer();
-		str.append("<table width=\"95%\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" align=\"center\" class=\"box6\">");
-		str.append("<tr><td width=\"100%\" height=\"24\"  class=\"bt\">");
+		str.append("<table width=\"95%\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" align=\"center\">");
+		str.append("<tr><td width=\"100%\" height=\"24\" >");
 		str.append("<table width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" align=\"center\" background=\"\">");
 		str.append("<input type=\"hidden\" name=\"current\" value=\"\">");
 		str.append("<tr>");
 		
-		str.append("<td align=\"left\" valign=\"center\" class=\"bt\" width=\"30%\">共" + this.getTotalPage() + "页&nbsp;");
+		str.append("<td align=\"left\" valign=\"center\" width=\"30%\">共" + this.getTotalPage() + "页&nbsp;");
 		str.append("第" + this.getCurrentPage() + "页&nbsp;");
-		str.append("每页<input id=\"pageNum\" name=\"" + this.preName + "pageNum\" type=\"text\" class=\"bt\" value=\""  + this.getPageNum() + "\" onChange=\"doSearch(1);\"  maxlength=\"3\" size=\"2\">条记录</td>");
+		str.append("每页<input id=\"pageNum\" name=\"pageNum\" type=\"text\" value=\""  + this.getPageNum() + "\" onChange=\"doSearch(1);\"  maxlength=\"3\" size=\"2\">条记录</td>");
 		str.append("<td align=\"right\" valign=\"center\" class=\"bt\" width=\"70%\">");
 		
 		if(this.getTotalPage().longValue() > 1) {
