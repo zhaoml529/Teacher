@@ -124,16 +124,16 @@ public class Pagination {
 		
 		if(this.getTotalPage().longValue() > 1) {
 			str.append("<a href=\"javascript:doSearch(1);\" class=\"bt\" onClick=\"\">首页</a>&nbsp;&nbsp;");
-			str.append("<a href=\"javascript:doSearch(" + this.getPrePage() + ");\" class=\"bt\" onClick=\"\" style=\"cursor:hand\">上一页</a>&nbsp;&nbsp;");
-			str.append("<a href=\"javascript:doSearch(" + this.getNextPage() + ");\" class=\"bt\" onClick=\"\" style=\"cursor:hand\">下一页</a>&nbsp;");
-			str.append("<a href=\"javascript:doSearch(" + this.getTotalPage() + ");\" class=\"bt\" onClick=\"\" style=\"cursor:hand\"> 末页 </a>&nbsp;");
+			str.append("<a href=\"javascript:doSearch(" + this.getPrePage() + ");\" onClick=\"\" style=\"cursor:hand\">上一页</a>&nbsp;&nbsp;");
+			str.append("<a href=\"javascript:doSearch(" + this.getNextPage() + ");\" onClick=\"\" style=\"cursor:hand\">下一页</a>&nbsp;");
+			str.append("<a href=\"javascript:doSearch(" + this.getTotalPage() + ");\" onClick=\"\" style=\"cursor:hand\"> 末页 </a>&nbsp;");
 		} else {
 			str.append("首页&nbsp;&nbsp;");
 			str.append("上一页&nbsp;&nbsp;");
 			str.append("下一页&nbsp;");
 			str.append("末页&nbsp;");
 		}
-		str.append("共" + this.getTotalSum() + "条记录<input type=\"hidden\" id=\"currentPage\" name=\"" + this.preName + "currentPage\" value=\"" + this.getCurrentPage() + "\">");
+		str.append("共" + this.getTotalSum() + "条记录<input type=\"hidden\" id=\"currentPage\" name=\"currentPage\" value=\"" + this.getCurrentPage() + "\">");
 		str.append("</td>");
 		str.append("</tr>");
 		str.append("</table>");

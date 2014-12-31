@@ -57,6 +57,21 @@
 		document.getElementById("orderBy").value = option;
 		message.submit();
   	}
+  	
+  	function doSearch(currentPage)
+  	{
+  		var pageNum = document.getElementById("pageNum").value;
+  		if(isNaN(pageNum))
+  		{
+  			alert("请输入正确的行数!");
+  		}
+  		else
+  		{
+  			document.getElementById('currentPage').value = currentPage;
+  			alert("pageNum: "+pageNum+"   currentPage: "+currentPage);
+  			document.forms[0].submit();
+  		}
+  	}
   </script>
 </head>
 <body>
@@ -114,7 +129,8 @@
   			 <div class="btn-group" id="action_btn">
 			 	<button type="button" class="btn btn-danger btn-sm" onclick="delSelect();">删除</button>
 			 </div>
-		     <form name="message" action="${ctx }/messageAction/toList_page" method="post">
+		     <%-- <form name="message" action="${ctx }/messageAction/toList_page" method="post"> --%>
+             <form:form name="message" action="${ctx }/messageAction/toList_page" modelAttribute="message" method="post" >
              <input name="orderBy" id="orderBy" type="hidden" />
              <table class="table table-striped table-hover table-bordered">
                <thead>
@@ -151,7 +167,7 @@
                </tr>
                </tbody>
              </table>
-             </form>
+             </form:form>
            </div><!-- table-responsive -->
           
           

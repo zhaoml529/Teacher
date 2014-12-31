@@ -14,6 +14,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -39,8 +40,11 @@ public class MessageAction {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/toList_page")
+	@RequestMapping(value = "/toList_page", method = RequestMethod.GET)
 	public String toList(HttpServletRequest request, HttpSession session, Model model) throws Exception{
+		if(!model.containsAttribute("message")){
+			model.addAttribute("message", new Message());
+		}
 		String orderBy = request.getParameter("orderBy");
 		String pageNum = request.getParameter("pageNum");
 		System.out.println("pageNum: "+pageNum);
