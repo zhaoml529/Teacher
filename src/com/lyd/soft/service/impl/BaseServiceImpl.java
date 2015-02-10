@@ -37,8 +37,8 @@ public class BaseServiceImpl<T> implements IBaseService<T> {
      		   }
      	   }
         }
-        List<T> list = this.baseDao.createQuery(sff.toString());  
-        return list; 
+        List<T> list = this.baseDao.createQuery(sff.toString()); 
+        return list.size()>0?list:null; 
 	}
 
 	@Override
@@ -84,7 +84,7 @@ public class BaseServiceImpl<T> implements IBaseService<T> {
         	   }
            }
            List<T> list = this.baseDao.createQuery(sb.toString());  
-            return list.size()>0?list:null;  
+           return list.size()>0?list:null;  
         }else{  
             return null;  
         } 

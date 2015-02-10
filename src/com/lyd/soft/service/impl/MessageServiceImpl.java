@@ -37,8 +37,8 @@ public class MessageServiceImpl extends BaseServiceImpl<Message> implements
 
 	@Override
 	@Transactional(propagation=Propagation.NOT_SUPPORTED, readOnly=true)
-	public List<Message> toList(String teacherId) throws Exception {
-		List<Message> list = findByPage("Message", new String[]{"toUser"}, new String[]{teacherId}, new String[]{"createDate"}, new String[]{"DESC"});
+	public List<Message> toList(String teacherId, String option) throws Exception {
+		List<Message> list = findByPage("Message", new String[]{"toUser"}, new String[]{teacherId}, new String[]{"createDate"}, new String[]{option});
 		if(BeanUtils.isBlank(list)){
 			return null;
 		}else{
@@ -55,6 +55,11 @@ public class MessageServiceImpl extends BaseServiceImpl<Message> implements
 		}else{
 			return msg;
 		}
+	}
+
+	@Override
+	public List<Message> findAll() throws Exception {
+		return getAllList("Message", new String[]{}, new String[]{});
 	}
 
 }
