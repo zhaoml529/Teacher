@@ -58,6 +58,11 @@ public class Book implements Serializable {
 	@Column(name = "IS_EDITOR")
 	private Integer isEditor;		//是否主编
 	
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@Column(name = "CREATE_DATE")
+	private Date createDate;		//创建时间
+	
 	@Column(name = "IS_DELETE")
 	private Integer isDelete;		//删除
 

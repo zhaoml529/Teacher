@@ -14,17 +14,13 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
 
 /**
  * 论文情况表
  * @author LYD
- *
- */
-
-/**
- * @author ZML
  *
  */
 @Entity
@@ -47,11 +43,13 @@ public class Paper implements Serializable {
 	private Teacher teacher;	
 	
 	@Column(name = "TITLE")
+	@NotEmpty(message="{paper.title.not.empty}")
 	private String title;			//论文名称
 	
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "PUBLISH_DATE")
+	@NotEmpty(message="{paper.publish.date.not.empty}")
 	private Date publishDate;		//发表时间
 	
 	@Column(name = "WORD_COUNT")
@@ -61,10 +59,17 @@ public class Paper implements Serializable {
 	private String author;			//作者顺序
 	
 	@Column(name = "PERIODICAL_LEVEL")
+	@NotEmpty(message="{paper.periodical.level.not.empty}")
 	private String periodicalLevel;	//期刊级别
 	
 	@Column(name = "PERIODICAL_NAME")
+	@NotEmpty(message="{paper.periodical.name.not.empty}")
 	private String periodicalName;	//期刊名称
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@Column(name = "CREATE_DATE")
+	private Date createDate;		//创建时间
 	
 	@Column(name = "IS_DELETE")
 	private Integer isDelete;		//删除
@@ -144,6 +149,14 @@ public class Paper implements Serializable {
 
 	public void setTeacher(Teacher teacher) {
 		this.teacher = teacher;
+	}
+
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
 	}
 	
 }

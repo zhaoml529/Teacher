@@ -38,4 +38,10 @@ public class PaperServiceImpl extends BaseServiceImpl<Paper> implements
 		return getUnique("Paper", new String[]{"id"}, new String[]{id.toString()});
 	}
 
+	@Override
+	public List<Paper> findByTeaId(String teacherId) throws Exception {
+		List<Paper> list = findByPage("Paper", new String[]{"teacher","isDelete"}, new String[]{teacherId, "0"}, new String[]{"createDate"}, new String[]{"DESC"});
+		return list;
+	}
+
 }

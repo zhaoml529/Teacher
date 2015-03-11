@@ -46,14 +46,19 @@ public class Subject implements Serializable {
 	@Column(name = "SUB_NAME")
 	private String subName;			//课题名称
 	
-	@Column(name = "CREATE_DATE")
+	@Column(name = "SUB_DATE")
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date createDate;		//立项时间
+	private Date subDate;		//立项时间
 	
 	@Column(name = "SUB_LEVEL")
 	private String subLevel;		//课题级别
 
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@Column(name = "CREATE_DATE")
+	private Date createDate;		//创建时间
+	
 	@Column(name = "IS_DELETE")
 	private Integer isDelete;		//删除
 	

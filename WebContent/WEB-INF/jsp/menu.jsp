@@ -29,7 +29,7 @@
       <li><a href="#">获奖情况</a></li>
     </ul>
   </li>
-  <li><a href="${ctx }/teacherAction/toList_page"><i class="fa fa-users"></i>教师列表</a></li>
+  <li><a href="${ctx }/teacherAction/toList_page?dept_id=-1"><i class="fa fa-users"></i>教师列表</a></li>
   <li><a href="${ctx }/teacherAction/toList_page"><i class="glyphicon glyphicon-calendar"></i>日程管理</a></li>
   <li class="sub">
     <a href="javascript:;">

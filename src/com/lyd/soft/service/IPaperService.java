@@ -16,4 +16,6 @@ public interface IPaperService {
 	public List<Paper> toList() throws Exception;
 	
 	public Paper findById(Integer id) throws Exception;
+
+	public List<Paper> findByTeaId(String teacherId) throws Exception;
 }
