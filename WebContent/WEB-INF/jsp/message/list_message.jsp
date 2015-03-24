@@ -82,7 +82,7 @@
      <div class="templatemo-content-wrapper">
         <div class="templatemo-content">
           <ol class="breadcrumb">
-            <li><span class="glyphicon glyphicon-home"></span>&nbsp;<a href="${ctx }/loginAction/login_view">主页</a></li>
+            <li><span class="glyphicon glyphicon-home"></span>&nbsp;<a href="${ctx }/loginAction/main">主页</a></li>
             <li class="active">站内信</li>
           </ol>
           <blockquote>

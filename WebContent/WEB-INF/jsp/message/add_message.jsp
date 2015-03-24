@@ -20,7 +20,7 @@
      <div class="templatemo-content-wrapper">
         <div class="templatemo-content">
           <ol class="breadcrumb">
-            <li><span class="glyphicon glyphicon-home"></span>&nbsp;<a href="index.html">主页</a></li>
+            <li><span class="glyphicon glyphicon-home"></span>&nbsp;<a href="${ctx }/loginAction/main">主页</a></li>
             <li><a href="${ctx }/messageAction/toList_page">站内信</a></li>
             <li class="active">写信</li>
           </ol>
@@ -35,12 +35,12 @@
 			    <label class="control-label">收件人:</label>
 			    <div class="form-group">
 				    <form:errors path="toUser" cssClass="valid_text"></form:errors>
-				    <input type="text" name="toUser" class="form-control" placeholder="Enter receiver">
+				    <input type="text" name="toUser" value="${message.toUser }" class="form-control" placeholder="Enter receiver">
 			    </div>
 			    <label class="control-label">标题:</label>
 			    <div class="form-group">
 				    <form:errors path="title" cssClass="valid_text"></form:errors>
-				    <input type="text" name="title" class="form-control" placeholder="Enter title">
+				    <input type="text" name="title" value="${message.title }" class="form-control" placeholder="Enter title">
 			    </div>
 			    <label class="control-label">内容:</label>
 			    <div class="form-group">
