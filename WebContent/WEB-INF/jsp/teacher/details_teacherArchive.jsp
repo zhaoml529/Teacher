@@ -17,12 +17,12 @@
  	<c:import url="../menu.jsp" />
      <div class="templatemo-content-wrapper">
         <div class="templatemo-content">
-			<ol class="breadcrumb">
-			  <li><a href="index.html">主页</a></li>
-			  <li class="active">用户中心</li>
-			</ol>
+	        <ol class="breadcrumb">
+	            <li><span class="glyphicon glyphicon-home"></span>&nbsp;<a href="${ctx }/loginAction/main">主页</a></li>
+	            <li class="active">个人档案</li>
+	        </ol>
 			<blockquote>
-				<h4><span class="glyphicon glyphicon-user"></span>&nbsp;${teacher.teacherName } 的信息&nbsp;<span class="caret"></span></h4>
+				<h4><span class="glyphicon glyphicon-user"></span>&nbsp;${teacher.teacherName } 的个人档案&nbsp;<span class="caret"></span></h4>
 			</blockquote>
           	<table class="table table-bordered table-hover">
           		<tr>
