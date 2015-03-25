@@ -18,5 +18,4 @@ KindEditor.ready(function(K) {
 			});
 		}
 	});
-	prettyPrint();
 });

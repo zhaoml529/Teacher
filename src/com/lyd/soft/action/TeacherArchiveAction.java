@@ -32,14 +32,14 @@ public class TeacherArchiveAction {
 	private static final Logger logger = Logger.getLogger(TeacherArchiveAction.class);
 
 	@Autowired
-	private ITeacherArchiveService ita;
+	private ITeacherArchiveService itaService;
 	
 	@RequestMapping(value = "/details")
 	public String details(Model model,HttpSession session) throws Exception{
 		Teacher teacher = UserUtils.getUserFromSession(session);
 		String teacherId = teacher.getTeacherId();
 		if(!BeanUtils.isBlank(teacherId)){
-			TeacherArchive ta = this.ita.findByTeaId(teacherId);
+			TeacherArchive ta = this.itaService.findByTeaId(teacherId);
 			model.addAttribute("entity", ta);
 		}else{
 			logger.debug("教师id为空！");
@@ -67,7 +67,7 @@ public class TeacherArchiveAction {
 		teacherArchive.setCreateDate(new Date());
 		teacherArchive.setUpdateUser(user);
 		teacherArchive.setIsDelete(0);
-		this.ita.doAdd(teacherArchive);
+		this.itaService.doAdd(teacherArchive);
 		return "redirect:/teacherArchiveAction/details";
 	}
 	
@@ -75,7 +75,7 @@ public class TeacherArchiveAction {
 	public String toUpdate(@PathVariable("id") Integer id, Model model) throws Exception{
 		if(!model.containsAttribute("teacherArchiver")){
 			if(!BeanUtils.isBlank(id)){
-				TeacherArchive ta = this.ita.findById(id.toString());
+				TeacherArchive ta = this.itaService.findById(id.toString());
 				model.addAttribute("teacherArchiver", ta);
 			}else{
 				logger.info("id 为空！");
@@ -95,7 +95,7 @@ public class TeacherArchiveAction {
 		Teacher updateUser = UserUtils.getUserFromSession(session);
 		teacherArchivel.setUpdateDate(new Date());
 		teacherArchivel.setUpdateUser(updateUser);
-		this.ita.doUpdate(teacherArchivel);
+		this.itaService.doUpdate(teacherArchivel);
 		return "redirect:/teacherArchiveAction/details";
 	}
 }

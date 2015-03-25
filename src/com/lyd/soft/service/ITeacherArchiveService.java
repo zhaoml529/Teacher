@@ -3,8 +3,6 @@ package com.lyd.soft.service;
 import java.io.Serializable;
 import java.util.List;
 
-import org.springframework.stereotype.Service;
-
 import com.lyd.soft.entity.TeacherArchive;
 
 public interface ITeacherArchiveService {

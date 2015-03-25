@@ -13,53 +13,50 @@ import com.lyd.soft.service.IBaseService;
 import com.lyd.soft.service.ITeacherArchiveService;
 
 @Service
-public class TeacherArchiveServiceImpl implements ITeacherArchiveService {
-
-	@Autowired
-	private IBaseService<TeacherArchive> baseService;
+public class TeacherArchiveServiceImpl extends BaseServiceImpl<TeacherArchive> implements ITeacherArchiveService {
 	
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
 	public Serializable doAdd(TeacherArchive entity) throws Exception {
-		return this.baseService.add(entity);
+		return add(entity);
 	}
 
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
 	public void doUpdate(TeacherArchive entity) throws Exception {
-		this.baseService.update(entity);
+		update(entity);
 
 	}
 
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
 	public void doDelete(TeacherArchive entity) throws Exception {
-		this.baseService.delete(entity);
+		delete(entity);
 
 	}
 
 	@Override
 	@Transactional(propagation=Propagation.NOT_SUPPORTED, readOnly=true)
 	public List<TeacherArchive> toList() throws Exception {
-		return this.baseService.findByWhere("TeacherArchive", new String[]{}, new String[]{}, new String[]{"updateDate"}, new String[]{"DESC"});
+		return findByWhere("TeacherArchive", new String[]{}, new String[]{}, new String[]{"updateDate"}, new String[]{"DESC"});
 	}
 
 	@Override
 	@Transactional(propagation=Propagation.NOT_SUPPORTED, readOnly=true)
 	public TeacherArchive findByName(String name) throws Exception {
-		return this.baseService.getUnique("TeacherArchive", new String[]{"teacherName"}, new String[]{name});
+		return getUnique("TeacherArchive", new String[]{"teacherName"}, new String[]{name});
 	}
 
 	@Override
 	@Transactional(propagation=Propagation.NOT_SUPPORTED, readOnly=true)
 	public TeacherArchive findById(String id) throws Exception {
-		return this.baseService.getUnique("TeacherArchive", new String[]{"id"}, new String[]{id});
+		return getUnique("TeacherArchive", new String[]{"id"}, new String[]{id});
 	}
 
 	@Override
 	@Transactional(propagation=Propagation.NOT_SUPPORTED, readOnly=true)
 	public TeacherArchive findByTeaId(String teacherId) throws Exception {
-		return this.baseService.getUnique("TeacherArchive", new String[]{"teacher.teacherId"}, new String[]{teacherId});
+		return getUnique("TeacherArchive", new String[]{"teacher.teacherId"}, new String[]{teacherId});
 	}
 	
 }

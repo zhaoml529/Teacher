@@ -4,7 +4,7 @@
 <div class="navbar-collapse collapse templatemo-sidebar">
 <div class="well" style="padding: 8px 3px;">
 <ul class="templatemo-sidebar-menu">
-  <li class="active"><a href="#"><i class="fa fa-home"></i>我的档案</a></li>
+  <li class="active"><a href="${ctx }/teacherArchiveAction/toAdd"><i class="fa fa-home"></i>我的档案</a></li>
   <li class="sub">
     <a href="javascript:;">
       <i class="fa fa-cubes"></i>教学研究 <div class="pull-right"><span class="caret"></span></div>
