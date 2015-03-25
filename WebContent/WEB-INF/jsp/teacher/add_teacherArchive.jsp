@@ -11,6 +11,14 @@
   <meta name="viewport" content="width=device-width">
   <script charset="utf-8" src="${ctx}/kindeditor/kindeditor-min.js"></script>
   <script charset="utf-8" src="${ctx}/js/kindeditor.js"></script>
+  <script type="text/javascript">
+    $(".form_datetime").datetimepicker({
+        format: "yyyy-mm-dd",
+        autoclose: true,
+        todayBtn: true,
+        pickerPosition: "bottom-left"
+    });
+</script>      
 </head>
 <body>
   <c:import url="../top.jsp" />
@@ -57,8 +65,35 @@
 			  			<img src="${ctx}/images/no_picture.gif}" alt="个人照片" class="img-thumbnail">
 			  		</td>
 			  	</tr>
+			  	<tr>
+			  		<td>性别</td>
+			  		<td>
+			  			<form:errors path="sex" cssClass="valid_text"></form:errors>
+			  			<label class="radio-inline">
+						  <input type="radio" name="sex" id="sex" value="0"> 女
+						</label>
+						<label class="radio-inline">
+						  <input type="radio" name="sex" id="sex" value="1"> 男
+						</label>
+			  		</td>
+			  	</tr>
+			  	<tr>
+			  		<td>出生日期</td>
+			  		<td>
+			  			<div class="input-append date form_datetime">
+						    <input name="birthday" size="16" type="text" value="" readonly>
+						    <span class="add-on"><i class="icon-th"></i></span>
+						</div>
+			  		</td>
+			  	</tr>
+			  	<tr>
+			  		<td>籍贯</td>
+			  		<td>
+			  			<form:errors path="nativePlace" cssClass="valid_text"></form:errors>
+				    	<input type="text" name="nativePlace" value="${teacher.nativePlace }" class="form-control" placeholder="Enter nativePlace">
+			  		</td>
+			  	</tr>
 			  </table>
-	          
 	          
 	          
 	          
