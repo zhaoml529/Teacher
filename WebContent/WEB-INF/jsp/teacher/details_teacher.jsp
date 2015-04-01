@@ -22,7 +22,7 @@
 			  <li class="active">用户中心</li>
 			</ol>
 			<blockquote>
-				<h4><span class="glyphicon glyphicon-user"></span>&nbsp;${teacher.teacherName } 的信息&nbsp;<span class="caret"></span></h4>
+				<h4><span class="glyphicon glyphicon-user"></span>&nbsp;${user.teacherName } 的信息&nbsp;<span class="caret"></span></h4>
 			</blockquote>
           	<table class="table table-bordered table-hover">
           		<tr>

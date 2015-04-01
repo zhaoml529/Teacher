@@ -19,6 +19,7 @@
 		<li class="item-test"><a href="${ctx }/newsAction/toList_page">新闻</a></li>
 		<li class="item-test"><a href="${ctx }/messageAction/toList_page"><span class="badge pull-right">9</span>站内信</a></li>
 		<li class="item-test"><a href="${ctx }/teacherAction/details">用户中心</a></li>
+		<li class="item-test"><a href="${ctx }/loginAction/logout">退出</a></li>
 	  </ul>          
 	</div><!-- nav-collapse -->
    </div><!-- navbar-inner -->

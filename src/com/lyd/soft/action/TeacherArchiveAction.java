@@ -1,5 +1,6 @@
 package com.lyd.soft.action;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.servlet.http.HttpSession;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.lyd.soft.entity.Message;
 import com.lyd.soft.entity.Teacher;
 import com.lyd.soft.entity.TeacherArchive;
 import com.lyd.soft.service.ITeacherArchiveService;
@@ -50,7 +50,7 @@ public class TeacherArchiveAction {
 	@RequestMapping(value = "/toAdd")
 	public String toAdd(Model model){
 		if(!model.containsAttribute("teacherArchiver")){
-			model.addAttribute("teacherArchiver", new Message());
+			model.addAttribute("teacherArchiver", new TeacherArchive());
 		}
 		return "teacher/add_teacherArchive";
 	}
@@ -64,6 +64,9 @@ public class TeacherArchiveAction {
 			return toAdd(model);
 		}
 		Teacher user = UserUtils.getUserFromSession(session);
+		SimpleDateFormat df = new SimpleDateFormat("MMddSSS");
+		String id = df.format(new Date()).toString();
+		teacherArchive.setArchiveNumber(id);
 		teacherArchive.setCreateDate(new Date());
 		teacherArchive.setUpdateUser(user);
 		teacherArchive.setIsDelete(0);

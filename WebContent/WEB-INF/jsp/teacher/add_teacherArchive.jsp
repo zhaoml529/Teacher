@@ -13,7 +13,7 @@
   <script charset="utf-8" src="${ctx}/js/kindeditor.js"></script>
   <script type="text/javascript">
   $(function(){
-    $("#birthday").datetimepicker({
+    $("#birthday,#wordDate,#getEducation1,#getEducation2,#getDegree").datetimepicker({
     	language: 'zh-CN',
         format: "yyyy-mm-dd",
         minView: "month", //选择日期后，不会再跳转去选择时分秒 
@@ -22,16 +22,7 @@
         todayHighlight: true,
         pickerPosition: "bottom-left"
     });
-    
-    $("#wordDate").datetimepicker({
-    	language: 'zh-CN',
-        format: "yyyy-mm-dd",
-        minView: "month", //选择日期后，不会再跳转去选择时分秒 
-        autoclose: true,
-        todayBtn: true,
-        todayHighlight: true,
-        pickerPosition: "bottom-left"
-    })
+   
   })
 </script>      
 </head>
@@ -47,10 +38,11 @@
             <li class="active">个人档案</li>
           </ol>
           <blockquote>
-				<span class="glyphicon glyphicon-th-list"></span>&nbsp;${teacher.teacherName } 的个人档案&nbsp;<span class="caret"></span>
+				<span class="glyphicon glyphicon-th-list"></span>&nbsp;个人档案&nbsp;<span class="caret"></span>
 		  </blockquote>
           <div class="row-fluid">
           <form:form action="${ctx }/teacherArchiveAction/doAdd" modelAttribute="teacherArchive" method="POST">
+          <input type="hidden" name="teacher.teacherId" value="${user.teacherId }"/>
           <div class="panel panel-default"> 
 	          <div class="panel-body">
 	          <table class="table table-bordered table-condensed">
@@ -60,11 +52,10 @@
 			  	<tr>
 			  		<td>教师姓名</td>
 			  		<td>
-			  			<form:errors path="title" cssClass="valid_text"></form:errors>
-				    	<input type="text" name="teacherName" value="${teacher.teacherName }" class="form-control" placeholder="Enter teachers name">
+				    	<input type="text" name="teacherName" value="${user.teacherName }" class="form-control" readonly placeholder="Enter teachers name">
 			  		</td>
-			  		<td colspan="2" rowspan="6">
-			  			<img src="${ctx}/images/no_picture.gif" alt="个人照片" class="img-thumbnail carousel-inner img-responsive img-rounded">
+			  		<td colspan="2" rowspan="7">
+			  			<img src="${ctx}/images/no_picture.gif" alt="个人照片" width="75%" class="img-thumbnail img-responsive">
 			  		</td>
 			  	</tr>
 			  	<tr>
@@ -140,22 +131,32 @@
 			  			<form:errors path="education1" cssClass="valid_text"></form:errors>
 				    	<input type="text" name="education1" value="${teacher.education1 }" class="form-control" placeholder="Enter education1">
 			  		</td>
-					<td>第二学历取得时间</td>
+		  			<td>第二学历</td>
 			  		<td>
-			  			<form:errors path="getEducation2" cssClass="valid_text"></form:errors>
-				    	<input type="text" name="getEducation2" value="${teacher.getEducation2 }" class="form-control" placeholder="Enter getEducation2">
+			  			<form:errors path="education2" cssClass="valid_text"></form:errors>
+				    	<input type="text" name="education2" value="${teacher.education2 }" class="form-control" placeholder="Enter education2">
 			  		</td>
 			  	</tr>
 			  	<tr>
 			  		<td>第一学历取得时间</td>
 			  		<td>
-			  			<form:errors path="getEducation1" cssClass="valid_text"></form:errors>
-				    	<input type="text" name="getEducation1" value="${teacher.getEducation1 }" class="form-control" placeholder="Enter IDNumber">
+			  			<div class="input-group date form_datetime" id="getEducation1">
+			  				<div class="input-group">
+			  				<form:errors path="getEducation1" cssClass="valid_text"></form:errors>
+				    		<input type="text" name="getEducation1" value="${teacher.getEducation1 }" class="form-control" readonly placeholder="Choose getEducation1">
+						    <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+						    </div>
+						</div>
 			  		</td>
-			  		<td>第二学历毕业院校</td>
+					<td>第二学历取得时间</td>
 			  		<td>
-			  			<form:errors path="graSchool2" cssClass="valid_text"></form:errors>
-				    	<input type="text" name="graSchool2" value="${teacher.graSchool2 }" class="form-control" placeholder="Enter graSchool2">
+			  			<div class="input-group date form_datetime" id="getEducation2">
+			  				<div class="input-group">
+			  				<form:errors path="getEducation2" cssClass="valid_text"></form:errors>
+				    		<input type="text" name="getEducation2" value="${teacher.getEducation2 }" class="form-control" readonly placeholder="Choose getEducation2">
+						    <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+						    </div>
+						</div>
 			  		</td>
 			  	</tr>
 			  	<tr>
@@ -164,11 +165,91 @@
 			  			<form:errors path="graSchool1" cssClass="valid_text"></form:errors>
 				    	<input type="text" name="graSchool1" value="${teacher.graSchool1 }" class="form-control" placeholder="Enter graSchool1">
 			  		</td>
-			  		<td>第二学历</td>
+					<td>第二学历毕业院校</td>
 			  		<td>
-			  			<form:errors path="education2" cssClass="valid_text"></form:errors>
-				    	<input type="text" name="education2" value="${teacher.education2 }" class="form-control" placeholder="Enter education2">
+			  			<form:errors path="graSchool2" cssClass="valid_text"></form:errors>
+				    	<input type="text" name="graSchool2" value="${teacher.graSchool2 }" class="form-control" placeholder="Enter graSchool2">
 			  		</td>
+			  	</tr>
+			  	<tr>
+			  		<td>最高学位</td>
+			  		<td>
+			  			<form:errors path="degree" cssClass="valid_text"></form:errors>
+			  			<input type="text" name="degree" value="${teacher.degree }" class="form-control" placeholder="Enter degree">
+			  		</td>
+			  		<td>学位取得时间</td>
+			  		<td>
+			  			<div class="input-group date form_datetime" id="getDegree">
+							<div class="input-group">
+		                    <form:errors path="getDegree" cssClass="valid_text"></form:errors>
+			  				<input type="text" name="getDegree" value="${teacher.getDegree }" class="form-control" readonly placeholder="Choose degree Date">
+		                    <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+							</div>
+		                </div>
+			  			
+			  		</td>
+			  	</tr>
+			  	<tr>
+			  		<td>专业领域</td>
+			  		<td>
+			  			<form:errors path="professionArea" cssClass="valid_text"></form:errors>
+			  			<input type="text" name="professionArea" value="${teacher.professionArea }" class="form-control" placeholder="Enter professionArea">
+			  		</td>
+			  		<td>普通话水平</td>
+			  		<td>
+			  			<form:errors path="mandarinLevel" cssClass="valid_text"></form:errors>
+			  			<select class="form-control" name="mandarinLevel">
+			  				<option value="0">--请选择--</option>
+			  				<option value="1">一级甲等</option>
+			  				<option value="2">一级乙等</option>
+			  				<option value="3">二级甲等</option>
+			  				<option value="4">二级乙等</option>
+			  				<option value="5">三级甲等</option>
+			  				<option value="6">三级乙等</option>
+			  			</select>
+			  		</td>
+			  	</tr>
+			  	<tr>
+			  		<td>是否为双师型教师</td>
+			  		<td>
+			  			<form:errors path="isDoubleTeachers" cssClass="valid_text"></form:errors>
+			  			<input type="radio" name="isDoubleTeachers" ${teacher.isDoubleTeachers==0?"checked":"" } value="0"> 否
+			  			<input type="radio" name="isDoubleTeachers" ${teacher.isDoubleTeachers==1?"checked":"" } value="1"> 是
+			  		</td>
+			  		<td>技术职务等级</td>
+			  		<td>
+			  			<form:errors path="technicalPosition" cssClass="valid_text"></form:errors>
+			  			<select class="form-control" name="technicalPosition">
+			  				<option value="0">--请选择--</option>
+			  				<option value="1">教授</option>
+			  				<option value="2">副教授</option>
+			  				<option value="3">讲师</option>
+			  				<option value="4">助理讲师</option>
+			  			</select>
+			  		</td>
+			  	</tr>
+			  	<tr>
+			  		<td>是否为骨干教师</td>
+			  		<td>
+			  			<form:errors path="isBackbone" cssClass="valid_text"></form:errors>
+			  			<input type="radio" name="isBackbone" ${teacher.isBackbone==0?"checked":"" } value="0"> 否
+			  			<input type="radio" name="isBackbone" ${teacher.isBackbone==1?"checked":"" } value="1"> 是
+			  		</td>
+			  		<td>佐证证件及编号</td>
+			  		<td>
+			  			<form:errors path="evidenceNumber" cssClass="valid_text"></form:errors>
+				    	<input type="text" name="evidenceNumber" value="${teacher.evidenceNumber }" class="form-control" placeholder="Enter evidenceNumber">
+			  		</td>
+			  	</tr>
+			  	<tr>
+			  		<td>是否为学科带头人</td>
+			  		<td>
+			  			<form:errors path="isSubjectLeader" cssClass="valid_text"></form:errors>
+			  			<input type="radio" name="isSubjectLeader" ${teacher.isSubjectLeader==0?"checked":"" } value="0"> 否
+			  			<input type="radio" name="isSubjectLeader" ${teacher.isSubjectLeader==1?"checked":"" } value="1"> 是
+			  		</td>
+			  		<td></td>
+			  		<td></td>
 			  	</tr>
 			  	
 			  	<tr>
