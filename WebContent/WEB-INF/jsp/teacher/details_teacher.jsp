@@ -9,6 +9,9 @@
   <meta name="keywords" content="" />
   <meta name="description" content="" />
   <meta name="viewport" content="width=device-width">
+  <script type="text/javascript" src="${ctx}/js/jquery.ui.widget.js"></script>
+  <script type="text/javascript" src="${ctx}/js/jquery.iframe-transport.js"></script>
+  <script type="text/javascript" src="${ctx}/js/jquery.fileupload.js"></script>
 </head>
 <body>
   <c:import url="../top.jsp" />
@@ -49,6 +52,19 @@
           			<th>所属机构</th>
           			<td>${teacher.department.name }</td>
           		</tr>
+          		<tr>
+          			<th>照片</th>
+          			<td>
+          				<img id="photo" src="${ctx}/images/no_picture.gif" alt="个人照片" width="75%" class="img-thumbnail img-responsive">
+	          				<input id="fileupload" type="file" name="teacherPic" />
+	          				<button type="submit" class="btn btn-primary btn-xs">上传</button>
+	          				<div class="progress">
+							  <div id="progress" class="progress-bar" role="progressbar" aria-valuenow="2" aria-valuemin="0" aria-valuemax="100" style="min-width: 2em; width: 0%;">
+							    0%
+							  </div>
+						    </div>
+          			</td>
+          		</tr>
           	</table>
           	
 	  	</div>
@@ -56,5 +72,25 @@
 	</div>
   </div>
   <c:import url="../footer.jsp" />
+  <script type="text/javascript">
+  	$(function(){  
+		  alert(window.location.hostname);
+		  $('#fileupload').fileupload({
+		     url: '${ctx }/teacherArchiveAction/uploadPic',
+		     //dataType: 'json',
+		     autoUpload: false,
+		     acceptFileTypes:  /(\.|\/)(gif|jpe?g|png)$/i,
+		     maxFileSize: 5000000,
+		     progressall: function (e, data) {  
+		    	var progress = parseInt(data.loaded / data.total * 100, 10);  
+		        $("#progress").width(progress + '%');  
+		        $("#progress").html(progress + '%');  
+		     },
+		     done: function (e, data) {
+	    	 	$("#photo").attr("src",'${ctx}'+data.result);  
+		     }
+		 });
+	  })
+ </script>
 </body>
 </html>

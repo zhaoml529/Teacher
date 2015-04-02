@@ -9,8 +9,12 @@
   <meta name="keywords" content="" />
   <meta name="description" content="" />
   <meta name="viewport" content="width=device-width">
-  <script charset="utf-8" src="${ctx}/kindeditor/kindeditor-min.js"></script>
-  <script charset="utf-8" src="${ctx}/js/kindeditor.js"></script>
+  <script type="text/javascript" src="${ctx}/kindeditor/kindeditor-min.js"></script>
+  <script type="text/javascript" src="${ctx}/js/kindeditor.js"></script>
+  <script type="text/javascript" src="${ctx}/js/jquery.ui.widget.js"></script>
+  <script type="text/javascript" src="${ctx}/js/jquery.iframe-transport.js"></script>
+  <script type="text/javascript" src="${ctx}/js/jquery.fileupload.js"></script>
+  <!--[if gte IE 8]><script type="text/javascript" src="${ctx}/js/jquery.xdr-transport.js"></script><![endif]-->
   <script type="text/javascript">
   $(function(){
     $("#birthday,#wordDate,#getEducation1,#getEducation2,#getDegree").datetimepicker({
@@ -22,8 +26,12 @@
         todayHighlight: true,
         pickerPosition: "bottom-left"
     });
-   
   })
+  
+  function uploadPic(){
+	  alert(window.location.hostname);
+	  $('#fileupload').fileupload(); 
+  }
 </script>      
 </head>
 <body>
@@ -55,7 +63,25 @@
 			  		<td>
 				    	<input type="text" name="teacherName" value="${user.teacherName }" class="form-control" readonly placeholder="Enter teachers name">
 			  		</td>
-			  		<td colspan="2"  align="center">头像上传</td>
+			  		<td colspan="2" rowspan="7" align="center">
+			  			<div class="thumbnail">
+					      <img id="photo" src="${ctx}/images/no_picture.gif" alt="个人照片" width="75%" class="img-thumbnail img-responsive">
+					      <div class="progress">
+							  <div id="progress" class="progress-bar" role="progressbar" aria-valuenow="2" aria-valuemin="0" aria-valuemax="100" style="min-width: 2em; width: 25%;">
+							    2%
+							  </div>
+						    </div>
+					      <div class="caption">
+					        <h4>上传头像:文件类型为jpg/png/gif</h4>
+					        <div class="form-inline">
+					        	<div class="form-group">
+					        	<input id="fileupload" type="file" name="files[]" data-url="${ctx }/teacherArchiveAction/uploadPic" multiple>
+						        </div>
+						        <button type="button" class="btn btn-primary btn-xs" onclick="uploadPic()">上传</button>
+					        </div>
+					      </div>
+					    </div>
+			  		</td>
 			  	</tr>
 			  	<tr>
 			  		<td>性别</td>
@@ -67,9 +93,6 @@
 						<label class="radio-inline">
 						  <input type="radio" name="sex" id="sex" value="1"> 男
 						</label>
-			  		</td>
-			  		<td colspan="2" rowspan="6" align="center">
-			  			<img src="${ctx}/images/no_picture.gif" alt="个人照片" width="75%" class="img-thumbnail img-responsive">
 			  		</td>
 			  	</tr>
 			  	<tr>

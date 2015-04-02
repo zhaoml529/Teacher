@@ -1,19 +1,26 @@
 package com.lyd.soft.action;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.lyd.soft.entity.Teacher;
 import com.lyd.soft.entity.TeacherArchive;
@@ -100,5 +107,31 @@ public class TeacherArchiveAction {
 		teacherArchivel.setUpdateUser(updateUser);
 		this.itaService.doUpdate(teacherArchivel);
 		return "redirect:/teacherArchiveAction/details";
+	}
+	
+	@RequestMapping(value = "/uploadPic", method = RequestMethod.POST)
+	@ResponseBody
+	public String uploadPic(@Value("#{APP_PROPERTIES['upload.photo.path']}") String path,
+							@RequestParam(value = "teacherPic", required = false) MultipartFile file, 
+							HttpServletRequest request,
+							HttpSession session) throws Exception{
+		Teacher user = UserUtils.getUserFromSession(session);
+		String realPath = request.getSession().getServletContext().getRealPath("/WEB-INF");
+		SimpleDateFormat df = new SimpleDateFormat("MMddSSS");
+		String timestamp = df.format(new Date()).toString();
+		String photo_path = path+"/"+user.getTeacherId()+"/";
+		System.out.println(realPath+photo_path);
+		File myFilePath = new File(realPath+photo_path);
+		if (!myFilePath.exists()) {  
+			myFilePath.mkdirs();
+		}
+		String photoName = file.getOriginalFilename();
+		//文件后缀
+		String appden = photoName.substring(photoName.lastIndexOf('.'));
+		String fileName = timestamp+appden;
+		System.out.println(realPath+photo_path+fileName);
+		file.transferTo(new File(realPath+photo_path+fileName));
+		
+		return photo_path+fileName;  
 	}
 }
