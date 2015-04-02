@@ -45,6 +45,7 @@
           <input type="hidden" name="teacher.teacherId" value="${user.teacherId }"/>
           <div class="panel panel-default"> 
 	          <div class="panel-body">
+	          <div class="table-responsive">
 	          <table class="table table-bordered table-condensed">
 			  	<tr class="active">
 			  		<td colspan="4" align="center">添加个人档案信息</td>
@@ -54,9 +55,7 @@
 			  		<td>
 				    	<input type="text" name="teacherName" value="${user.teacherName }" class="form-control" readonly placeholder="Enter teachers name">
 			  		</td>
-			  		<td colspan="2" rowspan="7">
-			  			<img src="${ctx}/images/no_picture.gif" alt="个人照片" width="75%" class="img-thumbnail img-responsive">
-			  		</td>
+			  		<td colspan="2"  align="center">头像上传</td>
 			  	</tr>
 			  	<tr>
 			  		<td>性别</td>
@@ -68,6 +67,9 @@
 						<label class="radio-inline">
 						  <input type="radio" name="sex" id="sex" value="1"> 男
 						</label>
+			  		</td>
+			  		<td colspan="2" rowspan="6" align="center">
+			  			<img src="${ctx}/images/no_picture.gif" alt="个人照片" width="75%" class="img-thumbnail img-responsive">
 			  		</td>
 			  	</tr>
 			  	<tr>
@@ -260,6 +262,7 @@
 			  		</td>
 			  	</tr>
 			  </table>
+	          </div>
 	          </div>
 	          <div class="panel-footer"><button type="submit" class="btn btn-primary btn-sm">发布</button></div>
           </div>
