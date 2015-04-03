@@ -111,15 +111,16 @@ public class TeacherArchiveAction {
 	
 	@RequestMapping(value = "/uploadPic", method = RequestMethod.POST)
 	@ResponseBody
-	public String uploadPic(@Value("#{APP_PROPERTIES['upload.photo.path']}") String path,
+	public String uploadPic(@Value("#{APP_PROPERTIES['upload.uploadTempDir']}") String path,
 							@RequestParam(value = "teacherPic", required = false) MultipartFile file, 
 							HttpServletRequest request,
 							HttpSession session) throws Exception{
 		Teacher user = UserUtils.getUserFromSession(session);
-		String realPath = request.getSession().getServletContext().getRealPath("/WEB-INF");
+		System.out.println(path);
+		String realPath = request.getSession().getServletContext().getRealPath("/");
 		SimpleDateFormat df = new SimpleDateFormat("MMddSSS");
 		String timestamp = df.format(new Date()).toString();
-		String photo_path = path+"/"+user.getTeacherId()+"/";
+		String photo_path = path+"/photo/"+user.getTeacherId()+"/";
 		System.out.println(realPath+photo_path);
 		File myFilePath = new File(realPath+photo_path);
 		if (!myFilePath.exists()) {  

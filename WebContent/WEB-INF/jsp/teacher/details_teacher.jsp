@@ -78,7 +78,7 @@
 		  $('#fileupload').fileupload({
 		     url: '${ctx }/teacherArchiveAction/uploadPic',
 		     //dataType: 'json',
-		     autoUpload: false,
+		     autoUpload: true,
 		     acceptFileTypes:  /(\.|\/)(gif|jpe?g|png)$/i,
 		     maxFileSize: 5000000,
 		     progressall: function (e, data) {  
