@@ -9,6 +9,8 @@
   <meta name="keywords" content="" />
   <meta name="description" content="" />
   <meta name="viewport" content="width=device-width">
+  <link rel="stylesheet" href="${ctx}/css/jquery.fileupload-ui.css" type="text/css" />
+  <link rel="stylesheet" href="${ctx}/css/jquery.fileupload.css" type="text/css" />
   <script type="text/javascript" src="${ctx}/kindeditor/kindeditor-min.js"></script>
   <script type="text/javascript" src="${ctx}/js/kindeditor.js"></script>
   <script type="text/javascript" src="${ctx}/js/jquery.ui.widget.js"></script>
@@ -26,12 +28,42 @@
         todayHighlight: true,
         pickerPosition: "bottom-left"
     });
+    $(function(){  
+		  $('#fileupload').fileupload({
+		     url: '${ctx }/teacherArchiveAction/uploadPic',
+		     //dataType: 'json',
+		     autoUpload: true,
+		     acceptFileTypes:  /(\.|\/)(gif|jpe?g|png)$/i,
+		     maxFileSize: 5000000,
+		     progressall: function (e, data) { 
+		    	$(".progress").css("display","block"); 
+		    	var progress = parseInt(data.loaded / data.total * 100, 10);  
+		        $("#progress").width(progress + '%');  
+		        $("#progress").html(progress + '%');  
+		     },
+		     done: function (e, data) {
+		    	if(data.result == "fail"){
+		    		$(".progress").css("display","none"); 
+		    		bootbox.alert("<h5><span class='label label-danger'>Fail</span>&nbsp;&nbsp;文件类型不正确！ </h5>");
+		    		return false;
+		    	}
+		    	setTimeout(function () { 
+		    	 	$(".progress").css("display","none"); 
+		    		bootbox.alert("<h5><span class='label label-success'>Success!</span>&nbsp;&nbsp;头像上传成功！ </h5>");
+	    	    }, 500);
+	    		$("#photo").attr("src",'${ctx}'+data.result);  
+		     },
+		     fail: function(e, data) {
+                 //错误提示 
+		    	$(".progress").css("display","none"); 
+		    	$.each(data.messages, function (index, error) {
+		    		bootbox.alert("<h5><span class='label label-danger'>Fail</span>&nbsp;&nbsp;上传失败！ </h5>"+'<p style="color: red;">Upload file error: ' + error + '<i class="elusive-remove" style="padding-left:10px;"/></p>');
+	    		});
+	    	 }
+		 });
+	  });
   })
   
-  function uploadPic(){
-	  alert(window.location.hostname);
-	  $('#fileupload').fileupload(); 
-  }
 </script>      
 </head>
 <body>
@@ -65,20 +97,19 @@
 			  		</td>
 			  		<td colspan="2" rowspan="7" align="center">
 			  			<div class="thumbnail">
-					      <img id="photo" src="${ctx}/images/no_picture.gif" alt="个人照片" width="75%" class="img-thumbnail img-responsive">
-					      <div class="progress">
-							  <div id="progress" class="progress-bar" role="progressbar" aria-valuenow="2" aria-valuemin="0" aria-valuemax="100" style="min-width: 2em; width: 25%;">
-							    2%
+					      <img id="photo" src="${ctx}/images/no_picture.gif" alt="个人照片" width="200px" class="img-thumbnail">
+						  <div class="progress" style="display: none;">
+							  <div id="progress" class="progress-bar" role="progressbar" aria-valuenow="2" aria-valuemin="0" aria-valuemax="100" style="min-width: 2em; width: 0%;">
+							    0%
 							  </div>
-						    </div>
+						  </div>
 					      <div class="caption">
 					        <h4>上传头像:文件类型为jpg/png/gif</h4>
-					        <div class="form-inline">
-					        	<div class="form-group">
-					        	<input id="fileupload" type="file" name="files[]" data-url="${ctx }/teacherArchiveAction/uploadPic" multiple>
-						        </div>
-						        <button type="button" class="btn btn-primary btn-xs" onclick="uploadPic()">上传</button>
-					        </div>
+						        <span class="btn btn-success fileinput-button btn-sm">
+				                    <i class="glyphicon glyphicon-plus"></i>
+				                    <span>选择头像...</span>
+				                    <input id="fileupload" type="file" name="teacherPic" />
+				                </span>
 					      </div>
 					    </div>
 			  		</td>

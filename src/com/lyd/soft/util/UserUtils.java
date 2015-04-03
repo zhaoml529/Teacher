@@ -12,9 +12,6 @@ import com.lyd.soft.entity.Teacher;
  */
 public class UserUtils {
 
-    public static final String USER = "user";
-    public static final String USER_ID = "user_id";
-
     /**
      * 设置用户到session
      *
@@ -22,8 +19,8 @@ public class UserUtils {
      * @param user
      */
     public static void saveUserToSession(HttpSession session, Teacher user) {
-        session.setAttribute(USER, user);
-        session.setAttribute(USER_ID, user.getTeacherId());
+        session.setAttribute(Constants.USER, user);
+        session.setAttribute(Constants.USER_ID, user.getTeacherId());
     }
 
     /**
@@ -33,7 +30,7 @@ public class UserUtils {
      * @return
      */
     public static Teacher getUserFromSession(HttpSession session) {
-        Object attribute = session.getAttribute(USER);
+        Object attribute = session.getAttribute(Constants.USER);
         return attribute == null ? null : (Teacher) attribute;
     }
 
@@ -42,6 +39,6 @@ public class UserUtils {
      * @param session
      */
     public static void removeUserFromSession(HttpSession session) {
-    	session.removeAttribute(USER);
+    	session.removeAttribute(Constants.USER);
     }
 }

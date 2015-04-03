@@ -67,7 +67,7 @@
 	<mvc:resources mapping="/fonts/**" location="/WEB-INF/fonts/" cache-period="31556926"/>
 	<mvc:resources mapping="/css/skins/**" location="/WEB-INF/css/skins/" cache-period="31556926"/>
 	<mvc:resources mapping="/kindeditor/**" location="/WEB-INF/kindeditor-4.1.10/" cache-period="31556926"/>
-	<mvc:resources mapping="/upload/photo/**" location="/WEB-INF/upload/photo/" cache-period="31556926"/>
+	<mvc:resources mapping="/UploadFile/photo/**" location="/UploadFile/photo/" cache-period="31556926"/>
 	
 	<!-- 全局异常配置 -->  
     <bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">  

@@ -26,6 +26,7 @@ import com.lyd.soft.entity.Teacher;
 import com.lyd.soft.entity.TeacherArchive;
 import com.lyd.soft.service.ITeacherArchiveService;
 import com.lyd.soft.util.BeanUtils;
+import com.lyd.soft.util.Constants;
 import com.lyd.soft.util.UserUtils;
 
 /**
@@ -116,23 +117,32 @@ public class TeacherArchiveAction {
 							HttpServletRequest request,
 							HttpSession session) throws Exception{
 		Teacher user = UserUtils.getUserFromSession(session);
-		System.out.println(path);
-		String realPath = request.getSession().getServletContext().getRealPath("/");
-		SimpleDateFormat df = new SimpleDateFormat("MMddSSS");
-		String timestamp = df.format(new Date()).toString();
-		String photo_path = path+"/photo/"+user.getTeacherId()+"/";
-		System.out.println(realPath+photo_path);
-		File myFilePath = new File(realPath+photo_path);
-		if (!myFilePath.exists()) {  
-			myFilePath.mkdirs();
+		//文件类型
+		String contentType = file.getContentType();
+		if(Constants.PICTURE_TYPE.contains(contentType)){
+			System.out.println(path);
+			String realPath = request.getSession().getServletContext().getRealPath("/");
+			SimpleDateFormat df = new SimpleDateFormat("MMddSSS");
+			String timestamp = df.format(new Date()).toString();
+			String photo_path = path+"/photo/"+user.getTeacherId()+"/";
+			System.out.println(realPath+photo_path);
+			File myFilePath = new File(realPath+photo_path);
+			if (!myFilePath.exists()) {  
+				myFilePath.mkdirs();
+			}
+			String photoName = file.getOriginalFilename();
+			System.out.println(contentType);
+			//文件后缀
+			String appden = photoName.substring(photoName.lastIndexOf('.'));
+			String fileName = timestamp+appden;
+			System.out.println(realPath+photo_path+fileName);
+			file.transferTo(new File(realPath+photo_path+fileName));
+			return photo_path+fileName;
+		}else{
+			logger.error("图片格式不正确！");
+			return "fail";
 		}
-		String photoName = file.getOriginalFilename();
-		//文件后缀
-		String appden = photoName.substring(photoName.lastIndexOf('.'));
-		String fileName = timestamp+appden;
-		System.out.println(realPath+photo_path+fileName);
-		file.transferTo(new File(realPath+photo_path+fileName));
 		
-		return photo_path+fileName;  
+		  
 	}
 }
