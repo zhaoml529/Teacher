@@ -52,6 +52,7 @@
 		    		bootbox.alert("<h5><span class='label label-success'>Success!</span>&nbsp;&nbsp;头像上传成功！ </h5>");
 	    	    }, 500);
 	    		$("#photo").attr("src",'${ctx}'+data.result);  
+	    		$("#teacherPic").attr("value", data.result);
 		     },
 		     fail: function(e, data) {
                  //错误提示 
@@ -96,6 +97,7 @@
 				    	<input type="text" name="teacherName" value="${user.teacherName }" class="form-control" readonly placeholder="Enter teachers name">
 			  		</td>
 			  		<td colspan="2" rowspan="7" align="center">
+			  			<input type="hidden" name="teacherPic" value="" />
 			  			<div class="thumbnail">
 					      <img id="photo" src="${ctx}/images/no_picture.gif" alt="个人照片" width="200px" class="img-thumbnail">
 						  <div class="progress" style="display: none;">
@@ -108,7 +110,7 @@
 						        <span class="btn btn-success fileinput-button btn-sm">
 				                    <i class="glyphicon glyphicon-plus"></i>
 				                    <span>选择头像...</span>
-				                    <input id="fileupload" type="file" name="teacherPic" />
+				                    <input id="fileupload" type="file" name="teacherPicture" />
 				                </span>
 					      </div>
 					    </div>
@@ -119,10 +121,10 @@
 			  		<td>
 			  			<form:errors path="sex" cssClass="valid_text"></form:errors>
 			  			<label class="radio-inline">
-						  <input type="radio" name="sex" id="sex" value="0"> 女
+						  <input type="radio" name="sex" ${teacher.sex == 0?'checked':'' } id="sex" value="0"> 女
 						</label>
 						<label class="radio-inline">
-						  <input type="radio" name="sex" id="sex" value="1"> 男
+						  <input type="radio" name="sex" ${teacher.sex == 1?'checked':'' } id="sex" value="1"> 男
 						</label>
 			  		</td>
 			  	</tr>
@@ -256,12 +258,12 @@
 			  			<form:errors path="mandarinLevel" cssClass="valid_text"></form:errors>
 			  			<select class="form-control" name="mandarinLevel">
 			  				<option value="0">--请选择--</option>
-			  				<option value="1">一级甲等</option>
-			  				<option value="2">一级乙等</option>
-			  				<option value="3">二级甲等</option>
-			  				<option value="4">二级乙等</option>
-			  				<option value="5">三级甲等</option>
-			  				<option value="6">三级乙等</option>
+			  				<option value="一级甲等">一级甲等</option>
+			  				<option value="一级乙等">一级乙等</option>
+			  				<option value="二级甲等">二级甲等</option>
+			  				<option value="二级乙等">二级乙等</option>
+			  				<option value="三级甲等">三级甲等</option>
+			  				<option value="三级乙等">三级乙等</option>
 			  			</select>
 			  		</td>
 			  	</tr>
@@ -277,10 +279,10 @@
 			  			<form:errors path="technicalPosition" cssClass="valid_text"></form:errors>
 			  			<select class="form-control" name="technicalPosition">
 			  				<option value="0">--请选择--</option>
-			  				<option value="1">教授</option>
-			  				<option value="2">副教授</option>
-			  				<option value="3">讲师</option>
-			  				<option value="4">助理讲师</option>
+			  				<option value="教授">教授</option>
+			  				<option value="副教授">副教授</option>
+			  				<option value="讲师">讲师</option>
+			  				<option value="助理讲师">助理讲师</option>
 			  			</select>
 			  		</td>
 			  	</tr>
@@ -310,7 +312,7 @@
 			  	
 			  	<tr>
 			  		<td colspan="4">
-			  			<textarea id="editor_id1" class="form-control" name="content" rows="3" cols="20">
+			  			<textarea id="editor_id1" class="form-control" name="remark" rows="3" cols="20">
 							&lt;strong&gt;备注&lt;/strong&gt;
 						</textarea>
 			  		</td>
@@ -318,7 +320,7 @@
 			  </table>
 	          </div>
 	          </div>
-	          <div class="panel-footer"><button type="submit" class="btn btn-primary btn-sm">发布</button></div>
+	          <div class="panel-footer"><button type="submit" class="btn btn-success btn-sm">添加</button></div>
           </div>
           </form:form>
           </div><!-- row-fluid -->
