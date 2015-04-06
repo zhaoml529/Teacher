@@ -15,11 +15,12 @@ public interface ITeacherArchiveService {
 	
 	public List<TeacherArchive> toList() throws Exception;
 	
-	//public List<TeacherArchive> findByDept(Integer dept_id) throws Exception;
+	public List<TeacherArchive> findByDept(String dept_id) throws Exception;
 	
 	public TeacherArchive findByName(String name) throws Exception;
 	
 	public TeacherArchive findById(String id) throws Exception;
 	
 	public TeacherArchive findByTeaId(String teacherId) throws Exception;
+	
 }

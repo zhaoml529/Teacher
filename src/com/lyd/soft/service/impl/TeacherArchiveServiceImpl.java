@@ -58,5 +58,10 @@ public class TeacherArchiveServiceImpl extends BaseServiceImpl<TeacherArchive> i
 	public TeacherArchive findByTeaId(String teacherId) throws Exception {
 		return getUnique("TeacherArchive", new String[]{"teacher.teacherId"}, new String[]{teacherId});
 	}
+
+	@Override
+	public List<TeacherArchive> findByDept(String dept_id) throws Exception {
+		return findByWhere("TeacherArchive", new String[]{"teacher.department.id", "isPass"}, new String[]{dept_id, "0"}, new String[]{"updateDate"}, new String[]{"DESC"});
+	}
 	
 }
