@@ -49,7 +49,10 @@ public class Teacher implements Serializable{
 	
 	@ManyToOne(targetEntity = Department.class)
 	@JoinColumn(name="DEPT_ID",updatable=false)
-	private Department department;
+	private Department department;		//所属机构
+	
+	@Column(name = "ROLE")
+	private String role;				//角色  teacher  manager  admin (教师、系部管理员、管理员)
 	
 	@Column(name = "IS_DELETE")
 	private Integer isDelete;			//删除
@@ -124,6 +127,14 @@ public class Teacher implements Serializable{
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
 	}
 	
 	
