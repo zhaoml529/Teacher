@@ -9,6 +9,45 @@
   <meta name="keywords" content="" />
   <meta name="description" content="" />
   <meta name="viewport" content="width=device-width">  
+  <link rel="stylesheet" href="${ctx}/css/messenger.css" type="text/css" />
+  <link rel="stylesheet" href="${ctx}/css/messenger-theme-flat.css" type="text/css" />
+  <script type="text/javascript" src="${ctx}/js/messenger.min.js"></script>
+  <script type="text/javascript" src="${ctx}/js/messenger-theme-flat.js"></script>
+  <script type="text/javascript">
+    $(function(){
+    	var msg = '';
+    	now = new Date(),hour = now.getHours() 
+        if(hour < 6){msg = "凌晨好！"} 
+        else if (hour < 9){msg = "早上好！"} 
+        else if (hour < 12){msg = "上午好！"} 
+        else if (hour < 14){msg = "中午好！"} 
+        else if (hour < 17){msg = "下午好！"} 
+        else if (hour < 19){msg = "傍晚好！"} 
+        else if (hour < 22){msg = "晚上好！"} 
+        else {msg = "夜里好！"} 
+    	
+	  	Messenger.options = {
+		    extraClasses: 'messenger-fixed messenger-on-bottom messenger-on-right',
+		    theme: 'flat'
+		}
+	  	Messenger().post({
+  		  message: msg+"${user.teacherName}<br/>您上次登录时间为 :${user.lgoinDate}",
+	  	  hideAfter: 8,
+	  	  status: 500,
+	  	  hideOnNavigate: true,
+	  	  showCloseButton: true,
+	  	action: function(opts) {
+	  	      return opts.error({
+	  	        status: 500,
+	  	        readyState: 0,
+	  	        responseText: 0
+	  	      });
+	  	}
+	  	});
+
+    });
+    
+  </script>
  <%--  <script type="text/javascript" src="${ctx}/js/calendar.js"></script> --%>  
  <script>
 
