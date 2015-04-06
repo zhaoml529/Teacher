@@ -14,6 +14,7 @@ public class Constants {
 	/***************** session key *****************/
     public static final String USER = "user";
     public static final String USER_ID = "user_id";
+    public static final String ROLE = "role";
     
 	/***************** default password (123456) *****************/
 	public static final String DEFAULT_PASSWORD = "14e1b600b1fd579f47433b88e8d85291";
