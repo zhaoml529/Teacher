@@ -42,7 +42,7 @@
 			  </textarea>
 			  </div>
 	          </div>
-	          <div class="panel-footer"><button type="submit" class="btn btn-primary btn-sm">发布</button></div>
+	          <div class="panel-footer"><button type="submit" class="btn btn-success btn-sm">发布</button></div>
           </div>
           </form:form>
           </div><!-- row-fluid -->

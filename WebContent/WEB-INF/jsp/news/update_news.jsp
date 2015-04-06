@@ -41,7 +41,7 @@
 			  </textarea>
 			  </div>
 	          </div>
-	          <div class="panel-footer"><button type="submit" class="btn btn-primary btn-sm">修改</button></div>
+	          <div class="panel-footer"><button type="submit" class="btn btn-success btn-sm">修改</button></div>
           </div>
           </form:form>
           </div><!-- row-fluid -->
