@@ -3,6 +3,7 @@ package com.lyd.soft.action;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -27,6 +28,7 @@ import com.lyd.soft.entity.TeacherArchive;
 import com.lyd.soft.service.ITeacherArchiveService;
 import com.lyd.soft.util.BeanUtils;
 import com.lyd.soft.util.Constants;
+import com.lyd.soft.util.StringUtils;
 import com.lyd.soft.util.UserUtils;
 
 /**
@@ -48,7 +50,7 @@ public class TeacherArchiveAction {
 		String teacherId = teacher.getTeacherId();
 		if(!BeanUtils.isBlank(teacherId)){
 			TeacherArchive ta = this.itaService.findByTeaId(teacherId);
-			model.addAttribute("entity", ta);
+			model.addAttribute("teacher", ta);
 		}else{
 			logger.debug("教师id为空！");
 		}
@@ -75,6 +77,7 @@ public class TeacherArchiveAction {
 		SimpleDateFormat df = new SimpleDateFormat("MMddSSS");
 		String id = df.format(new Date()).toString();
 		teacherArchive.setArchiveNumber(id);
+		teacherArchive.setIsPass(0);
 		teacherArchive.setCreateDate(new Date());
 		teacherArchive.setUpdateUser(user);
 		teacherArchive.setIsDelete(0);
@@ -142,7 +145,40 @@ public class TeacherArchiveAction {
 			logger.error("图片格式不正确！");
 			return "fail";
 		}
-		
-		  
 	}
+	
+	/**
+	 * 系部管理员查看待审批的个人档案
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/toApprovalList")
+	public String toApprovalList(Model model, HttpSession session) throws Exception{
+		Teacher user = UserUtils.getUserFromSession(session);
+		Integer dept_id = user.getDepartment().getId();
+		if(!BeanUtils.isBlank(dept_id)){
+			List<TeacherArchive> list = this.itaService.findByDept(dept_id.toString());
+			model.addAttribute("list", list);
+		}
+		return "/teacher/approvalList";
+	}
+	
+	/**
+	 * 审核个人档案
+	 * @param id
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/toApproval/{id}")
+	public String approval(@PathVariable("id") Integer id, Model model) throws Exception{
+		if(!BeanUtils.isBlank(id)){
+			TeacherArchive ta = this.itaService.findById(id.toString());
+			model.addAttribute("teacher", ta);
+		}else{
+			logger.error("The teacherArchive id is empty!");
+		}
+		return "/teacher/toApproval";
+	}
+
 }
