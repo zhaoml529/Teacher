@@ -133,6 +133,9 @@ public class TeacherArchive implements Serializable {
 	@Column(name = "EVIDENCE_NUMBER")
 	private String evidenceNumber;			//佐证证件及编号
 	
+	@Column(name = "REMARK")
+	private String remark;					//备注
+	
 	@Column(name = "IS_PASS")
 	private Integer isPass;					//系部管理员审核
 
@@ -466,7 +469,36 @@ public class TeacherArchive implements Serializable {
 	public void setUpdateUser(Teacher updateUser) {
 		this.updateUser = updateUser;
 	}
-	
+
+
+	public String getTeacherPic() {
+		return teacherPic;
+	}
+
+
+	public void setTeacherPic(String teacherPic) {
+		this.teacherPic = teacherPic;
+	}
+
+
+	public String getRemark() {
+		return remark;
+	}
+
+
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+
+
+	public Integer getIsPass() {
+		return isPass;
+	}
+
+
+	public void setIsPass(Integer isPass) {
+		this.isPass = isPass;
+	}
 	
 	
 }
