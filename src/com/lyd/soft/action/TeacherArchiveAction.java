@@ -55,7 +55,7 @@ public class TeacherArchiveAction {
 		String teacherId = teacher.getTeacherId();
 		if(!BeanUtils.isBlank(teacherId)){
 			TeacherArchive ta = this.itaService.findByTeaId(teacherId);
-			model.addAttribute("teacher", ta);
+			model.addAttribute("teacherArchive", ta);
 		}else{
 			logger.debug("教师id为空！");
 		}
@@ -64,8 +64,8 @@ public class TeacherArchiveAction {
 	
 	@RequestMapping(value = "/toAdd")
 	public String toAdd(Model model){
-		if(!model.containsAttribute("teacherArchiver")){
-			model.addAttribute("teacherArchiver", new TeacherArchive());
+		if(!model.containsAttribute("teacherArchive")){
+			model.addAttribute("teacherArchive", new TeacherArchive());
 		}
 		return "teacher/add_teacherArchive";
 	}
@@ -95,10 +95,10 @@ public class TeacherArchiveAction {
 	
 	@RequestMapping(value = "/toUpdate/{id}")
 	public String toUpdate(@PathVariable("id") Integer id, Model model) throws Exception{
-		if(!model.containsAttribute("teacherArchiver")){
+		if(!model.containsAttribute("teacherArchive")){
 			if(!BeanUtils.isBlank(id)){
 				TeacherArchive ta = this.itaService.findById(id.toString());
-				model.addAttribute("teacher", ta);
+				model.addAttribute("teacherArchive", ta);
 			}else{
 				logger.info("id 为空！");
 			}
@@ -191,7 +191,7 @@ public class TeacherArchiveAction {
 	public String doApproval(@PathVariable("id") Integer id, Model model) throws Exception{
 		if(!BeanUtils.isBlank(id)){
 			TeacherArchive ta = this.itaService.findById(id.toString());
-			model.addAttribute("teacher", ta);
+			model.addAttribute("teacherArchive", ta);
 		}else{
 			logger.error("The teacherArchive id is empty!");
 		}

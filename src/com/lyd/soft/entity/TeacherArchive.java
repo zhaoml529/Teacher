@@ -13,7 +13,12 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
 /**
@@ -51,86 +56,111 @@ public class TeacherArchive implements Serializable {
 	
 	//统计
 	@Column(name = "SEX")
+	@NotNull(message = "{ta.sex.not.empty}")
 	private Integer sex;			//0.female女 1.male  男
 	
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "BIRTHDAY")
+	@NotNull(message="{ta.birthday.not.empty}")
 	private Date birthday;			//出生日期
 	
 	@Column(name = "NATIVE_PLACE")
+	@NotEmpty(message="{ta.nativePlace.not.empty}")
 	private String nativePlace;		//籍贯
 	
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "WORK_DATE")
+	@NotNull(message="{ta.workDate.not.empty}")
 	private Date workDate;			//参加工作时间
 	
 	@Column(name = "ID_NUMBER")
+	@NotEmpty(message="{ta.IDNumber.not.empty}")
+	@Length(max = 18, message = "{ta.IDNumber.length.illegal}")
 	private String IDNumber;		//身份证号码
 	
 	@Column(name = "POLITICL_STATUS")
+	@NotEmpty(message="{ta.politicalStatus.not.empty}")
 	private String politicalStatus;	//政治面貌
 	
 	@Column(name = "PHONE_NUMBER")
+	@NotEmpty(message="{ta.phoneNumber.not.empty}")
 	private String phoneNumber;		//联系电话
 	
 	@Column(name = "EMAIL")
+	@Email(message = "邮箱格式不正确！")
+	@NotEmpty(message="{ta.email.not.empty}")
 	private String email;			//个人邮箱
 	
 	@Column(name = "EDUCATION1")
+	@NotEmpty(message="{ta.education1.not.empty}")
 	private String education1;		//第一学历
 	
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "GET_EDUCATION1")
+	@NotNull(message="{ta.getEducation1.not.empty}")
 	private Date getEducation1;		//第一学历取得时间
 	
 	@Column(name = "GRADUATE_SCHOOL1")
+	@NotEmpty(message="{ta.graSchool1.not.empty}")
 	private String graSchool1;		//第一学历毕业院校graduateSchool
 	
 	@Column(name = "EDUCATION2")
+	@NotEmpty(message="{ta.education2.not.empty}")
 	private String education2;		//第二学历
 	
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "GET_EDUCATION2")
+	@NotNull(message="{ta.getEducation2.not.empty}")
 	private Date getEducation2;		//第二学历取得时间
 	
 	@Column(name = "GRADUATE_SCHOOL2")
+	@NotEmpty(message="{ta.graSchool2.not.empty}")
 	private String graSchool2;		//第二学历毕业院校graduateSchool
 	
 	//统计 1.学士 2.硕士 3.博士 4.专科 5.其他
 	@Column(name = "DEGREE")
+	@NotEmpty(message="{ta.degree.not.empty}")
 	private String degree;			//最高学位
 	
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "GET_DEGREE")
+	@NotNull(message="{ta.getDegree.not.empty}")
 	private Date getDegree;			//学位取得时间
 	
 	@Column(name = "PROFESSION_AREA")
+	@NotEmpty(message="{ta.professionArea.not.empty}")
 	private String professionArea;	//专业领域
 	
 	//统计1.一级甲等2.一级乙等3.二级甲等4.二级乙等5.三级甲等6.三级乙等
 	@Column(name = "MANDARIN_LEVEL")
+	@NotEmpty(message="{ta.mandarinLevel.not.empty}")
 	private String mandarinLevel;	//普通话水平
 	
 	//统计  1.教授 2.副教授 3.讲 师 4.助理讲师
 	@Column(name = "TECHNICAL_POSITION")
+	@NotEmpty(message="{ta.technicalPosition.not.empty}")
 	private String technicalPosition;		//技术职务等级
 	
 	//1.是  0.否
 	@Column(name = "IS_DOUBLE_TEACHERS")
+	@NotNull(message="{ta.isDoubleTeachers.not.empty}")
 	private Integer isDoubleTeachers;		//是否为双师型教师
 	
 	@Column(name = "IS_BACKBONE")
+	@NotNull(message="{ta.isBackbone.not.empty}")
 	private Integer isBackbone;				//是否为骨干教师
 	
 	@Column(name = "IS_SUBJECT_LEADER")
+	@NotNull(message="{ta.isSubjectLeader.not.empty}")
 	private Integer isSubjectLeader;		//是否为学科带头人
 	
 	@Column(name = "EVIDENCE_NUMBER")
+	@NotEmpty(message="{ta.evidenceNumber.not.empty}")
 	private String evidenceNumber;			//佐证证件及编号
 	
 	@Column(name = "REMARK")
