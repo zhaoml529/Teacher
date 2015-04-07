@@ -1,7 +1,7 @@
 KindEditor.ready(function(K) {
-	var editor1 = K.create('textarea[name="content"]', {
-		uploadJson : 'uploadJson/file_upload',
-		fileManagerJson : 'uploadJson/file_manager',
+	var editor1 = K.create('textarea[name="content",name="remark",name="beizhu"]', {
+		uploadJson : "../../uploadJson/file_upload",
+		fileManagerJson : "../../uploadJson/file_manager",
 		minWidth : '500px',
 		allowFileManager : true,
 		items : [

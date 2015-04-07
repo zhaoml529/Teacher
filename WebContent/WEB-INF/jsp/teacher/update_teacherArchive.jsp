@@ -82,8 +82,9 @@
 				<span class="glyphicon glyphicon-user"></span>&nbsp;个人档案&nbsp;<span class="caret"></span>
 		  </blockquote>
           <div class="row-fluid">
-          <form:form action="${ctx }/teacherArchiveAction/doAdd" modelAttribute="teacherArchive" method="POST">
+          <form:form action="${ctx }/teacherArchiveAction/doUpdate" modelAttribute="teacherArchive" method="POST">
           <input type="hidden" name="teacher.teacherId" value="${user.teacherId }"/>
+          <input type="hidden" name="id" value="${teacher.id }"/>
           <div class="panel panel-default"> 
 	          <div class="panel-body">
 	          <div class="table-responsive">
@@ -314,14 +315,14 @@
 			  	<tr>
 			  		<td colspan="4">
 			  			<textarea id="editor_id1" class="form-control" name="remark" rows="3" cols="20">
-							&lt;strong&gt;备注&lt;/strong&gt;
+							${teacher.remark }
 						</textarea>
 			  		</td>
 			  	</tr>
 			  </table>
 	          </div>
 	          </div>
-	          <div class="panel-footer"><button type="submit" class="btn btn-success btn-sm">添加</button></div>
+	          <div class="panel-footer"><button type="submit" class="btn btn-success btn-sm">修改</button></div>
           </div>
           </form:form>
           </div><!-- row-fluid -->

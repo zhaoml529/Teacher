@@ -2,6 +2,7 @@ package com.lyd.soft.action;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -22,14 +23,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.lyd.soft.entity.SysMsg;
 import com.lyd.soft.entity.Teacher;
 import com.lyd.soft.entity.TeacherArchive;
+import com.lyd.soft.pagination.Pagination;
+import com.lyd.soft.pagination.PaginationThreadUtils;
 import com.lyd.soft.service.ITeacherArchiveService;
 import com.lyd.soft.util.BeanUtils;
 import com.lyd.soft.util.Constants;
-import com.lyd.soft.util.StringUtils;
 import com.lyd.soft.util.UserUtils;
+import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
 
 /**
  * 教师基本档案
@@ -69,6 +74,7 @@ public class TeacherArchiveAction {
 	public String doAdd(@ModelAttribute("teacherArchive") @Valid TeacherArchive teacherArchive,
 						BindingResult results,
 						Model model,
+						HttpServletRequest request,
 						HttpSession session ) throws Exception{
 		if(results.hasErrors()){
 			return toAdd(model);
@@ -77,10 +83,12 @@ public class TeacherArchiveAction {
 		SimpleDateFormat df = new SimpleDateFormat("MMddSSS");
 		String id = df.format(new Date()).toString();
 		teacherArchive.setArchiveNumber(id);
-		teacherArchive.setIsPass(0);
+		teacherArchive.setIsPass(Constants.WAITING_FOR_APPROVAL);
 		teacherArchive.setCreateDate(new Date());
 		teacherArchive.setUpdateUser(user);
 		teacherArchive.setIsDelete(0);
+		String teacherPic = request.getParameter("pictureUrl");
+		teacherArchive.setTeacherPic(teacherPic);
 		this.itaService.doAdd(teacherArchive);
 		return "redirect:/teacherArchiveAction/details";
 	}
@@ -90,7 +98,7 @@ public class TeacherArchiveAction {
 		if(!model.containsAttribute("teacherArchiver")){
 			if(!BeanUtils.isBlank(id)){
 				TeacherArchive ta = this.itaService.findById(id.toString());
-				model.addAttribute("teacherArchiver", ta);
+				model.addAttribute("teacher", ta);
 			}else{
 				logger.info("id 为空！");
 			}
@@ -99,17 +107,22 @@ public class TeacherArchiveAction {
 	}
 	
 	@RequestMapping(value = "/doUpdate")
-	public String doUpdate(@ModelAttribute("teacherArchivel") @Valid TeacherArchive teacherArchivel,
+	public String doUpdate(@ModelAttribute("teacherArchive") @Valid TeacherArchive teacherArchive,
 							BindingResult results,
 							Model model,
+							HttpServletRequest request,
 							HttpSession session) throws Exception{
 		if(results.hasErrors()){
-			return toUpdate(teacherArchivel.getId(),model);
+			return toUpdate(teacherArchive.getId(),model);
 		}
 		Teacher updateUser = UserUtils.getUserFromSession(session);
-		teacherArchivel.setUpdateDate(new Date());
-		teacherArchivel.setUpdateUser(updateUser);
-		this.itaService.doUpdate(teacherArchivel);
+		teacherArchive.setUpdateDate(new Date());
+		teacherArchive.setUpdateUser(updateUser);
+		teacherArchive.setIsPass(Constants.WAITING_FOR_APPROVAL);
+		teacherArchive.setIsDelete(0);
+		String teacherPic = request.getParameter("pictureUrl");
+		teacherArchive.setTeacherPic(teacherPic);
+		this.itaService.doUpdate(teacherArchive);
 		return "redirect:/teacherArchiveAction/details";
 	}
 	
@@ -123,22 +136,18 @@ public class TeacherArchiveAction {
 		//文件类型
 		String contentType = file.getContentType();
 		if(Constants.PICTURE_TYPE.contains(contentType)){
-			System.out.println(path);
 			String realPath = request.getSession().getServletContext().getRealPath("/");
 			SimpleDateFormat df = new SimpleDateFormat("MMddSSS");
 			String timestamp = df.format(new Date()).toString();
 			String photo_path = path+"/photo/"+user.getTeacherId()+"/";
-			System.out.println(realPath+photo_path);
 			File myFilePath = new File(realPath+photo_path);
 			if (!myFilePath.exists()) {  
 				myFilePath.mkdirs();
 			}
 			String photoName = file.getOriginalFilename();
-			System.out.println(contentType);
 			//文件后缀
 			String appden = photoName.substring(photoName.lastIndexOf('.'));
 			String fileName = timestamp+appden;
-			System.out.println(realPath+photo_path+fileName);
 			file.transferTo(new File(realPath+photo_path+fileName));
 			return photo_path+fileName;
 		}else{
@@ -152,33 +161,97 @@ public class TeacherArchiveAction {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/toApprovalList")
+	@RequestMapping(value = "/toApprovalList_page")
 	public String toApprovalList(Model model, HttpSession session) throws Exception{
 		Teacher user = UserUtils.getUserFromSession(session);
 		Integer dept_id = user.getDepartment().getId();
+		List<TeacherArchive> list = new ArrayList<TeacherArchive>();
 		if(!BeanUtils.isBlank(dept_id)){
-			List<TeacherArchive> list = this.itaService.findByDept(dept_id.toString());
+			list = this.itaService.findByDept(dept_id.toString(),Constants.PENDING);
+			Pagination pagination = PaginationThreadUtils.get();
+			model.addAttribute("page", pagination.getPageStr());
 			model.addAttribute("list", list);
 		}
-		return "/teacher/approvalList";
+		return "/teacher/list_approval";
 	}
 	
 	/**
-	 * 审核个人档案
+	 * 系部管理员跳转审核个人档案页面
 	 * @param id
 	 * @param model
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/toApproval/{id}")
-	public String approval(@PathVariable("id") Integer id, Model model) throws Exception{
+	@RequestMapping(value = "/doApproval/{id}")
+	public String doApproval(@PathVariable("id") Integer id, Model model) throws Exception{
 		if(!BeanUtils.isBlank(id)){
 			TeacherArchive ta = this.itaService.findById(id.toString());
 			model.addAttribute("teacher", ta);
 		}else{
 			logger.error("The teacherArchive id is empty!");
 		}
-		return "/teacher/toApproval";
+		return "/teacher/approval_teacherArchive";
+	}
+	
+	@RequestMapping(value = "/approval/{id}/{flag}")
+	public String approval(@PathVariable("id") Integer id, @PathVariable("flag") Boolean flag, Model model) throws Exception{
+		if(!BeanUtils.isBlank(id)){
+			TeacherArchive ta = this.itaService.findById(id.toString());
+			if(flag){
+				ta.setIsPass(Constants.APPROVAL_SUCCESS);
+			}else{
+				ta.setIsPass(Constants.APPROVAL_FAILED);
+			}
+			this.itaService.doUpdate(ta);
+		}else{
+			logger.error("The teacherArchive id is empty!");
+		}
+		return "redirect:/teacherArchiveAction/toApprovalList_page";
+	}
+	/**
+	 * 申请审批-ajax版本
+	 * @param id
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/toApproval_ajax/{id}")
+	@ResponseBody
+	public SysMsg toApprovalTest(@PathVariable("id") Integer id, Model model)throws Exception{
+		SysMsg msg = new SysMsg();
+		if(!BeanUtils.isBlank(id)){
+			TeacherArchive ta = this.itaService.findById(id.toString());
+			if(ta == null){
+				msg.setFlag(false);
+				msg.setContent("您所修改的内容不存在！");
+			}else{
+				ta.setIsPass(Constants.PENDING);
+				this.itaService.doUpdate(ta);
+				msg.setFlag(true);
+			}
+		}else{
+			msg.setFlag(false);
+			msg.setContent("档案ID为空，不能修改！");
+		}
+		return msg;
+	}
+	
+	/**
+	 * 申请审批
+	 * @param id
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/toApproval/{id}")
+	public String toApproval(@PathVariable("id") Integer id, Model model, RedirectAttributes redirectAttribute) throws Exception{
+		if(!BeanUtils.isBlank(id)){
+			TeacherArchive ta = this.itaService.findById(id.toString());
+			ta.setIsPass(Constants.PENDING);
+			this.itaService.doUpdate(ta);
+			redirectAttribute.addFlashAttribute(Constants.MESSAGE, "申请审批成功！请等待系部管理员审核...");
+		}
+		return "redirect:/teacherArchiveAction/details";
 	}
 
 }

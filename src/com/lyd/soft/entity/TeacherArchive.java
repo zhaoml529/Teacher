@@ -137,7 +137,7 @@ public class TeacherArchive implements Serializable {
 	private String remark;					//备注
 	
 	@Column(name = "IS_PASS")
-	private Integer isPass;					//系部管理员审核
+	private String isPass;					//系部管理员审核
 
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "yyyy-MM-dd hh:mm")
@@ -491,14 +491,14 @@ public class TeacherArchive implements Serializable {
 	}
 
 
-	public Integer getIsPass() {
+	public String getIsPass() {
 		return isPass;
 	}
 
 
-	public void setIsPass(Integer isPass) {
+	public void setIsPass(String isPass) {
 		this.isPass = isPass;
 	}
-	
+
 	
 }

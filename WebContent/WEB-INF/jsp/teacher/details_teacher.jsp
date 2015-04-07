@@ -5,7 +5,7 @@
 <head>
 <meta charset="utf-8">
   <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><![endif]-->
-  <title>用户中心</title>
+  <title>个人档案</title>
   <meta name="keywords" content="" />
   <meta name="description" content="" />
   <meta name="viewport" content="width=device-width">
@@ -22,7 +22,7 @@
         <div class="templatemo-content">
 			<ol class="breadcrumb">
 			  <li><a href="index.html">主页</a></li>
-			  <li class="active">用户中心</li>
+			  <li class="active">个人档案</li>
 			</ol>
 			<blockquote>
 				<h4><span class="glyphicon glyphicon-user"></span>&nbsp;${user.teacherName } 的信息&nbsp;<span class="caret"></span></h4>

@@ -15,7 +15,7 @@ public interface ITeacherArchiveService {
 	
 	public List<TeacherArchive> toList() throws Exception;
 	
-	public List<TeacherArchive> findByDept(String dept_id) throws Exception;
+	public List<TeacherArchive> findByDept(String dept_id, String status) throws Exception;
 	
 	public TeacherArchive findByName(String name) throws Exception;
 	

@@ -5,7 +5,7 @@
 <head>
 <meta charset="utf-8">
   <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><![endif]-->
-  <title>个人档案</title>
+  <title>档案管理</title>
   <meta name="keywords" content="" />
   <meta name="description" content="" />
   <meta name="viewport" content="width=device-width">
@@ -33,32 +33,10 @@
   		$(function () { $("[data-toggle='tooltip']").tooltip(); });
   	 });
   
-     function toAdd(){
-    	 window.location.href="${ctx }/teacherArchiveAction/toAdd";
-     }	
-     //没用-ajax版本
-     function toApprovalTest( id ){
-    	 $.ajax({
-	            type: "POST",
-	            url: "${ctx }/teacherArchiveAction/toApproval",
-	            data: {id : id},
-	            success: function (data) {
-	            	if(data.flag){
-	            		alert("申请成功！请等待管理员的审核");
-	            	}else{
-	            		alert(data.content);
-	            	}
-	            }
-			});
+     function approval( id, flag ){
+    	 window.location.href="${ctx }/teacherArchiveAction/approval/"+id+"/"+flag;
      }
      
-     function toApproval( id ){
-    	 window.location.href="${ctx }/teacherArchiveAction/toApproval/"+id;
-     }
-     
-     function toUpdate( id ){
-    	 window.location.href="${ctx }/teacherArchiveAction/toUpdate/"+id;
-     }
   </script>
 </head>
 <body>
@@ -70,7 +48,8 @@
         <div class="templatemo-content">
 			<ol class="breadcrumb">
 			  <li><span class="glyphicon glyphicon-home"></span>&nbsp;<a href="${ctx }/loginAction/main">主页</a></li>
-			  <li class="active">个人档案</li>
+			  <li><a href="${ctx }/teacherArchiveAction/toApprovalList_page">档案管理</a></li>
+			  <li class="active">审批档案</li>
 			</ol>
 			<blockquote>
 				<span class="glyphicon glyphicon-user"></span>&nbsp;个人档案&nbsp;<span class="caret"></span>
@@ -94,16 +73,16 @@
 					  			个人档案信息
 					  			<c:choose>
 					  				<c:when test="${teacher.isPass == 'WAITING_FOR_APPROVAL' }">
-							  			<span class="label label-warning pull-right">待审核</span>
+							  			<span class="label label-warning pull-right">待审批</span>
 					  				</c:when>
 					  				<c:when test="${teacher.isPass == 'PENDING' }">
-							  			<span class="label label-info pull-right">审核中...</span>
+							  			<span class="label label-info pull-right">审批中...</span>
 					  				</c:when>
 					  				<c:when test="${teacher.isPass == 'APPROVAL_SUCCESS' }">
-							  			<span class="label label-success pull-right">审核通过</span>
+							  			<span class="label label-success pull-right">审批通过</span>
 					  				</c:when>
 					  				<c:when test="${teacher.isPass == 'APPROVAL_FAILED' }">
-							  			<span class="label label-danger pull-right">审核失败</span>
+							  			<span class="label label-danger pull-right">审批失败</span>
 					  				</c:when>
 					  			</c:choose>
 					  		</td>
@@ -250,20 +229,8 @@
 					  		</td>
 					  	</tr>
 					  </table>
-					  <c:choose>
-					  	<c:when test="${teacher.isPass == 'PENDING'}">
-					  		<button type="button" data-toggle="tooltip" data-placement="top" title="审核中请等待..." class="btn btn-success btn-sm">申请审核</button>
-					  		<button type="button" data-toggle="tooltip" data-placement="top" title="审核中不能修改" class="btn btn-success btn-sm">修改</button>
-					  	</c:when>
-					  	<c:when test="${teacher.isPass == 'APPROVAL_SUCCESS'}">
-					  		<button type="button" data-toggle="tooltip" data-placement="top" title="审核已通过" class="btn btn-success btn-sm">申请审核</button>
-					  		<button type="button" data-toggle="tooltip" data-placement="top" title="审核已通过不能修改" class="btn btn-success btn-sm">修改</button>
-					  	</c:when>
-					  	<c:otherwise>
-					  		<button type="button" onclick="toApproval('${teacher.id}');" class="btn btn-success btn-sm">申请审核</button>
-					  		<button type="button" onclick="toUpdate('${teacher.id}');" class="btn btn-success btn-sm">修改</button>
-					  	</c:otherwise>
-					  </c:choose>
+					  <button type="button" onclick="approval('${teacher.id}',true);" class="btn btn-success btn-sm">通过</button>
+			  		  <button type="button" onclick="approval('${teacher.id}',false);" class="btn btn-danger btn-sm">不通过</button>
 	          	</c:otherwise>
 	          </c:choose>
 	          </div>

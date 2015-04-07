@@ -40,7 +40,7 @@
 	    </a>
 	    <ul class="templatemo-submenu">
 	      <li><a href="${ctx }/newsAction/toAdd">发布新闻</a></li>
-	      <li><a href="#">档案管理</a></li>
+	      <li><a href="${ctx }/teacherArchiveAction/toApprovalList_page">档案管理<span class="badge">42</span></a></li>
 	    </ul>
 	  </li>
   </c:if>

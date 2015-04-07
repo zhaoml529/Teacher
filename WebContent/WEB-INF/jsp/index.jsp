@@ -34,15 +34,7 @@
   		  message: msg+"${user.teacherName}<br/>您上次登录时间为 :${user.lgoinDate}",
 	  	  hideAfter: 8,
 	  	  status: 500,
-	  	  hideOnNavigate: true,
 	  	  showCloseButton: true,
-	  	action: function(opts) {
-	  	      return opts.error({
-	  	        status: 500,
-	  	        readyState: 0,
-	  	        responseText: 0
-	  	      });
-	  	}
 	  	});
 
     });

@@ -60,8 +60,8 @@ public class TeacherArchiveServiceImpl extends BaseServiceImpl<TeacherArchive> i
 	}
 
 	@Override
-	public List<TeacherArchive> findByDept(String dept_id) throws Exception {
-		return findByWhere("TeacherArchive", new String[]{"teacher.department.id", "isPass"}, new String[]{dept_id, "0"}, new String[]{"updateDate"}, new String[]{"DESC"});
+	public List<TeacherArchive> findByDept(String dept_id, String status) throws Exception {
+		return findByPage("TeacherArchive", new String[]{"teacher.department.id", "isPass"}, new String[]{dept_id, status}, new String[]{"updateDate"}, new String[]{"DESC"});
 	}
 	
 }
