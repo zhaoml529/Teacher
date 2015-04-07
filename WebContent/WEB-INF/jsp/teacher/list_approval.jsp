@@ -46,20 +46,21 @@
 		  <table class="table table-striped table-hover table-bordered">
             <thead>
               <tr>
-                <th>教师ID</th>
-                <th>教师姓名</th>
-                <th>申请时间</th>
-                <th align="center">
+                <th width="30%">教师ID</th>
+                <th width="25%">教师姓名</th>
+                <th width="25%">申请时间</th>
+                <th style="text-align: left; width: 20%">
                 	<div class="btn-group">
-					  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+					  <button type="button" class="btn btn-default  btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 					    操作 <span class="caret"></span>
 					  </button>
 					  <ul class="dropdown-menu" role="menu">
-					    <li><a href="#">Action</a></li>
-					    <li><a href="#">Another action</a></li>
-					    <li><a href="#">Something else here</a></li>
+					    <li><a href="${ctx }/teacherArchiveAction/toApprovalList_page?status=APPROVAL_SUCCESS">已通过</a></li>
+					    <li><a href="${ctx }/teacherArchiveAction/toApprovalList_page?status=APPROVAL_FAILED">未通过</a></li>
+					    <li><a href="${ctx }/teacherArchiveAction/toApprovalList_page?status=WAITING_FOR_APPROVAL">待审核</a></li>
+					    <li><a href="${ctx }/teacherArchiveAction/toApprovalList_page?status=PENDING">审核中</a></li>
 					    <li class="divider"></li>
-					    <li><a href="#">Separated link</a></li>
+					    <li><a href="${ctx }/teacherArchiveAction/toApprovalList_page">刷新列表</a></li>
 					  </ul>
 					</div>
                 </th>
@@ -71,8 +72,10 @@
             		<td>${teacher.teacher.teacherId }</td>
             		<td>${teacher.teacherName }</td>
             		<td>${teacher.updateDate }</td>
-            		<td>
-            			<button type="button" onclick="approval('${teacher.id}');" class="btn btn-success btn-sm">审核</button>
+            		<td align="center">
+					  	<c:if test="${teacher.isPass == 'PENDING' }">
+	            			<button type="button" onclick="approval('${teacher.id}');" class="btn btn-success btn-sm">审核</button>
+					  	</c:if>
             		</td>
             	</tr>
             </c:forEach>

@@ -33,8 +33,8 @@ import com.lyd.soft.pagination.PaginationThreadUtils;
 import com.lyd.soft.service.ITeacherArchiveService;
 import com.lyd.soft.util.BeanUtils;
 import com.lyd.soft.util.Constants;
+import com.lyd.soft.util.StringUtils;
 import com.lyd.soft.util.UserUtils;
-import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
 
 /**
  * 教师基本档案
@@ -162,18 +162,23 @@ public class TeacherArchiveAction {
 	 * @throws Exception
 	 */
 	@RequestMapping(value = "/toApprovalList_page")
-	public String toApprovalList(Model model, HttpSession session) throws Exception{
+	public String toApprovalList(@RequestParam(value="status", required=false) String status, Model model, HttpSession session) throws Exception{
 		Teacher user = UserUtils.getUserFromSession(session);
 		Integer dept_id = user.getDepartment().getId();
 		List<TeacherArchive> list = new ArrayList<TeacherArchive>();
 		if(!BeanUtils.isBlank(dept_id)){
-			list = this.itaService.findByDept(dept_id.toString(),Constants.PENDING);
+			if(StringUtils.isBlank(status)){
+				list = this.itaService.findByDept(dept_id.toString(),Constants.PENDING);
+			}else{
+				list = this.itaService.findByDept(dept_id.toString(),status);
+			}
 			Pagination pagination = PaginationThreadUtils.get();
 			model.addAttribute("page", pagination.getPageStr());
 			model.addAttribute("list", list);
 		}
 		return "/teacher/list_approval";
 	}
+	
 	
 	/**
 	 * 系部管理员跳转审核个人档案页面
