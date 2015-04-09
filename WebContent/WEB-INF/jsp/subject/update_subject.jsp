@@ -35,19 +35,23 @@
         <div class="templatemo-content">
           <ol class="breadcrumb">
             <li><span class="glyphicon glyphicon-home"></span>&nbsp;<a href="${ctx }/loginAction/main">首页</a></li>
-            <li><a href="#">课题添加</a></li>
+            <li><a href="#">课题修改</a></li>
           </ol>
           <blockquote>
-				<span class="glyphicon glyphicon-th-list"></span>&nbsp;课题添加&nbsp;<span class="caret"></span>
+				<span class="glyphicon glyphicon-th-list"></span>&nbsp;课题修改&nbsp;<span class="caret"></span>
 		  </blockquote>
           <div class="row-fluid">
           
-          <form:form action="${ctx }/subjectAction/doAdd" modelAttribute="subject" method="POST">
+          <form:form action="${ctx }/subjectAction/doUpdate" modelAttribute="subject" method="POST">
           <input type="hidden" name="teacher.teacherId" value="${user.teacherId }"/>
+          <input type="hidden" name="id" value="${subject.id }"/>
+          <input type="hidden" name="subId" value="${subject.subId }"/>
+          <input type="hidden" name="isDelete" value="${subject.isDelete }"/>
+          <input type="hidden" name="createDate" value="<fmt:formatDate value='${subject.createDate }' type='both'/>"/>
           <div class="table-responsive">
           	<table class="table table-bordered table-condensed">
 		  	<tr class="active">
-		  		<td colspan="2" align="center">添加课题信息</td>
+		  		<td colspan="2" align="center">修改课题信息</td>
 		  	</tr>
 		  	<tr>
 		  		<td>课题名称</td>
@@ -78,13 +82,13 @@
 		  	<tr>
 		  		<td colspan="2">
 		  			<textarea id="editor_id1" class="form-control" name="remark" rows="3" cols="20">
-						&lt;strong&gt;备注&lt;/strong&gt;
+						${subject.remark }
 					</textarea>
 		  		</td>
 		  	</tr>
 		  	</table>
           </div>
-		  	<button type="submit" class="btn btn-success btn-sm">添加</button>
+		  	<button type="submit" class="btn btn-success btn-sm">修改</button>
 	      </form:form>
           	
           </div><!-- row-fluid -->

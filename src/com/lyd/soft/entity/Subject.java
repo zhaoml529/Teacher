@@ -13,7 +13,9 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
 
@@ -44,23 +46,42 @@ public class Subject implements Serializable {
 	private String subId;			//课题编号
 	
 	@Column(name = "SUB_NAME")
+	@NotEmpty(message = "{subject.subName.not.empty}")
 	private String subName;			//课题名称
 	
 	@Column(name = "SUB_DATE")
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@NotNull(message = "{subject.subDate.not.empty}")
 	private Date subDate;		//立项时间
 	
 	@Column(name = "SUB_LEVEL")
+	@NotEmpty(message = "{subject.subLevel.not.empty}")
 	private String subLevel;		//课题级别
+	
+	@Column(name = "REMARK")
+	private String remark;					//备注
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@Column(name = "CREATE_DATE")
 	private Date createDate;		//创建时间
 	
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@Column(name = "UPDATE_DATE")
+	private Date updateDate;		//修改时间
+	
 	@Column(name = "IS_DELETE")
 	private Integer isDelete;		//删除
+	
+	public Subject(Integer id){
+		this.id = id;
+	}
+	
+	public Subject(){
+		
+	}
 	
 	public Integer getId() {
 		return id;
@@ -121,6 +142,30 @@ public class Subject implements Serializable {
 
 	public void setTeacher(Teacher teacher) {
 		this.teacher = teacher;
+	}
+
+	public Date getSubDate() {
+		return subDate;
+	}
+
+	public void setSubDate(Date subDate) {
+		this.subDate = subDate;
+	}
+
+	public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+
+	public Date getUpdateDate() {
+		return updateDate;
+	}
+
+	public void setUpdateDate(Date updateDate) {
+		this.updateDate = updateDate;
 	}
 	
 }

@@ -10,7 +10,6 @@
   <meta name="description" content="" />
   <meta name="viewport" content="width=device-width">
   <script type="text/javascript" src="${ctx}/kindeditor/kindeditor-min.js"></script>
-  <script type="text/javascript" src="${ctx}/js/kindeditor.js"></script>
   <script type="text/javascript">
 	  $(function(){
 	    $("#subDate").datetimepicker({
@@ -21,7 +20,14 @@
 	        todayBtn: true,
 	        todayHighlight: true,
 	        pickerPosition: "bottom-left"
-	    })
+	    });
+	    
+	    KindEditor.ready(function(K) {
+	    	editor = K.create('#editor_id', {
+	    		readonlyMode : true
+	    	});
+	    	editor.readonly();
+   	    });
 	  })
   </script>
 </head>
@@ -35,58 +41,44 @@
         <div class="templatemo-content">
           <ol class="breadcrumb">
             <li><span class="glyphicon glyphicon-home"></span>&nbsp;<a href="${ctx }/loginAction/main">首页</a></li>
-            <li><a href="#">课题添加</a></li>
+            <li><a href="#">课题详情</a></li>
           </ol>
           <blockquote>
-				<span class="glyphicon glyphicon-th-list"></span>&nbsp;课题添加&nbsp;<span class="caret"></span>
+				<span class="glyphicon glyphicon-th-list"></span>&nbsp;课题详情&nbsp;<span class="caret"></span>
 		  </blockquote>
           <div class="row-fluid">
-          
-          <form:form action="${ctx }/subjectAction/doAdd" modelAttribute="subject" method="POST">
-          <input type="hidden" name="teacher.teacherId" value="${user.teacherId }"/>
           <div class="table-responsive">
-          	<table class="table table-bordered table-condensed">
+          	<table class="table table-striped table-hover table-bordered">
 		  	<tr class="active">
-		  		<td colspan="2" align="center">添加课题信息</td>
+		  		<td colspan="2" align="center">课题信息</td>
 		  	</tr>
 		  	<tr>
 		  		<td>课题名称</td>
 		  		<td>
-		  			<form:errors path="subName" cssClass="valid_text"></form:errors>
-			    	<input type="text" name="subName" value="${subject.subName }" class="form-control" placeholder="Enter subName">
+		  			${subject.subName }
 		  		</td>
 		  	</tr>
 		  	<tr>
 		  		<td>立项时间</td>
 		  		<td>
-		  			<form:errors path="subDate" cssClass="valid_text"></form:errors>
-					<div class="input-group date form_datetime" id="subDate">
-						<div class="input-group">
-	                    <input name="subDate" class="form-control" type="text" value="<fmt:formatDate value="${subject.subDate }" type="date" />" readonly required />
-	                    <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
-						</div>
-	                </div>
+		  			<fmt:formatDate value="${subject.subDate }" type="date" />
 		  		</td>
 		  	</tr>
 		  	<tr>
 		  		<td>课题级别</td>
 		  		<td>
-		  			<form:errors path="subLevel" cssClass="valid_text"></form:errors>
-			    	<input type="text" name="subLevel" value="${subject.subLevel }" class="form-control" placeholder="Enter subLevel">
+		  			${subject.subLevel }
 		  		</td>
 		  	</tr>
 		  	<tr>
 		  		<td colspan="2">
-		  			<textarea id="editor_id1" class="form-control" name="remark" rows="3" cols="20">
-						&lt;strong&gt;备注&lt;/strong&gt;
+		  			<textarea id="editor_id" class="form-control" name="remark" rows="3" cols="20">
+						${subject.remark }
 					</textarea>
 		  		</td>
 		  	</tr>
 		  	</table>
           </div>
-		  	<button type="submit" class="btn btn-success btn-sm">添加</button>
-	      </form:form>
-          	
           </div><!-- row-fluid -->
           
 	  	</div>

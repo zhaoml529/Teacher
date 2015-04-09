@@ -13,7 +13,7 @@ public interface ISubjectService {
 	
 	public void doDelete(Subject entity) throws Exception;
 	
-	public List<Subject> toList() throws Exception;
+	public List<Subject> toList(String teaId, String orderBy) throws Exception;
 	
 	public Subject findById(Integer id) throws Exception;
 }
