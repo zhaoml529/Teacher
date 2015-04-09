@@ -71,6 +71,9 @@ public class Paper implements Serializable {
 	@Column(name = "CREATE_DATE")
 	private Date createDate;		//创建时间
 	
+	@Column(name = "TYPE")
+	private Integer type;			//类型 science：科学研究， teaching：教学研究
+	
 	@Column(name = "IS_DELETE")
 	private Integer isDelete;		//删除
 
