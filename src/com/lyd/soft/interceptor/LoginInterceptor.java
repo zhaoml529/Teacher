@@ -15,7 +15,6 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		HttpSession session = request.getSession();
-		System.out.println(request.getServletPath()+" -------------------------"+request.getParameterMap().size());
 		Teacher user = UserUtils.getUserFromSession(session);
 		if(!BeanUtils.isBlank(user)){
 			return true;
