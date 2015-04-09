@@ -41,12 +41,8 @@ public class SubjectAction {
 	
 	@RequestMapping(value = "/toList_page")
 	public String toList(@RequestParam(value = "orderBy", required = false) String orderBy,
-						@RequestParam(value="subId",required=false)String subId,
 						Model model,
-						HttpServletRequest request,
 						HttpSession session)throws Exception{
-		System.out.println(request.getParameter("subId")+"----"+subId);
-		System.out.println("  parametMapSize(): "+request.getParameterMap().size());
 		Teacher teacher = UserUtils.getUserFromSession(session);
 		String teacherId = teacher.getTeacherId();
 		if(!StringUtils.isBlank(teacherId)){
