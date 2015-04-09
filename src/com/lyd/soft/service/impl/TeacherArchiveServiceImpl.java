@@ -3,13 +3,11 @@ package com.lyd.soft.service.impl;
 import java.io.Serializable;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.lyd.soft.entity.TeacherArchive;
-import com.lyd.soft.service.IBaseService;
 import com.lyd.soft.service.ITeacherArchiveService;
 
 @Service
@@ -60,8 +58,9 @@ public class TeacherArchiveServiceImpl extends BaseServiceImpl<TeacherArchive> i
 	}
 
 	@Override
+	@Transactional(propagation=Propagation.NOT_SUPPORTED, readOnly=true)
 	public List<TeacherArchive> findByDept(String dept_id, String status) throws Exception {
-		return findByPage("TeacherArchive", new String[]{"teacher.department.id", "isPass"}, new String[]{dept_id, status}, new String[]{"updateDate"}, new String[]{"DESC"});
+		return findByPage("TeacherArchive", new String[]{"teacher.department.id", "isPass", "isDelete"}, new String[]{dept_id, status, "0"}, new String[]{"updateDate"}, new String[]{"DESC"});
 	}
 	
 }

@@ -9,23 +9,10 @@
   <meta name="keywords" content="" />
   <meta name="description" content="" />
   <meta name="viewport" content="width=device-width">
+  <script type="text/javascript" src="${ctx}/js/util.js"></script>
   <script type="text/javascript">
   	function approval( id ){
   		window.location.href="${ctx}/teacherArchiveAction/doApproval/"+id;
-  	}
-  	function doSearch(currentPage)
-  	{
-  		var pageNum = document.getElementById("pageNum").value;
-  		if(isNaN(pageNum))
-  		{
-  			alert("请输入正确的行数!");
-  		}
-  		else
-  		{
-  			document.getElementById('currentPage').value = currentPage;
-  			alert("pageNum: "+pageNum+"   currentPage: "+currentPage);
-  			document.forms[0].submit();
-  		}
   	}
   </script>
 </head>
@@ -43,6 +30,21 @@
           <blockquote>
 				<span class="glyphicon glyphicon-th-list"></span>&nbsp;档案管理&nbsp;<span class="caret"></span>
 		  </blockquote>
+		  <form action="${ctx }/teacherArchiveAction/toList_page" id="pageForm" method="post">
+		  <div class="table-responsive">
+		  <div class="btn-group pull-right">
+			  <button type="button" class="btn btn-default  btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+			    查看 <span class="caret"></span>
+			  </button>
+			  <ul class="dropdown-menu" role="menu">
+			    <li><a href="${ctx }/teacherArchiveAction/toApprovalList_page?status=APPROVAL_SUCCESS">已通过</a></li>
+			    <li><a href="${ctx }/teacherArchiveAction/toApprovalList_page?status=APPROVAL_FAILED">未通过</a></li>
+			    <li><a href="${ctx }/teacherArchiveAction/toApprovalList_page?status=WAITING_FOR_APPROVAL">待审核</a></li>
+			    <%-- <li><a href="${ctx }/teacherArchiveAction/toApprovalList_page?status=PENDING">审核中</a></li> --%>
+			    <li class="divider"></li>
+			    <li><a href="${ctx }/teacherArchiveAction/toApprovalList_page">刷新列表</a></li>
+			  </ul>
+			</div>
 		  <table class="table table-striped table-hover table-bordered">
             <thead>
               <tr>
@@ -50,19 +52,7 @@
                 <th width="25%">教师姓名</th>
                 <th width="25%">申请时间</th>
                 <th style="text-align: left; width: 20%">
-                	<div class="btn-group">
-					  <button type="button" class="btn btn-default  btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-					    操作 <span class="caret"></span>
-					  </button>
-					  <ul class="dropdown-menu" role="menu">
-					    <li><a href="${ctx }/teacherArchiveAction/toApprovalList_page?status=APPROVAL_SUCCESS">已通过</a></li>
-					    <li><a href="${ctx }/teacherArchiveAction/toApprovalList_page?status=APPROVAL_FAILED">未通过</a></li>
-					    <li><a href="${ctx }/teacherArchiveAction/toApprovalList_page?status=WAITING_FOR_APPROVAL">待审核</a></li>
-					    <li><a href="${ctx }/teacherArchiveAction/toApprovalList_page?status=PENDING">审核中</a></li>
-					    <li class="divider"></li>
-					    <li><a href="${ctx }/teacherArchiveAction/toApprovalList_page">刷新列表</a></li>
-					  </ul>
-					</div>
+                	操作
                 </th>
               </tr>
             </thead>
@@ -81,11 +71,11 @@
             </c:forEach>
           	</tbody>
           </table>
-		  <form action="${ctx }/teacherArchiveAction/toList_page" method="post">
 		  <div class="well well-sm">
 			  ${page }
 		  </div>
 		  </form>
+		  </div>
 	  	</div>
 	 </div>
 	</div>

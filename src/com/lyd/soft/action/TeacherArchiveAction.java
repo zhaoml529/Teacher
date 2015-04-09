@@ -258,5 +258,4 @@ public class TeacherArchiveAction {
 		}
 		return "redirect:/teacherArchiveAction/details";
 	}
-
 }

@@ -69,6 +69,7 @@
 </head>
 <body>
   <c:import url="../top.jsp" />
+  <input type="hidden" id="ctx" value="${ctx }"/>
   <div class="container"> 
     <div class="template-page-wrapper">
  	<c:import url="../menu.jsp" />
