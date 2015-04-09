@@ -23,7 +23,6 @@ public class PaginationInterceptor extends HandlerInterceptorAdapter {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		String uri = request.getRequestURI();
-		System.out.println(uri);
 		if (uri.endsWith("_page")) {
 			Pagination pagination = PaginationThreadUtils.get();
 			if (pagination == null) {

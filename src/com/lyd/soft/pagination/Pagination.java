@@ -7,7 +7,7 @@ public class Pagination {
 	private Integer currentPage = 1;
 	private Integer prePage = 0;
 	private Integer nextPage = 0;	
-	private Integer pageNumDefault = 2;
+	private Integer pageNumDefault = 10;
 	private Integer pageNum = null;
 	private Integer firstResult = 0;
 	private Integer maxResult = 0;

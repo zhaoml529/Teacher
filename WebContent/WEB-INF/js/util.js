@@ -201,3 +201,20 @@ function displayPart ( totalSum ) {
   
   //------------------------------------------------------------
   //end 站内信
+  
+  //分页
+  function doSearch(currentPage)
+  {
+  	var pageNum = document.getElementById("pageNum").value;
+  	if(isNaN(pageNum))
+  	{
+  		alert("请输入正确的行数!");
+  	}
+  	else
+  	{
+  		document.getElementById('currentPage').value = currentPage;
+  		document.getElementById("pageForm").submit();
+  		//此提交形式request获取不到内容，不知道什么原因
+  		//document.forms[0].submit();
+  	}
+  }
