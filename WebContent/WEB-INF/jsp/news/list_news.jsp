@@ -9,6 +9,7 @@
   <meta name="keywords" content="" />
   <meta name="description" content="" />
   <meta name="viewport" content="width=device-width">
+  <script type="text/javascript" src="${ctx}/js/util.js"></script>
 </head>
 <body onload="displayPart('${fn:length(newsList)}');">
   <c:import url="../top.jsp" />
@@ -24,6 +25,7 @@
           <blockquote>
 				<span class="glyphicon glyphicon-th-list"></span>&nbsp;新闻&nbsp;<span class="caret"></span>
 		  </blockquote>
+		  <form action="${ctx }/newsAction/toList_page" id="pageForm" method="post">
 		  <c:forEach items="${newsList }" var="news" varStatus="i">
 			  <div class="page-header">
 				 <h3>
@@ -46,8 +48,6 @@
 				 <a href="${ctx }/newsAction/details/${news.id }">Read more..</a>
 			  </div>	
 		  </c:forEach>
-		  <form action="${ctx }/newsAction/toList_page" method="post">
-		  <input type="hidden" name="newName" value="100">
 		  <div class="well well-sm">
 			  ${page }
 		  </div>

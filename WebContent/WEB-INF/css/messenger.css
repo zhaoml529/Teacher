@@ -81,6 +81,8 @@ ul.messenger.messenger-fixed.messenger-on-top, ul.messenger.messenger-fixed.mess
 ul.messenger.messenger-fixed.messenger-on-top.messenger-on-right, ul.messenger.messenger-fixed.messenger-on-bottom.messenger-on-right {
   right: 20px;
   left: auto;
+  /* ×Ô¶¨Òå */
+  margin-bottom: 30px;
 }
 /* line 68, ../../src/sass/messenger.sass */
 ul.messenger.messenger-fixed.messenger-on-top.messenger-on-left, ul.messenger.messenger-fixed.messenger-on-bottom.messenger-on-left {

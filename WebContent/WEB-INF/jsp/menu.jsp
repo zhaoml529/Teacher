@@ -13,7 +13,7 @@
 	    <ul class="templatemo-submenu">
 	      <!--宽度 templatemo_main.css 120  -->
 	      <!--li 背景颜色 templatemo_main.css 131  -->
-	      <li><a href="#">在研课题</a></li>
+	      <li><a href="${ctx }/subjectAction/toList_page">在研课题</a></li>
 	      <li><a href="#">发表论文</a></li>
 	      <li><a href="#">发表论著</a></li>             
 	      <li><a href="#">获奖情况</a></li>

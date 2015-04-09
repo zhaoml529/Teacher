@@ -37,7 +37,7 @@
 			  </div>
 	          <label class="control-label">新闻内容:</label>
 		      <div class="form-group">
-		      <textarea id="editor_id1" class="form-control" name="content" rows="3" cols="20">
+		      <textarea id="editor_id1" class="form-control" name="content" rows="20" cols="20">
 				&lt;strong&gt;新闻内容&lt;/strong&gt;
 			  </textarea>
 			  </div>
