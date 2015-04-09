@@ -12,12 +12,17 @@
 							http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
 							">
 	 <!-- springMVC.XML 表现层配置文件，只应加装表现层Bean -->
-	 
-	 <!-- 对包进行扫描，实现注释驱动Bean定义，同时将bean自动注入容器中使用。即解决了@Controller标识的类的bean的注入和使用。  -->
-	 <!-- <context:annotation-config/> -->
- 
  	<!-- 引入配置文件 --> 
 	<context:property-placeholder ignore-unresolvable="true" local-override="true" location="classpath:application.properties"/>
+	 
+	<!--开启controller注解支持,把标记了@Controller注解的类转换为bean -->    
+	<!-- 使用了 context:component-scan 标签 上面的 context:annotation-config 就不需要配置了 -->
+	<!-- 注：如果base-package=cn.zml 则注解事务不起作用 TODO 读源码 -->
+	<!-- 因为此处只应该加载表现层组件，如果此处还加载dao层或service层的bean会将之前容器加载的替换掉 -->
+	<!-- 而且此处不会进行AOP织入，所以会造成AOP失效问题（如事务不起作用） -->
+	<context:component-scan base-package="com.lyd.soft.action">
+	    <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+	</context:component-scan>
 	
 	<!-- 默认的注解映射的支持 -->  
     <mvc:annotation-driven validator="validator" conversion-service="conversion-service" />
@@ -35,20 +40,8 @@
         <property name="cacheSeconds" value="120"/>  
 	</bean> 
 	
-	<!--开启controller注解支持,把标记了@Controller注解的类转换为bean -->    
-	<!-- 使用了 context:component-scan 标签 上面的 context:annotation-config 就不需要配置了 -->
-	<!-- 注：如果base-package=cn.zml 则注解事务不起作用 TODO 读源码 -->
-	<!-- 因为此处只应该加载表现层组件，如果此处还加载dao层或service层的bean会将之前容器加载的替换掉 -->
-	<!-- 而且此处不会进行AOP织入，所以会造成AOP失效问题（如事务不起作用） -->
-	<context:component-scan base-package="com.lyd.soft.action">
-	    <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
-	</context:component-scan>
-	
 	<!-- 当访问主页时自动转发到/userAction/login_view控制器。 -->
 	<mvc:view-controller path="/" view-name="forward:/loginAction/login_view"/>
-	
-	<!-- restful -->
-	<bean class="org.springframework.web.servlet.view.BeanNameViewResolver"/>
 	
 	<!-- 视图处理器 -->
 	<bean id="jspViewResolver"  
@@ -91,29 +84,31 @@
 
 	<!-- 拦截器 -->
     <mvc:interceptors>
-		<mvc:interceptor>
+    	<mvc:interceptor>
 	    	<mvc:mapping path="/**" />
 	    	<mvc:exclude-mapping path="/"/>
 	    	<mvc:exclude-mapping path="/loginAction/login_view"/>
 	    	<mvc:exclude-mapping path="/loginAction/login"/>
-	    	<mvc:exclude-mapping path="/css/**"/>
-	    	<mvc:exclude-mapping path="/js/**"/>
-	    	<mvc:exclude-mapping path="/images/**"/>
-	    	<mvc:exclude-mapping path="/fonts/**"/>
-	    	<mvc:exclude-mapping path="/kindeditor/**"/>
-	    	<bean class="com.lyd.soft.interceptor.LoginInterceptor" />
-    	</mvc:interceptor>
-    	<mvc:interceptor>
-	    	<mvc:mapping path="/**/toList_page" />
-	    	<mvc:exclude-mapping path="/"/>
-	    	<mvc:exclude-mapping path="/loginAction/login_view"/>
-	    	<mvc:exclude-mapping path="/loginAction/login"/>
+	    	<mvc:exclude-mapping path="/loginAction/logout"/>
 	    	<mvc:exclude-mapping path="/css/**"/>
 	    	<mvc:exclude-mapping path="/js/**"/>
 	    	<mvc:exclude-mapping path="/images/**"/>
 	    	<mvc:exclude-mapping path="/fonts/**"/>
 	    	<mvc:exclude-mapping path="/kindeditor/**"/>
 	    	<bean class="com.lyd.soft.interceptor.PaginationInterceptor" />
+    	</mvc:interceptor>
+		<mvc:interceptor>
+	    	<mvc:mapping path="/**" />
+	    	<mvc:exclude-mapping path="/"/>
+	    	<mvc:exclude-mapping path="/loginAction/login_view"/>
+	    	<mvc:exclude-mapping path="/loginAction/login"/>
+	    	<mvc:exclude-mapping path="/loginAction/logout"/>
+	    	<mvc:exclude-mapping path="/css/**"/>
+	    	<mvc:exclude-mapping path="/js/**"/>
+	    	<mvc:exclude-mapping path="/images/**"/>
+	    	<mvc:exclude-mapping path="/fonts/**"/>
+	    	<mvc:exclude-mapping path="/kindeditor/**"/>
+	    	<bean class="com.lyd.soft.interceptor.LoginInterceptor" />
     	</mvc:interceptor>
     </mvc:interceptors>
 	<!-- 上传配置 -->
