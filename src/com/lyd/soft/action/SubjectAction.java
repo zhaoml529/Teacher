@@ -30,6 +30,11 @@ import com.lyd.soft.util.Constants;
 import com.lyd.soft.util.StringUtils;
 import com.lyd.soft.util.UserUtils;
 
+/**
+ * 课题
+ * @author LYD
+ *
+ */
 
 @Controller
 @RequestMapping("/subjectAction")
