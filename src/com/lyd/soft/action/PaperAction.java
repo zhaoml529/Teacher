@@ -14,6 +14,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.lyd.soft.entity.Paper;
@@ -21,6 +22,7 @@ import com.lyd.soft.entity.Teacher;
 import com.lyd.soft.pagination.Pagination;
 import com.lyd.soft.pagination.PaginationThreadUtils;
 import com.lyd.soft.service.IPaperService;
+import com.lyd.soft.util.BeanUtils;
 import com.lyd.soft.util.UserUtils;
 
 /**
@@ -37,17 +39,20 @@ public class PaperAction {
 	private IPaperService paperService;
 	
 	@RequestMapping(value = "/toAdd")
-	public String toAdd(Model model){
+	public String toAdd(@RequestParam(value = "type", required = false) Integer type, Model model){
 		if(!model.containsAttribute("paper")){
 			model.addAttribute("paper", new Paper());
 		}
+		model.addAttribute("type", type);
 		return "paper/add_paper";
 	}
 	
 	@RequestMapping(value = "/toUpdate/{id}")
 	public String toUpdate(@PathVariable("id") Integer id, Model model) throws Exception{
-		Paper paper = this.paperService.findById(id);
-		model.addAttribute("paper", paper);
+		if(!model.containsAttribute("paper")){
+			Paper paper = this.paperService.findById(id);
+			model.addAttribute("paper", paper);
+		}
 		return "paper/update_paper";
 	}
 	
@@ -74,8 +79,7 @@ public class PaperAction {
 			Model model) throws Exception{
 		
 		if(results.hasErrors()){
-			model.addAttribute("paper", paper);
-			return toAdd(model);
+			return toAdd(paper.getType(), model);
 		}
 		
 		Teacher teacher = UserUtils.getUserFromSession(session);
@@ -94,12 +98,12 @@ public class PaperAction {
 			Model model) throws Exception{
 		
 		if(results.hasErrors()){
-			model.addAttribute("paper", paper);
 			return toUpdate(paper.getId(), model);
 		}
 		
 		//页面hidden paperId  createDate
 		paper.setIsDelete(0);
+		paper.setUpdateDate(new Date());
 		this.paperService.doUpdate(paper);
 		model.addAttribute("paper", paper);
 		return "paper/details_paper";
@@ -115,8 +119,10 @@ public class PaperAction {
 	
 	@RequestMapping(value = "/doDelete/{id}")
 	public String doDelete(@PathVariable("id") Integer id, RedirectAttributes redirectAttributes) throws Exception{
-		Paper paper = this.paperService.findById(id);
-		this.paperService.doDelete(paper);
+		if(!BeanUtils.isBlank(id)){
+			this.paperService.doDelete(new Paper());
+			
+		}
 		redirectAttributes.addFlashAttribute("message", "删除成功！");
 		return "redirect:/paperAction/toList_page";
 	}

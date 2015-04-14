@@ -66,10 +66,18 @@ public class Paper implements Serializable {
 	@NotEmpty(message="{paper.periodical.name.not.empty}")
 	private String periodicalName;	//期刊名称
 	
+	@Column(name = "REMARK")
+	private String remark;					//备注
+	
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@Column(name = "CREATE_DATE")
 	private Date createDate;		//创建时间
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@Column(name = "UPDATE_DATE")
+	private Date updateDate;		//修改时间
 	
 	@Column(name = "TYPE")
 	private Integer type;			//类型 science：科学研究， teaching：教学研究
@@ -77,6 +85,14 @@ public class Paper implements Serializable {
 	@Column(name = "IS_DELETE")
 	private Integer isDelete;		//删除
 
+	public Paper(Integer id){
+		
+	}
+	
+	public Paper(){
+		
+	}
+	
 	public Integer getId() {
 		return id;
 	}
@@ -160,6 +176,30 @@ public class Paper implements Serializable {
 
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
+	}
+
+	public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+
+	public Integer getType() {
+		return type;
+	}
+
+	public void setType(Integer type) {
+		this.type = type;
+	}
+
+	public Date getUpdateDate() {
+		return updateDate;
+	}
+
+	public void setUpdateDate(Date updateDate) {
+		this.updateDate = updateDate;
 	}
 	
 }
