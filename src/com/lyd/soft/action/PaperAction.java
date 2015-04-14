@@ -67,7 +67,7 @@ public class PaperAction {
 		Pagination pagination = PaginationThreadUtils.get();
 		model.addAttribute("page", pagination.getPageStr());
 		model.addAttribute("paperList", paperList);
-		return "paper/paper_list";
+		return "paper/list_paper";
 	}
 	
 	@RequestMapping(value = "/doAdd")

@@ -76,14 +76,19 @@
 		  		<td>论文字数</td>
 		  		<td>
 		  			<form:errors path="wordCount" cssClass="valid_text"></form:errors>
-			    	<input type="text" name="wordCount" value="${paper.wordCount }" class="form-control" placeholder="Enter wordCount">
+		  			<div class="input-group">
+						<div class="input-group">
+	                    <input type="text" name="wordCount" value="${paper.wordCount }" class="form-control" placeholder="Enter wordCount">
+					      <div class="input-group-addon">万字</div>
+						</div>
+	                </div>
 		  		</td>
 		  	</tr>
 		  	<tr>
 		  		<td>作者顺序</td>
 		  		<td>
 		  			<form:errors path="author" cssClass="valid_text"></form:errors>
-			    	<input type="text" name="author" data-toggle="tooltip" data-placement="top" title="多个作者请用逗号','隔开"  value="${paper.author }" class="form-control" placeholder="Enter author">
+			    	<input type="text" name="author" data-toggle="tooltip" data-placement="top" title="多个作者请用逗号  ',' 隔开"  value="${paper.author }" class="form-control" placeholder="Enter author">
 		  		</td>
 		  	</tr>
 		  	<tr>

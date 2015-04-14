@@ -55,19 +55,19 @@
 		  	<tr>
 		  		<td>论文名称</td>
 		  		<td>
-		  			${subject.subName }
+		  			${paper.title }
 		  		</td>
 		  	</tr>
 		  	<tr>
 		  		<td>发表时间</td>
 		  		<td>
-		  			<fmt:formatDate value="${subject.subDate }" type="date" />
+		  			<fmt:formatDate value="${paper.publishDate }" type="date" />
 		  		</td>
 		  	</tr>
 		  	<tr>
 		  		<td>论文字数</td>
 		  		<td>
-		  			${subject.subLevel }
+		  			${paper.wordCount } 万字
 		  		</td>
 		  	</tr>
 		  	<tr>
@@ -91,7 +91,7 @@
 		  	<tr>
 		  		<td colspan="2">
 		  			<textarea id="editor_id" class="form-control" name="remark" rows="3" cols="20">
-						${subject.remark }
+						${paper.remark }
 					</textarea>
 		  		</td>
 		  	</tr>

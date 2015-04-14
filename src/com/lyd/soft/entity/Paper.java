@@ -13,6 +13,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -49,10 +51,12 @@ public class Paper implements Serializable {
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "PUBLISH_DATE")
-	@NotEmpty(message="{paper.publish.date.not.empty}")
+	@NotNull(message="{paper.publish.date.not.empty}")
 	private Date publishDate;		//发表时间
 	
 	@Column(name = "WORD_COUNT")
+	@NotEmpty(message="{paper.word.not.empty}")
+	@Pattern(regexp = "^[0-9]+(.[0-9]{1})?$", message = "{paper.word.not.correct}")
 	private Integer wordCount;		//字数
 	
 	@Column(name = "AUTHOR")

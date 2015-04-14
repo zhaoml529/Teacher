@@ -89,7 +89,7 @@
 		  	<c:choose>
 		  		<c:when test="${list== null || fn:length(list) == 0}">
 		  			<tr class="danger">
-		  				<td colspan="6" align="center">暂无数据</td>
+		  				<td colspan="7" align="center">暂无数据</td>
 		  			</tr>
 		  		</c:when>
 		  		<c:otherwise>
