@@ -61,6 +61,7 @@ public class PaperAction {
 	
 	@RequestMapping("/toList_page")
 	public String toList(@RequestParam(value = "orderBy", required = false) String orderBy,
+						@RequestParam(value = "type", required = false) String type,
 						HttpServletRequest request, 
 						HttpSession session, 
 						Model model) throws Exception {
@@ -68,13 +69,21 @@ public class PaperAction {
 			//form 表单用
 			model.addAttribute("paper", new Paper());
 		}
+		String params[] = new String[2];
 		Teacher user = UserUtils.getUserFromSession(session);
 		List<Paper> paperList = new ArrayList<Paper>();
-		if(!StringUtils.isBlank(orderBy)){
-			paperList = this.paperService.findByTeaId(user.getTeacherId().toString(), orderBy);
+		if(!StringUtils.isBlank(type)){
+			params[0] = type;
+			model.addAttribute("type", type);
 		}else{
-			paperList = this.paperService.findByTeaId(user.getTeacherId().toString(), "DESC");
+			params[0] = null;
 		}
+		if(!StringUtils.isBlank(orderBy)){
+			params[1] = orderBy;
+		}else{
+			params[1] = "DESC";
+		}
+		paperList = this.paperService.findByTeaId(user.getTeacherId().toString(), params);
 		Pagination pagination = PaginationThreadUtils.get();
 		model.addAttribute("page", pagination.getPageStr());
 		model.addAttribute("paperList", paperList);
