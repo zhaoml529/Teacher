@@ -15,4 +15,6 @@ public interface IAwardingService {
 	public List<Awarding> toList() throws Exception;
 	
 	public Awarding findById(Integer id) throws Exception;
+	
+	public List<Awarding> findByTeaId(String teacherId, String[] params) throws Exception;
 }
