@@ -63,9 +63,28 @@ public class Book implements Serializable {
 	@Column(name = "CREATE_DATE")
 	private Date createDate;		//创建时间
 	
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@Column(name = "UPDATE_DATE")
+	private Date updateDate;		//修改时间
+	
+	@Column(name = "REMARK")
+	private String remark;					//备注
+	
+	@Column(name = "TYPE")
+	private Integer type;			//类型 science：科学研究， teaching：教学研究
+	
 	@Column(name = "IS_DELETE")
 	private Integer isDelete;		//删除
 
+	public Book(){
+		
+	}
+	
+	public Book(Integer id){
+		this.id = id;
+	}
+	
 	public Integer getId() {
 		return id;
 	}
@@ -132,6 +151,38 @@ public class Book implements Serializable {
 
 	public void setTeacher(Teacher teacher) {
 		this.teacher = teacher;
+	}
+
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+
+	public Date getUpdateDate() {
+		return updateDate;
+	}
+
+	public void setUpdateDate(Date updateDate) {
+		this.updateDate = updateDate;
+	}
+
+	public Integer getType() {
+		return type;
+	}
+
+	public void setType(Integer type) {
+		this.type = type;
+	}
+
+	public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
 	}
 	
 }

@@ -16,4 +16,6 @@ public interface IBookService {
 	public List<Book> toList() throws Exception;
 	
 	public Book findById(Integer id) throws Exception;
+	
+	public List<Book> findByTeaId(String teacherId, String[] params) throws Exception;
 }
