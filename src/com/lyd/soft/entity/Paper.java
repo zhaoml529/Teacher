@@ -14,9 +14,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 
-import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 
 
@@ -45,7 +44,7 @@ public class Paper implements Serializable {
 	private Teacher teacher;	
 	
 	@Column(name = "TITLE")
-	@NotEmpty(message="{paper.title.not.empty}")
+	@NotBlank(message="{paper.title.not.empty}")
 	private String title;			//论文名称
 	
 	@Temporal(TemporalType.DATE)
@@ -55,19 +54,18 @@ public class Paper implements Serializable {
 	private Date publishDate;		//发表时间
 	
 	@Column(name = "WORD_COUNT")
-	@NotEmpty(message="{paper.word.not.empty}")
-	@Pattern(regexp = "^[0-9]+(.[0-9]{1})?$", message = "{paper.word.not.correct}")
-	private Integer wordCount;		//字数
+	@NotNull(message="{paper.word.not.empty}")
+	private Float wordCount;		//字数
 	
 	@Column(name = "AUTHOR")
 	private String author;			//作者顺序
 	
 	@Column(name = "PERIODICAL_LEVEL")
-	@NotEmpty(message="{paper.periodical.level.not.empty}")
+	@NotBlank(message="{paper.periodical.level.not.empty}")
 	private String periodicalLevel;	//期刊级别
 	
 	@Column(name = "PERIODICAL_NAME")
-	@NotEmpty(message="{paper.periodical.name.not.empty}")
+	@NotBlank(message="{paper.periodical.name.not.empty}")
 	private String periodicalName;	//期刊名称
 	
 	@Column(name = "REMARK")
@@ -90,7 +88,7 @@ public class Paper implements Serializable {
 	private Integer isDelete;		//删除
 
 	public Paper(Integer id){
-		
+		this.id = id;
 	}
 	
 	public Paper(){
@@ -122,11 +120,11 @@ public class Paper implements Serializable {
 		this.publishDate = publishDate;
 	}
 
-	public Integer getWordCount() {
+	public Float getWordCount() {
 		return wordCount;
 	}
 
-	public void setWordCount(Integer wordCount) {
+	public void setWordCount(Float wordCount) {
 		this.wordCount = wordCount;
 	}
 

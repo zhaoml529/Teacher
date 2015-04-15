@@ -1,5 +1,6 @@
 package com.lyd.soft.action;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -23,6 +24,8 @@ import com.lyd.soft.pagination.Pagination;
 import com.lyd.soft.pagination.PaginationThreadUtils;
 import com.lyd.soft.service.IPaperService;
 import com.lyd.soft.util.BeanUtils;
+import com.lyd.soft.util.Constants;
+import com.lyd.soft.util.StringUtils;
 import com.lyd.soft.util.UserUtils;
 
 /**
@@ -57,13 +60,21 @@ public class PaperAction {
 	}
 	
 	@RequestMapping("/toList_page")
-	public String toList(HttpServletRequest request, HttpSession session, Model model) throws Exception {
+	public String toList(@RequestParam(value = "orderBy", required = false) String orderBy,
+						HttpServletRequest request, 
+						HttpSession session, 
+						Model model) throws Exception {
 		if(!model.containsAttribute("paper")){
 			//form 表单用
 			model.addAttribute("paper", new Paper());
 		}
 		Teacher user = UserUtils.getUserFromSession(session);
-		List<Paper> paperList = this.paperService.findByTeaId(user.getTeacherId().toString());
+		List<Paper> paperList = new ArrayList<Paper>();
+		if(!StringUtils.isBlank(orderBy)){
+			paperList = this.paperService.findByTeaId(user.getTeacherId().toString(), orderBy);
+		}else{
+			paperList = this.paperService.findByTeaId(user.getTeacherId().toString(), "DESC");
+		}
 		Pagination pagination = PaginationThreadUtils.get();
 		model.addAttribute("page", pagination.getPageStr());
 		model.addAttribute("paperList", paperList);
@@ -87,13 +98,14 @@ public class PaperAction {
 		paper.setCreateDate(new Date());
 		paper.setIsDelete(0);
 		this.paperService.doAdd(paper);
-		redirectAttributes.addFlashAttribute("message", "添加成功！");
+		redirectAttributes.addFlashAttribute(Constants.MESSAGE, "添加成功！");
 		return "redirect:/paperAction/toList_page";
 	}
 	
 	@RequestMapping(value = "/doUpdate")
 	public String doUpdate(
 			@ModelAttribute("paper") @Valid Paper paper,BindingResult results,
+			RedirectAttributes redirectAttributes, 
 			HttpSession session,
 			Model model) throws Exception{
 		
@@ -106,10 +118,11 @@ public class PaperAction {
 		paper.setUpdateDate(new Date());
 		this.paperService.doUpdate(paper);
 		model.addAttribute("paper", paper);
-		return "paper/details_paper";
+		redirectAttributes.addFlashAttribute(Constants.MESSAGE, "修改成功！");
+		return "redirect:/paperAction/toList_page";
 	}
 	
-	@RequestMapping(value = "/details/id")
+	@RequestMapping(value = "/details/{id}")
 	public String details(@PathVariable("id") Integer id, Model model) throws Exception {
 		Paper paper = this.paperService.findById(id);
 		model.addAttribute("paper", paper);
@@ -120,10 +133,11 @@ public class PaperAction {
 	@RequestMapping(value = "/doDelete/{id}")
 	public String doDelete(@PathVariable("id") Integer id, RedirectAttributes redirectAttributes) throws Exception{
 		if(!BeanUtils.isBlank(id)){
-			this.paperService.doDelete(new Paper());
-			
+			this.paperService.doDelete(new Paper(id));
+			redirectAttributes.addFlashAttribute(Constants.MESSAGE, "删除成功！");
+		}else{
+			redirectAttributes.addFlashAttribute(Constants.MESSAGE, "删除失败，id为空！");
 		}
-		redirectAttributes.addFlashAttribute("message", "删除成功！");
 		return "redirect:/paperAction/toList_page";
 	}
 	

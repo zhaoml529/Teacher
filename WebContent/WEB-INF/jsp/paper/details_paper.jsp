@@ -29,6 +29,10 @@
 	    	editor.readonly();
    	    });
 	  })
+	  
+	  function back(){
+		  window.location.href="${ctx}/paperAction/toList_page";
+	  }
   </script>
 </head>
 <body>
@@ -97,6 +101,7 @@
 		  	</tr>
 		  	</table>
           </div>
+          <button type="submit" onclick="back();" class="btn btn-success btn-sm">返回</button>
           </div><!-- row-fluid -->
           
 	  	</div>

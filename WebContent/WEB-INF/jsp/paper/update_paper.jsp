@@ -103,13 +103,13 @@
 		  	<tr>
 		  		<td colspan="2">
 		  			<textarea id="editor_id1" class="form-control" name="remark" rows="3" cols="20">
-						&lt;strong&gt;备注&lt;/strong&gt;
+						${paper.remark }
 					</textarea>
 		  		</td>
 		  	</tr>
 		  	</table>
           </div>
-		  	<button type="submit" class="btn btn-success btn-sm">添加</button>
+		  	<button type="submit" class="btn btn-success btn-sm">修改</button>
 	      </form:form>
           	
           </div><!-- row-fluid -->

@@ -88,13 +88,13 @@
 		  		</td>
 		  	</tr>	 
 		  	<c:choose>
-		  		<c:when test="${list== null || fn:length(list) == 0}">
+		  		<c:when test="${paperList== null || fn:length(paperList) == 0}">
 		  			<tr class="danger">
 		  				<td colspan="8" align="center">暂无数据</td>
 		  			</tr>
 		  		</c:when>
 		  		<c:otherwise>
-				    <c:forEach items="${list }" var="paper">
+				    <c:forEach items="${paperList }" var="paper">
 					  	<tr>
 					  		<td><a href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="详情" onclick="details('${paper.id}')">${paper.id }</a></td>
 					  		<td>${paper.title }</td>

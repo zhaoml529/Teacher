@@ -33,7 +33,7 @@ public class SubjectServiceImpl extends BaseServiceImpl<Subject> implements ISub
 	@Override
 	@Transactional(propagation=Propagation.NOT_SUPPORTED, readOnly=true)
 	public List<Subject> toList(String teaId, String orderBy) throws Exception {
-		List<Subject> list = findByPage("Subject", new String[]{"teacher.teacherId","isDelete"}, new String[]{teaId, "0"}, new String[]{"createDate"}, new String[]{"DESC"});
+		List<Subject> list = findByPage("Subject", new String[]{"teacher.teacherId","isDelete"}, new String[]{teaId, "0"}, new String[]{"createDate"}, new String[]{orderBy});
 		return list;
 	}
 
