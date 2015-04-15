@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.lyd.soft.entity.Paper;
 import com.lyd.soft.service.IPaperService;
+import com.lyd.soft.util.BeanUtils;
 
 @Service
 public class PaperServiceImpl extends BaseServiceImpl<Paper> implements
@@ -47,8 +48,13 @@ public class PaperServiceImpl extends BaseServiceImpl<Paper> implements
 
 	@Override
 	@Transactional(propagation=Propagation.NOT_SUPPORTED, readOnly=true)
-	public List<Paper> findByTeaId(String teacherId, String orderBy) throws Exception {
-		List<Paper> list = findByPage("Paper", new String[]{"teacher","isDelete"}, new String[]{teacherId, "0"}, new String[]{"createDate"}, new String[]{orderBy});
+	public List<Paper> findByTeaId(String teacherId, String[] params) throws Exception {
+		List<Paper> list = null;
+		if(BeanUtils.isBlank(params[0])){
+			list = findByPage("Paper", new String[]{"teacher", "isDelete"}, new String[]{teacherId, "0"}, new String[]{"createDate"}, new String[]{params[1]});			
+		}else{
+			list = findByPage("Paper", new String[]{"teacher", "type", "isDelete"}, new String[]{teacherId, params[0], "0"}, new String[]{"createDate"}, new String[]{params[1]});			
+		}
 		return list;
 	}
 

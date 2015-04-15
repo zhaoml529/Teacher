@@ -62,7 +62,16 @@
           <div class="table-responsive" style="margin: -25px 0 0 0;">
           <!-- Split button -->
 			<div class="btn-group pull-right" style="margin-bottom: 5px">
-			  <button type="button" class="btn btn-success btn-sm" onclick="javascript:window.location.href='${ctx }/paperAction/toAdd'">添加</button>
+			<c:choose>
+				<c:when test="${type != null }">
+					<button type="button" class="btn btn-success btn-sm" onclick="javascript:window.location.href='${ctx }/paperAction/toAdd?type=${type }'">添加</button>
+				</c:when>
+				<c:otherwise>
+					<button type="button" class="btn btn-success btn-sm" onclick="javascript:window.location.href='${ctx }/paperAction/toAdd'">添加</button>
+				</c:otherwise>
+			</c:choose>
+			  
+			</c:if>
 			  <button type="button" class="btn btn-success dropdown-toggle" style="height: 30px" data-toggle="dropdown" aria-expanded="false">
 			    <span class="caret"></span>
 			    <span class="sr-only">Toggle Dropdown</span>

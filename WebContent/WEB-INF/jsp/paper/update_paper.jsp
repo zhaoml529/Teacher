@@ -36,7 +36,7 @@
         <div class="templatemo-content">
           <ol class="breadcrumb">
             <li><span class="glyphicon glyphicon-home"></span>&nbsp;<a href="${ctx }/loginAction/main">首页</a></li>
-            <li><a href="#">发表论文</a></li>
+            <li>发表论文</li>
           </ol>
           <blockquote>
 				<span class="glyphicon glyphicon-th-list"></span>&nbsp;发表论文&nbsp;<span class="caret"></span>
@@ -47,7 +47,7 @@
           <input type="hidden" name="id" value="${paper.id }"/>
           <input type="hidden" name="teacher.teacherId" value="${user.teacherId }"/>
           <input type="hidden" name="type" value="${type }"/>
-          <input type="hidden" name="createDate" value="<fmt:formatDate value='${subject.createDate }' type='both'/>"/>
+          <input type="hidden" name="createDate" value="<fmt:formatDate value='${paper.createDate }' type='both'/>"/>
           <div class="table-responsive">
           	<table class="table table-bordered table-condensed">
 		  	<tr class="active">

@@ -3,9 +3,9 @@ package com.lyd.soft.util;
 /**
  * 
  * @ClassName: StringUtils
- * @Description:TODO(String工具�?
- * @author: zml
- * @date: 2014-4-18 上午10:19:58
+ * @Description:TODO(String工具类)
+ * @author: LYD
+ * @date: 2015-4-18 上午10:19:58
  *
  */
 public class StringUtils {

@@ -17,5 +17,5 @@ public interface IPaperService {
 	
 	public Paper findById(Integer id) throws Exception;
 
-	public List<Paper> findByTeaId(String teacherId, String orderBy) throws Exception;
+	public List<Paper> findByTeaId(String teacherId, String[] params) throws Exception;
 }
