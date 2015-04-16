@@ -52,10 +52,17 @@
 		  		<td colspan="2" align="center">添加论著信息</td>
 		  	</tr>
 		  	<tr>
-		  		<td>著作名称</td>
+		  		<td>论著名称</td>
 		  		<td>
 		  			<form:errors path="title" cssClass="valid_text"></form:errors>
 			    	<input type="text" name="title" value="${book.title }" class="form-control" placeholder="Enter Title">
+		  		</td>
+		  	</tr>
+		  	<tr>
+		  		<td>论著类别</td>
+		  		<td>
+		  			<form:errors path="style" cssClass="valid_text"></form:errors>
+			    	<input type="text" name="style" value="${book.style }" class="form-control" placeholder="Enter Style">
 		  		</td>
 		  	</tr>
 		  	<tr>
@@ -71,7 +78,7 @@
 		  		</td>
 		  	</tr>
 		  	<tr>
-		  		<td>著作字数</td>
+		  		<td>论著字数</td>
 		  		<td>
 		  			<form:errors path="wordCount" cssClass="valid_text"></form:errors>
 		  			<div class="input-group">

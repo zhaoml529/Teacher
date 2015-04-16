@@ -46,7 +46,7 @@
           <form:form action="${ctx }/paperAction/doUpdate" modelAttribute="paper" method="POST">
           <input type="hidden" name="id" value="${paper.id }"/>
           <input type="hidden" name="teacher.teacherId" value="${user.teacherId }"/>
-          <input type="hidden" name="type" value="${type }"/>
+          <input type="hidden" name="type" value="${paper.type }"/>
           <input type="hidden" name="createDate" value="<fmt:formatDate value='${paper.createDate }' type='both'/>"/>
           <div class="table-responsive">
           	<table class="table table-bordered table-condensed">
@@ -76,7 +76,12 @@
 		  		<td>论文字数</td>
 		  		<td>
 		  			<form:errors path="wordCount" cssClass="valid_text"></form:errors>
-			    	<input type="text" name="wordCount" value="${paper.wordCount }" class="form-control" placeholder="Enter wordCount">
+			    	<div class="input-group">
+						<div class="input-group">
+	                    <input type="text" name="wordCount" value="${paper.wordCount }" class="form-control" placeholder="Enter wordCount">
+					      <div class="input-group-addon">万字</div>
+						</div>
+	                </div>
 		  		</td>
 		  	</tr>
 		  	<tr>

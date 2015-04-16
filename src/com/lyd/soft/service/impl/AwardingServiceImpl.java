@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.lyd.soft.entity.Awarding;
 import com.lyd.soft.entity.Book;
@@ -14,32 +16,38 @@ import com.lyd.soft.util.BeanUtils;
 public class AwardingServiceImpl extends BaseServiceImpl<Awarding> implements IAwardingService {
 
 	@Override
+	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
 	public Serializable doAdd(Awarding entity) throws Exception {
 		return add(entity);
 	}
 
 	@Override
+	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
 	public void doUpdate(Awarding entity) throws Exception {
 		update(entity);
 	}
 
 	@Override
+	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
 	public void doDelete(Awarding entity) throws Exception {
 		delete(entity);
 	}
 
 	@Override
+	@Transactional(propagation=Propagation.NOT_SUPPORTED, readOnly=true)
 	public List<Awarding> toList() throws Exception {
 		List<Awarding> list = findByPage("Awarding", new String[]{}, new String[]{}, new String[]{}, new String[]{});
 		return list;
 	}
 
 	@Override
+	@Transactional(propagation=Propagation.NOT_SUPPORTED, readOnly=true)
 	public Awarding findById(Integer id) throws Exception {
 		return getUnique("Awarding", new String[]{"id"}, new String[]{id.toString()});
 	}
 
 	@Override
+	@Transactional(propagation=Propagation.NOT_SUPPORTED, readOnly=true)
 	public List<Awarding> findByTeaId(String teacherId, String[] params)
 			throws Exception {
 		List<Awarding> list = null;

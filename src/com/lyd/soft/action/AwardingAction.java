@@ -36,7 +36,7 @@ public class AwardingAction {
 	private IAwardingService awardService;
 	
 	@RequestMapping(value = "/toAdd")
-	public String toAdd(@RequestParam(value = "type", required = false) Integer type, Model model){
+	public String toAdd(@RequestParam(value = "type", required = false) String type, Model model){
 		if(!model.containsAttribute("award")){
 			model.addAttribute("award", new Awarding());
 		}
@@ -59,10 +59,6 @@ public class AwardingAction {
 						HttpServletRequest request, 
 						HttpSession session, 
 						Model model) throws Exception {
-		if(!model.containsAttribute("award")){
-			//form 表单用
-			model.addAttribute("award", new Awarding());
-		}
 		String params[] = new String[2];
 		Teacher user = UserUtils.getUserFromSession(session);
 		List<Awarding> awardList = new ArrayList<Awarding>();
@@ -133,14 +129,16 @@ public class AwardingAction {
 		
 	}
 	
-	@RequestMapping(value = "/doDelete/{id}")
-	public String doDelete(@PathVariable("id") Integer id, RedirectAttributes redirectAttributes) throws Exception{
+	@RequestMapping(value = "/doDelete/{type}/{id}")
+	public String doDelete(@PathVariable("type") String type,
+							@PathVariable("id") Integer id,
+							RedirectAttributes redirectAttributes) throws Exception{
 		if(!BeanUtils.isBlank(id)){
 			this.awardService.doDelete(new Awarding(id));
 			redirectAttributes.addFlashAttribute(Constants.MESSAGE, "删除成功！");
 		}else{
 			redirectAttributes.addFlashAttribute(Constants.MESSAGE, "删除失败，id为空！");
 		}
-		return "redirect:/awardAction/toList_page";
+		return "redirect:/awardAction/toList_page?type="+type;
 	}
 }

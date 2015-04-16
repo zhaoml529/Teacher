@@ -13,7 +13,9 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 
 /**
@@ -41,15 +43,21 @@ public class Awarding implements Serializable {
 	private Teacher teacher;	
 	
 	@Column(name = "COURSE")
+	@NotBlank(message = "{award.name.not.empty}")
 	private String name;				//获奖名称
 	
 	@Column(name = "AWARD_LEVEL")
+	@NotBlank(message = "{award.level.not.empty}")
 	private String awardLevel;			//级别
 	
+	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "ACHIEVE_DATE")
-	private String achieveDate;			//获得时间
+	@NotNull(message="{award.achieve.date.not.empty}")
+	private Date achieveDate;			//获得时间
 	
 	@Column(name = "AWARDS")
+	@NotBlank(message = "{award.awards.not.empty}")
 	private String awards;				//奖项
 	
 	@Temporal(TemporalType.TIMESTAMP)
@@ -66,7 +74,7 @@ public class Awarding implements Serializable {
 	private String remark;					//备注
 	
 	@Column(name = "TYPE")
-	private Integer type;			//类型 science：科学研究， teaching：教学研究
+	private String type;			//类型 science：科学研究， teaching：教学研究
 	
 	@Column(name = "IS_DELETE")
 	private Integer isDelete;			//删除
@@ -103,11 +111,11 @@ public class Awarding implements Serializable {
 		this.awardLevel = awardLevel;
 	}
 
-	public String getAchieveDate() {
+	public Date getAchieveDate() {
 		return achieveDate;
 	}
 
-	public void setAchieveDate(String achieveDate) {
+	public void setAchieveDate(Date achieveDate) {
 		this.achieveDate = achieveDate;
 	}
 
@@ -155,11 +163,11 @@ public class Awarding implements Serializable {
 		this.updateDate = updateDate;
 	}
 
-	public Integer getType() {
+	public String getType() {
 		return type;
 	}
 
-	public void setType(Integer type) {
+	public void setType(String type) {
 		this.type = type;
 	}
 

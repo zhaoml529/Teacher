@@ -63,4 +63,9 @@
 	<welcome-file-list>
 		<welcome-file>/userAction/login_view</welcome-file>
 	</welcome-file-list> 
+	
+	<error-page>
+		<error-code>404</error-code>
+		<location>/WEB-INF/jsp/error/404.jsp</location>
+	</error-page>
 </web-app>

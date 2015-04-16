@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.lyd.soft.entity.Paper;
 import com.lyd.soft.entity.Subject;
 import com.lyd.soft.entity.Teacher;
 import com.lyd.soft.pagination.Pagination;
@@ -46,17 +47,25 @@ public class SubjectAction {
 	
 	@RequestMapping(value = "/toList_page")
 	public String toList(@RequestParam(value = "orderBy", required = false) String orderBy,
+						@RequestParam(value = "type", required = false) String type,
 						Model model,
 						HttpSession session)throws Exception{
 		Teacher teacher = UserUtils.getUserFromSession(session);
 		String teacherId = teacher.getTeacherId();
 		if(!StringUtils.isBlank(teacherId)){
-			List<Subject> list = new ArrayList<Subject>();
-			if(!StringUtils.isBlank(orderBy)){
-				list = this.subjectService.toList(teacherId, orderBy);
+			String params[] = new String[2];
+			if(!StringUtils.isBlank(type)){
+				params[0] = type;
+				model.addAttribute("type", type);
 			}else{
-				list = this.subjectService.toList(teacherId, "DESC");
+				params[0] = null;
 			}
+			if(!StringUtils.isBlank(orderBy)){
+				params[1] = orderBy;
+			}else{
+				params[1] = "DESC";
+			}
+			List<Subject> list = this.subjectService.toList(teacherId, params);
 			Pagination pagination = PaginationThreadUtils.get();
 			model.addAttribute("page", pagination.getPageStr());
 			model.addAttribute("list", list);
@@ -74,10 +83,11 @@ public class SubjectAction {
 	}
 	
 	@RequestMapping(value = "/toAdd")
-	public String toAdd(Model model) throws Exception {
+	public String toAdd(@RequestParam(value = "type", required = false) String type, Model model) throws Exception {
 		if(!model.containsAttribute("subject")){
 			model.addAttribute("subject", new Subject());
 		}
+		model.addAttribute("type", type);
 		return "subject/add_subject";
 	}
 	
@@ -87,7 +97,7 @@ public class SubjectAction {
 						Model model,
 						RedirectAttributes redirectAttribute) throws Exception{
 		if(results.hasErrors()){
-			return toAdd(model);
+			return toAdd(subject.getType(), model);
 		}
 		SimpleDateFormat df = new SimpleDateFormat("MMddSSS");
 		String id = df.format(new Date()).toString();
@@ -123,6 +133,7 @@ public class SubjectAction {
 		}
 		System.out.println(request.getParameter("subName"));
 		subject.setUpdateDate(new Date());
+		subject.setIsDelete(0);
 		this.subjectService.doUpdate(subject);
 		redirectAttribute.addFlashAttribute(Constants.MESSAGE, "修改成功！");
 		return "redirect:/subjectAction/toList_page";

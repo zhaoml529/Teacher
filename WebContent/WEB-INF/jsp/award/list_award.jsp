@@ -34,8 +34,8 @@
 		window.location.href="${ctx}/awardAction/toUpdate/"+id;  		
   	}
   	
-  	function doDel( id ){
-  		window.location.href = "${ctx}/awardAction/doDelete/"+id;
+  	function doDel( type, id ){
+  		window.location.href = "${ctx}/awardAction/doDelete/"+type+"/"+id;
   	}
   	
   	function details( id ){
@@ -57,39 +57,20 @@
           <blockquote>
 				<span class="glyphicon glyphicon-th-list"></span>&nbsp;获奖列表&nbsp;<span class="caret"></span>
 		  </blockquote>
-		  <form:form action="${ctx }/awardAction/toList_page" id="pageForm" method="POST">
-		  <input type="hidden" name="subId" value="123"/>
+		  <form:form action="${ctx }/awardAction/toList_page?type=${type }" id="pageForm" method="POST">
           <div class="table-responsive" style="margin: -25px 0 0 0;">
           <!-- Split button -->
 			<div class="btn-group pull-right" style="margin-bottom: 5px">
-			<c:choose>
-				<c:when test="${type != null }">
-					<button type="button" class="btn btn-success btn-sm" onclick="javascript:window.location.href='${ctx }/awardAction/toAdd?type=${type }'">添加</button>
-				</c:when>
-				<c:otherwise>
-					<button type="button" class="btn btn-success btn-sm" onclick="javascript:window.location.href='${ctx }/awardAction/toAdd'">添加</button>
-				</c:otherwise>
-			</c:choose>
-			  
-			</c:if>
+			  <button type="button" class="btn btn-success btn-sm" onclick="javascript:window.location.href='${ctx }/awardAction/toAdd?type=${type }'">添加</button>
 			  <button type="button" class="btn btn-success dropdown-toggle" style="height: 30px" data-toggle="dropdown" aria-expanded="false">
 			    <span class="caret"></span>
 			    <span class="sr-only">Toggle Dropdown</span>
 			  </button>
 			  <ul class="dropdown-menu" role="menu">
-			    <li><a href="${ctx }/awardAction/toList_page?orderBy=ASC">创建时间升序</a></li>
-			    <li><a href="${ctx }/awardAction/toList_page?orderBy=DESC">创建时间降序</a></li>
+			    <li><a href="${ctx }/awardAction/toList_page?orderBy=ASC&type=${type }">创建时间升序</a></li>
+			    <li><a href="${ctx }/awardAction/toList_page?orderBy=DESC&type=${type }">创建时间降序</a></li>
 			    <li class="divider"></li>
-			    <li>
-			    	<c:choose>
-						<c:when test="${type != null }">
-						<a href="${ctx }/awardAction/toList_page?type=${type }">刷新列表</a>
-						</c:when>
-						<c:otherwise>
-							<a href="${ctx }/awardAction/toList_page">刷新列表</a>
-						</c:otherwise>
-					</c:choose>
-			    </li>
+			    <li><a href="${ctx }/awardAction/toList_page?type=${type }">刷新列表</a></li>
 			  </ul>
 			</div>
 		  <table class="table table-striped table-hover table-bordered">
@@ -121,7 +102,7 @@
 					  		<td>${award.createDate }</td>
 					  		<td>
 					  			<button type="button" class="btn btn-warning btn-xs" onclick="toUpdate('${award.id}');" >修改</button>
-					  			<button type="button" class="btn btn-danger btn-xs" onclick="doDel('${award.id}');">删除</button>
+					  			<button type="button" class="btn btn-danger btn-xs" onclick="doDel('${award.type }', '${award.id}');">删除</button>
 					  		</td>
 					  	</tr>
 					</c:forEach>

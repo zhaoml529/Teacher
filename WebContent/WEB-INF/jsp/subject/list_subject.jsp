@@ -57,21 +57,21 @@
           <blockquote>
 				<span class="glyphicon glyphicon-th-list"></span>&nbsp;课题列表&nbsp;<span class="caret"></span>
 		  </blockquote>
-		  <form:form action="${ctx }/subjectAction/toList_page" id="pageForm" method="POST">
+		  <form:form action="${ctx }/subjectAction/toList_page?type=${type }" id="pageForm" method="POST">
 		  <input type="hidden" name="subId" value="123"/>
           <div class="table-responsive" style="margin: -25px 0 0 0;">
           <!-- Split button -->
 			<div class="btn-group pull-right" style="margin-bottom: 5px">
-			  <button type="button" class="btn btn-success btn-sm" onclick="javascript:window.location.href='${ctx }/subjectAction/toAdd'">添加</button>
+			  <button type="button" class="btn btn-success btn-sm" onclick="javascript:window.location.href='${ctx }/subjectAction/toAdd?type=${type }'">添加</button>
 			  <button type="button" class="btn btn-success dropdown-toggle" style="height: 30px" data-toggle="dropdown" aria-expanded="false">
 			    <span class="caret"></span>
 			    <span class="sr-only">Toggle Dropdown</span>
 			  </button>
 			  <ul class="dropdown-menu" role="menu">
-			    <li><a href="${ctx }/subjectAction/toList_page?orderBy=ASC">创建时间升序</a></li>
-			    <li><a href="${ctx }/subjectAction/toList_page?orderBy=DESC">创建时间降序</a></li>
+			    <li><a href="${ctx }/subjectAction/toList_page?orderBy=ASC&type=${type }">创建时间升序</a></li>
+			    <li><a href="${ctx }/subjectAction/toList_page?orderBy=DESC&type=${type }">创建时间降序</a></li>
 			    <li class="divider"></li>
-			    <li><a href="${ctx }/subjectAction/toList_page">刷新列表</a></li>
+			    <li><a href="${ctx }/subjectAction/toList_page?type=${type }">刷新列表</a></li>
 			  </ul>
 			</div>
 		  <table class="table table-striped table-hover table-bordered">

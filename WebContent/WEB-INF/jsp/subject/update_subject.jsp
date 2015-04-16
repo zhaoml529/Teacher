@@ -46,7 +46,7 @@
           <input type="hidden" name="teacher.teacherId" value="${user.teacherId }"/>
           <input type="hidden" name="id" value="${subject.id }"/>
           <input type="hidden" name="subId" value="${subject.subId }"/>
-          <input type="hidden" name="isDelete" value="${subject.isDelete }"/>
+          <input type="hidden" name="type" value="${subject.type }"/>
           <input type="hidden" name="createDate" value="<fmt:formatDate value='${subject.createDate }' type='both'/>"/>
           <div class="table-responsive">
           	<table class="table table-bordered table-condensed">

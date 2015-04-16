@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.lyd.soft.entity.Subject;
 import com.lyd.soft.service.ISubjectService;
+import com.lyd.soft.util.BeanUtils;
 
 @Service
 public class SubjectServiceImpl extends BaseServiceImpl<Subject> implements ISubjectService {
@@ -32,8 +33,13 @@ public class SubjectServiceImpl extends BaseServiceImpl<Subject> implements ISub
 
 	@Override
 	@Transactional(propagation=Propagation.NOT_SUPPORTED, readOnly=true)
-	public List<Subject> toList(String teaId, String orderBy) throws Exception {
-		List<Subject> list = findByPage("Subject", new String[]{"teacher.teacherId","isDelete"}, new String[]{teaId, "0"}, new String[]{"createDate"}, new String[]{orderBy});
+	public List<Subject> toList(String teaId, String[] params) throws Exception {
+		List<Subject> list = null;
+		if(BeanUtils.isBlank(params[0])){
+			list = findByPage("Subject", new String[]{"teacher.teacherId", "isDelete"}, new String[]{teaId, "0"}, new String[]{"createDate"}, new String[]{params[1]});
+		}else{
+			list = findByPage("Subject", new String[]{"teacher.teacherId", "type", "isDelete"}, new String[]{teaId, params[0], "0"}, new String[]{"createDate"}, new String[]{params[1]});
+		}
 		return list;
 	}
 

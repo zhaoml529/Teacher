@@ -12,16 +12,6 @@
   <script type="text/javascript" src="${ctx}/kindeditor/kindeditor-min.js"></script>
   <script type="text/javascript">
 	  $(function(){
-	    $("#subDate").datetimepicker({
-	    	language: 'zh-CN',
-	        format: "yyyy-mm-dd",
-	        minView: "month", //选择日期后，不会再跳转去选择时分秒 
-	        autoclose: true,
-	        todayBtn: true,
-	        todayHighlight: true,
-	        pickerPosition: "bottom-left"
-	    });
-	    
 	    KindEditor.ready(function(K) {
 	    	editor = K.create('#editor_id', {
 	    		readonlyMode : true

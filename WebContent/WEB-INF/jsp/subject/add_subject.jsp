@@ -44,6 +44,7 @@
           
           <form:form action="${ctx }/subjectAction/doAdd" modelAttribute="subject" method="POST">
           <input type="hidden" name="teacher.teacherId" value="${user.teacherId }"/>
+          <input type="hidden" name="type" value="${type }"/>
           <div class="table-responsive">
           	<table class="table table-bordered table-condensed">
 		  	<tr class="active">

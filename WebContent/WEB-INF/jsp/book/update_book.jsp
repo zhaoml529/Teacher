@@ -46,7 +46,7 @@
           <form:form action="${ctx }/bookAction/doUpdate" modelAttribute="book" method="POST">
           <input type="hidden" name="id" value="${book.id }"/>
           <input type="hidden" name="teacher.teacherId" value="${user.teacherId }"/>
-          <input type="hidden" name="type" value="${type }"/>
+          <input type="hidden" name="type" value="${book.type }"/>
           <input type="hidden" name="createDate" value="<fmt:formatDate value='${book.createDate }' type='both'/>"/>
           <div class="table-responsive">
           	<table class="table table-bordered table-condensed">
@@ -58,6 +58,13 @@
 		  		<td>
 		  			<form:errors path="title" cssClass="valid_text"></form:errors>
 			    	<input type="text" name="title" value="${book.title }" class="form-control" placeholder="Enter Title">
+		  		</td>
+		  	</tr>
+		  	<tr>
+		  		<td>论著类别</td>
+		  		<td>
+		  			<form:errors path="style" cssClass="valid_text"></form:errors>
+			    	<input type="text" name="style" value="${book.style }" class="form-control" placeholder="Enter Style">
 		  		</td>
 		  	</tr>
 		  	<tr>
@@ -73,10 +80,15 @@
 		  		</td>
 		  	</tr>
 		  	<tr>
-		  		<td>著作字数</td>
+		  		<td>论著字数</td>
 		  		<td>
 		  			<form:errors path="wordCount" cssClass="valid_text"></form:errors>
-			    	<input type="text" name="wordCount" value="${book.wordCount }" class="form-control" placeholder="Enter wordCount">
+			    	<div class="input-group">
+						<div class="input-group">
+	                    <input type="text" name="wordCount" value="${book.wordCount }" class="form-control" placeholder="Enter wordCount">
+					      <div class="input-group-addon">万字</div>
+						</div>
+	                </div>
 		  		</td>
 		  	</tr>
 		  	<tr>

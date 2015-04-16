@@ -5,7 +5,8 @@
 <div class="well" style="padding: 8px 3px;">
 <ul class="templatemo-sidebar-menu">
   <c:if test="${user.role == 'teacher' or user.role == 'manager'}">
-	  <li class="active"><a href="${ctx }/teacherArchiveAction/details"><i class="fa fa-home"></i>我的档案</a></li>
+  	  <!-- <li class="active"></li> -->
+	  <li><a href="${ctx }/teacherArchiveAction/details"><i class="fa fa-home"></i>我的档案</a></li>
 	  <li class="sub">
 	    <a href="javascript:;">
 	      <i class="fa fa-cubes"></i>教学研究 <div class="pull-right"><span class="caret"></span></div>
@@ -13,10 +14,10 @@
 	    <ul class="templatemo-submenu">
 	      <!--宽度 templatemo_main.css 120  -->
 	      <!--li 背景颜色 templatemo_main.css 131  -->
-	      <li><a href="${ctx }/subjectAction/toList_page">在研课题</a></li>
+	      <li><a href="${ctx }/subjectAction/toList_page?type=teaching">在研课题</a></li>
 	      <li><a href="${ctx }/paperAction/toList_page?type=teaching">发表论文</a></li>
 	      <li><a href="${ctx }/bookAction/toList_page?type=teaching">发表论著</a></li>             
-	      <li><a href="#">获奖情况</a></li>
+	      <li class="active"><a href="${ctx }/awardAction/toList_page?type=teaching">获奖情况</a></li>
 	    </ul>
 	  </li>
 	  <li class="sub">
@@ -24,10 +25,10 @@
 	      <i class="fa fa-database"></i>科学研究 <div class="pull-right"><span class="caret"></span></div>
 	    </a>
 	    <ul class="templatemo-submenu">
-	      <li><a href="#">在研课题</a></li>
-	      <li><a href="#">发表论文</a></li>
-	      <li><a href="#">论著情况</a></li>             
-	      <li><a href="#">获奖情况</a></li>
+	      <li><a href="${ctx }/subjectAction/toList_page?type=science">在研课题</a></li>
+	      <li><a href="${ctx }/paperAction/toList_page?type=science">发表论文</a></li>
+	      <li><a href="${ctx }/bookAction/toList_page?type=science">论著情况</a></li>             
+	      <li><a href="${ctx }/awardAction/toList_page?type=science">获奖情况</a></li>
 	    </ul>
 	  </li>
 	  <li><a href="${ctx }/teacherAction/toList_page"><i class="glyphicon glyphicon-calendar"></i>日程管理</a></li>

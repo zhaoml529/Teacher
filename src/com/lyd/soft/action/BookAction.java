@@ -36,7 +36,7 @@ public class BookAction {
 	private IBookService bookService;
 	
 	@RequestMapping(value = "/toAdd")
-	public String toAdd(@RequestParam(value = "type", required = false) Integer type, Model model){
+	public String toAdd(@RequestParam(value = "type", required = false) String type, Model model){
 		if(!model.containsAttribute("book")){
 			model.addAttribute("book", new Book());
 		}
@@ -59,10 +59,6 @@ public class BookAction {
 						HttpServletRequest request, 
 						HttpSession session, 
 						Model model) throws Exception {
-		if(!model.containsAttribute("book")){
-			//form 表单用
-			model.addAttribute("book", new Book());
-		}
 		String params[] = new String[2];
 		Teacher user = UserUtils.getUserFromSession(session);
 		List<Book> bookList = new ArrayList<Book>();
@@ -102,7 +98,7 @@ public class BookAction {
 		book.setIsDelete(0);
 		this.bookService.doAdd(book);
 		redirectAttributes.addFlashAttribute(Constants.MESSAGE, "添加成功！");
-		return "redirect:/bookAction/toList_page";
+		return "redirect:/bookAction/toList_page?type="+book.getType();
 	}
 	
 	@RequestMapping(value = "/doUpdate")
@@ -122,7 +118,7 @@ public class BookAction {
 		this.bookService.doUpdate(book);
 		model.addAttribute("book", book);
 		redirectAttributes.addFlashAttribute(Constants.MESSAGE, "修改成功！");
-		return "redirect:/bookAction/toList_page";
+		return "redirect:/bookAction/toList_page?type="+book.getType();
 	}
 	
 	@RequestMapping(value = "/details/{id}")
@@ -133,14 +129,16 @@ public class BookAction {
 		
 	}
 	
-	@RequestMapping(value = "/doDelete/{id}")
-	public String doDelete(@PathVariable("id") Integer id, RedirectAttributes redirectAttributes) throws Exception{
+	@RequestMapping(value = "/doDelete/{type}/{id}")
+	public String doDelete(@PathVariable("type") String type,
+							@PathVariable("id") Integer id, 
+							RedirectAttributes redirectAttributes) throws Exception{
 		if(!BeanUtils.isBlank(id)){
 			this.bookService.doDelete(new Book(id));
 			redirectAttributes.addFlashAttribute(Constants.MESSAGE, "删除成功！");
 		}else{
 			redirectAttributes.addFlashAttribute(Constants.MESSAGE, "删除失败，id为空！");
 		}
-		return "redirect:/bookAction/toList_page";
+		return "redirect:/bookAction/toList_page?type="+type;
 	}
 }

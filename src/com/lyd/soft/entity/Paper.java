@@ -82,7 +82,7 @@ public class Paper implements Serializable {
 	private Date updateDate;		//修改时间
 	
 	@Column(name = "TYPE")
-	private Integer type;			//类型 science：科学研究， teaching：教学研究
+	private String type;			//类型 science：科学研究， teaching：教学研究
 	
 	@Column(name = "IS_DELETE")
 	private Integer isDelete;		//删除
@@ -188,11 +188,11 @@ public class Paper implements Serializable {
 		this.remark = remark;
 	}
 
-	public Integer getType() {
+	public String getType() {
 		return type;
 	}
 
-	public void setType(Integer type) {
+	public void setType(String type) {
 		this.type = type;
 	}
 

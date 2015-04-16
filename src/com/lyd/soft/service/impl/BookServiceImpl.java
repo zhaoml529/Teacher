@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.lyd.soft.entity.Book;
 import com.lyd.soft.entity.Paper;
@@ -14,32 +16,38 @@ import com.lyd.soft.util.BeanUtils;
 public class BookServiceImpl extends BaseServiceImpl<Book> implements IBookService {
 
 	@Override
+	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
 	public Serializable doAdd(Book entity) throws Exception {
 		return add(entity);
 	}
 
 	@Override
+	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
 	public void doUpdate(Book entity) throws Exception {
 		update(entity);
 	}
 
 	@Override
+	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
 	public void doDelete(Book entity) throws Exception {
 		delete(entity);
 	}
 
 	@Override
+	@Transactional(propagation=Propagation.NOT_SUPPORTED, readOnly=true)
 	public List<Book> toList() throws Exception {
 		List<Book> list = findByPage("Book", new String[]{}, new String[]{}, new String[]{}, new String[]{});
 		return list;
 	}
 
 	@Override
+	@Transactional(propagation=Propagation.NOT_SUPPORTED, readOnly=true)
 	public Book findById(Integer id) throws Exception {
 		return getUnique("Book", new String[]{"id"}, new String[]{id.toString()});
 	}
 
 	@Override
+	@Transactional(propagation=Propagation.NOT_SUPPORTED, readOnly=true)
 	public List<Book> findByTeaId(String teacherId, String[] params)
 			throws Exception {
 		List<Book> list = null;

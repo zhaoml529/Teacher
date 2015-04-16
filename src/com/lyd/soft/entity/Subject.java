@@ -72,6 +72,9 @@ public class Subject implements Serializable {
 	@Column(name = "UPDATE_DATE")
 	private Date updateDate;		//修改时间
 	
+	@Column(name = "TYPE")
+	private String type;			//类型 science：科学研究， teaching：教学研究
+	
 	@Column(name = "IS_DELETE")
 	private Integer isDelete;		//删除
 	
@@ -166,6 +169,14 @@ public class Subject implements Serializable {
 
 	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 	
 }

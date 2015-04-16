@@ -13,8 +13,11 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
+
 
 /**
  * 著作情况表
@@ -22,6 +25,10 @@ import org.springframework.format.annotation.DateTimeFormat;
  *
  */
 
+/**
+ * @author ZML
+ *
+ */
 @Entity
 @Table(name = "T_BOOK")
 public class Book implements Serializable {
@@ -42,20 +49,25 @@ public class Book implements Serializable {
 	private Teacher teacher;	
 	
 	@Column(name = "TITLE")
+	@NotBlank(message = "{book.title.not.empty}")
 	private String title;			//著作名称
 	
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "PUBLISH_DATE")
+	@NotNull(message="{book.publish.date.not.empty}")
 	private Date publishDate;		//出版时间
 	
 	@Column(name = "STYLE")
+	@NotBlank(message = "{book.style.not.empty}")
 	private String style;			//类别
 	
 	@Column(name = "WORD_COUNT")
-	private Integer wordCount;		//字数
+	@NotNull(message="{book.word.count.not.empty}")
+	private Float wordCount;		//字数
 	
 	@Column(name = "IS_EDITOR")
+	@NotNull(message="{book.isEditor.not.empty}")
 	private Integer isEditor;		//是否主编
 	
 	@Temporal(TemporalType.TIMESTAMP)
@@ -72,7 +84,7 @@ public class Book implements Serializable {
 	private String remark;					//备注
 	
 	@Column(name = "TYPE")
-	private Integer type;			//类型 science：科学研究， teaching：教学研究
+	private String type;			//类型 science：科学研究， teaching：教学研究
 	
 	@Column(name = "IS_DELETE")
 	private Integer isDelete;		//删除
@@ -117,11 +129,11 @@ public class Book implements Serializable {
 		this.style = style;
 	}
 
-	public Integer getWordCount() {
+	public Float getWordCount() {
 		return wordCount;
 	}
 
-	public void setWordCount(Integer wordCount) {
+	public void setWordCount(Float wordCount) {
 		this.wordCount = wordCount;
 	}
 
@@ -169,11 +181,11 @@ public class Book implements Serializable {
 		this.updateDate = updateDate;
 	}
 
-	public Integer getType() {
+	public String getType() {
 		return type;
 	}
 
-	public void setType(Integer type) {
+	public void setType(String type) {
 		this.type = type;
 	}
 

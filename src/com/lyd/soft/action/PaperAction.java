@@ -42,7 +42,7 @@ public class PaperAction {
 	private IPaperService paperService;
 	
 	@RequestMapping(value = "/toAdd")
-	public String toAdd(@RequestParam(value = "type", required = false) Integer type, Model model){
+	public String toAdd(@RequestParam(value = "type", required = false) String type, Model model){
 		if(!model.containsAttribute("paper")){
 			model.addAttribute("paper", new Paper());
 		}
@@ -65,10 +65,7 @@ public class PaperAction {
 						HttpServletRequest request, 
 						HttpSession session, 
 						Model model) throws Exception {
-		if(!model.containsAttribute("paper")){
-			//form 表单用
-			model.addAttribute("paper", new Paper());
-		}
+		
 		String params[] = new String[2];
 		Teacher user = UserUtils.getUserFromSession(session);
 		List<Paper> paperList = new ArrayList<Paper>();
