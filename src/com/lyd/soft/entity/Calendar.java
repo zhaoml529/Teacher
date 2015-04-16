@@ -53,6 +53,9 @@ public class Calendar implements Serializable {
 	@Column(name = "END_DATE")
 	private Date endDate;					//结束时间
 	
+	@Column(name = "REMARK")
+	private String remark;					//备注
+	
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@Column(name = "CREATE_DATE")
@@ -135,6 +138,14 @@ public class Calendar implements Serializable {
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
 	}
 	
 }

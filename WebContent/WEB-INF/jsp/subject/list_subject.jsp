@@ -58,7 +58,6 @@
 				<span class="glyphicon glyphicon-th-list"></span>&nbsp;课题列表&nbsp;<span class="caret"></span>
 		  </blockquote>
 		  <form:form action="${ctx }/subjectAction/toList_page?type=${type }" id="pageForm" method="POST">
-		  <input type="hidden" name="subId" value="123"/>
           <div class="table-responsive" style="margin: -25px 0 0 0;">
           <!-- Split button -->
 			<div class="btn-group pull-right" style="margin-bottom: 5px">

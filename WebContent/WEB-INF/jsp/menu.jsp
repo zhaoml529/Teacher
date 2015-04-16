@@ -31,7 +31,7 @@
 	      <li><a href="${ctx }/awardAction/toList_page?type=science">获奖情况</a></li>
 	    </ul>
 	  </li>
-	  <li><a href="${ctx }/teacherAction/toList_page"><i class="glyphicon glyphicon-calendar"></i>日程管理</a></li>
+	  <li><a href="${ctx }/calendarAction/toCalendar"><i class="glyphicon glyphicon-calendar"></i>日程管理</a></li>
   </c:if>
   <c:if test="${user.role == 'manager' or user.role == 'admin' }">
 	  <li><a href="${ctx }/teacherAction/toList_page?dept_id=-1"><i class="fa fa-users"></i>教师列表</a></li>

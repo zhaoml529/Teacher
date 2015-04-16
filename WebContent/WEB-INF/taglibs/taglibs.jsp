@@ -13,18 +13,18 @@
 <link rel="alternate stylesheet" type="text/css" media="screen" title="style5" href="${ctx }/css/style-orange.css" />
 <link rel="alternate stylesheet" type="text/css" media="screen" title="style6" href="${ctx }/css/style-purple.css" />
 <link rel="alternate stylesheet" type="text/css" media="screen" title="style7" href="${ctx }/css/style-red.css" />
-<link rel="stylesheet" href="${ctx}/css/fullcalendar.min.css" type="text/css" />
-<link rel="stylesheet" href="${ctx}/css/fullcalendar.print.css" type="text/css" media='print' />
+<link rel="stylesheet" href="${ctx}/css/fullcalendar/fullcalendar.min.css" type="text/css" />
+<link rel="stylesheet" href="${ctx}/css/fullcalendar/fullcalendar.print.css" type="text/css" media='print' />
 <link rel="stylesheet" href="${ctx}/css/font-awesome.min.css" type="text/css" />
 <link rel="stylesheet" href="${ctx}/css/bootstrap-datetimepicker.min.css" type="text/css" />
 <script type="text/javascript" src="${ctx}/js/jquery-1.10.2.min.js"></script>
 <script type="text/javascript" src="${ctx}/js/util.js"></script>
-<script type="text/javascript" src="${ctx}/js/moment.min.js"></script>
+<script type="text/javascript" src="${ctx}/js/fullcalendar/moment.min.js"></script>
 <script type="text/javascript" src="${ctx}/js/icheck.min.js"></script>
 <script type="text/javascript" src="${ctx}/js/styleswitch.js"></script>
 <script type="text/javascript" src="${ctx}/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="${ctx}/js/templatemo_script.js"></script>
-<script type="text/javascript" src="${ctx}/js/fullcalendar.min.js"></script>
+<script type="text/javascript" src="${ctx}/js/fullcalendar/fullcalendar.min.js"></script>
 <script type="text/javascript" src="${ctx}/js/bootbox.min.js"></script>
 <script type="text/javascript" src="${ctx}/js/bootstrap-datetimepicker.min.js"></script>
 <script type="text/javascript" src="${ctx}/js/bootstrap-datetimepicker.zh-CN.js"></script>
