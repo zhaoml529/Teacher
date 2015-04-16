@@ -35,7 +35,7 @@ import com.lyd.soft.util.UserUtils;
  */
 
 @Controller
-@RequestMapping("paperAction")
+@RequestMapping("/paperAction")
 public class PaperAction {
 
 	@Autowired

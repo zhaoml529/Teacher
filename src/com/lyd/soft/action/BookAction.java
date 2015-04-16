@@ -29,7 +29,7 @@ import com.lyd.soft.util.StringUtils;
 import com.lyd.soft.util.UserUtils;
 
 @Controller
-@RequestMapping(value = "bookAction")
+@RequestMapping(value = "/bookAction")
 public class BookAction {
 
 	@Autowired
