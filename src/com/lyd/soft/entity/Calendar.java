@@ -61,6 +61,11 @@ public class Calendar implements Serializable {
 	@Column(name = "CREATE_DATE")
 	private Date createDate;				//创建时间
 	
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@Column(name = "UPDATE_DATE")
+	private Date updateDate;		//修改时间
+	
 	@Column(name = "IS_DELETE")
 	private Integer isDelete;				//删除
 
@@ -146,6 +151,14 @@ public class Calendar implements Serializable {
 
 	public void setRemark(String remark) {
 		this.remark = remark;
+	}
+
+	public Date getUpdateDate() {
+		return updateDate;
+	}
+
+	public void setUpdateDate(Date updateDate) {
+		this.updateDate = updateDate;
 	}
 	
 }

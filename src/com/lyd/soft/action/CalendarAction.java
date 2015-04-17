@@ -5,10 +5,13 @@ import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -43,20 +46,26 @@ public class CalendarAction {
 	@RequestMapping(value = "/listCalendar")
 	@ResponseBody
 	public List<Calendar> listCalendar(
-			@RequestParam("start") Date strat,
-			@RequestParam("end") Date end,
+			@RequestParam("start") String strat,
+			@RequestParam("end") String end,
 			HttpSession session) throws Exception {
 		
 		Teacher teacher = UserUtils.getUserFromSession(session);
 		String teaId = teacher.getTeacherId();
-		String beginDate = DateUtils.DateToString(strat, "yyyy-MM-dd HH:mm");
-		String endDate = DateUtils.DateToString(end, "yyyy-MM-dd HH:mm");
 		List<Calendar> list = new ArrayList<Calendar>();
 		if(!StringUtils.isBlank(teaId)){
-			list = this.calendarService.findByDateRange(teaId, beginDate, endDate);
+			list = this.calendarService.findByDateRange(teaId, strat, end);
 		}else{
 			logger.error("teaId为空！");
 		}
 		return list;
+	}
+	
+	public String addCalendar(@ModelAttribute("calendar") Calendar calendar, HttpSession session){
+		Teacher teacher = UserUtils.getUserFromSession(session);
+		calendar.setTeacher(teacher);
+		calendar.setCreateDate(new Date());
+		calendar.setIsDelete(0);
+		return null;
 	}
 }
