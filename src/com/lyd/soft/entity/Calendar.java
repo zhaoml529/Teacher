@@ -14,6 +14,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -32,12 +33,13 @@ public class Calendar implements Serializable {
 	
 	@OneToOne
 	@JoinColumn(name="TEACHER_ID")
+	@JsonIgnore
 	private Teacher teacher;				//创建人
 	
-	@Column(name = "TITLE", unique = true)
+	@Column(name = "TITLE")
 	private String title;					//标题
 	
-	@Column(name = "CONTENT", unique = true)
+	@Column(name = "CONTENT")
 	private String content;					//内容
 	
 	@Column(name = "ALL_DAY")

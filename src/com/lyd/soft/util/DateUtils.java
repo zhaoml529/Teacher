@@ -1,7 +1,6 @@
 package com.lyd.soft.util;
 
 import java.text.DateFormat;
-import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -9,7 +8,7 @@ import java.util.Date;
  * 
  * @ClassName: DateUtil
  * @Description:时间转换工具
- * @author: zml
+ * @author: lyd
  * @date: 2014-4-18 上午10:20:40
  *
  */

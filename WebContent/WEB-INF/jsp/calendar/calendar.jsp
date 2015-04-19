@@ -28,10 +28,6 @@
 			}
 		});
 
-  		var date = new Date();
-  		var d = date.getDate();
-  		var m = date.getMonth();
-  		var y = date.getFullYear();
   		
   		/* initialize the calendar
   		-----------------------------------------------------------------*/
@@ -56,56 +52,121 @@
 					//moment().format("YYYY-MM-DD HH:mm:ss")  --Visit the MomentJS website
 					var startDate = $.fullCalendar.moment(start).format("YYYY-MM-DD");
 					var endDate = $.fullCalendar.moment(end).format("YYYY-MM-DD");
-					alert(startDate+"--"+endDate);
 			        var para = {start:startDate, end:endDate};
 			        $.ajax({
 		                   url: "${ctx}/calendarAction/listCalendar", 
-			        	   dataType: "POST", 
+		                   dataType : "json",
+	                       type : "POST",
 		                   data: para,
 		                   success: function (data) {
-		                	  /*  var events = [];
-		                       $(data).find('event').each(function() {
-		                           events.push({
-		                               title: $(this).attr('title'),
-		                               start: $(this).attr('start') // will be parsed
-		                           });
-		                       });
-		                       callback(events); */
-		                	   
 		                     for(var i=0;i<data.length;i++) {  
 		                            var events = new Object();  
 		                            events.id = data[i].id;  
 		                            events.title = data[i].title==null?'无':data[i].title;  
-		                            events.allDay = data[i].allDay;  
-		                            //如果后台穿过来的是字符串格式的日期类型那么就要用到$.fullCalendar.parseDate(data[i].kssj,"yyyy-MM-dd HH:mm:ss")
-									//这个方法来解析日期，将一个字符串日期，格式成一个javascript的Date对象
-		                            events.start = data[i].beginDate;
-		                            events.end =   data[i].endDate;
-		                            events.description = data[i].remark;
+		                            events.allDay = false;  
+		                            events.start = $.fullCalendar.moment(data[i].beginDate).format("YYYY-MM-DD HH:mm");
+		                            events.end =   $.fullCalendar.moment(data[i].endDate).format("YYYY-MM-DD HH:mm");
+		                            //events.description = data[i].remark;
 		                            $("#calendar").fullCalendar('renderEvent',events,true);//把从后台取出的数据进行封装以后在页面上以fullCalendar的方式进行显示  
 		                        }  
 		                  }
 	                });
 			    },
+			    eventClick: function(calEvent, jsEvent, view) {
+					//点击日程修改操作
+			        $(this).css('border-color', 'red');
+					//读取日程信息
+    				$.ajax({
+                        url: "${ctx}/calendarAction/getCalendar",
+                        dataType : "json",
+                        type : "POST",
+                        data: {id: calEvent.id},
+                        success: function (data) {
+                        	if(data.id != 0 ){
+	                        	var model = $('#calendarModal').modal('show');
+	                        	model.find("#modalLabel").html("修改预定信息");
+	                        	model.find("input[name=title]").val(data.title);
+	    		            	model.find("textarea[name=content]").val(data.content);
+	        	            	model.find("input[name=beginDate]").val($.fullCalendar.moment(data.beginDate).format("YYYY-MM-DD HH:mm"));
+	        	            	model.find("input[name=endDate]").val($.fullCalendar.moment(data.endDate).format("YYYY-MM-DD HH:mm"));
+	        	            	model.find("textarea[name=remark]").val(data.remark);
+	        	            	model.find('form').on('submit', function(ev){
+	        	            		//修改日程信息
+	        	            		ev.preventDefault();
+	        	            		var c_id = data.id;
+	        	            		var c_title = model.find("input[name=title]").val();
+	        		            	var c_content = model.find("textarea[name=content]").val();
+	        		            	var c_beginDate = model.find("input[name=beginDate]").val();
+	        		            	var c_endDate = model.find("input[name=endDate]").val();
+	        		            	var c_remark = model.find("textarea[name=remark]").val();
+	        		            	var c_createDate = data.createDate;
+	        		            	
+	        		            	var event = new Object();
+	        		            	event.id = c_id;
+	        		            	event.title = c_title;
+	        		            	event.start = c_beginDate;
+	        		            	event.end = c_endDate;
+	        		            	var para = {
+	      		            			id: c_id, 
+	      		            			title: c_title, 
+	      		            			content: c_content, 
+	      		            			beginDate: c_beginDate, 
+	      		            			endDate: c_endDate, 
+	      		            			remark: c_remark, 
+	      		            			createDate: c_createDate
+	        		            	};
+	        		            	$.ajax({
+	        	                       url: "${ctx}/calendarAction/updateCalendar",
+	        	                       dataType : "json",
+	        	                       type : "POST",
+	        	                       data: para,
+	        	                       success: function (data) {
+	        	                    	   if(data.id != 0 ){
+	        	                    		   $('#calendar').fullCalendar('updateEvent', event);
+	           	                       	       bootbox.alert("<h4><span class='label label-success'>Success!</span>&nbsp;&nbsp;修改成功！</h4>");
+	           	                       	 	   $('#calendarModal').modal('hide');
+	        	                    	   }else{
+	        	                    		   bootbox.alert("<h4><span class='label label-error'>Error!</span>&nbsp;&nbsp;修改失败！</h4>");
+	        	                    	   }
+	        	                       },
+	        	                       error:function(){
+	        	                      		alert("修改日程失败！");
+	        	                       }
+	        	                   });
+	        	            		
+	        	            	});
+                        	}else{
+                        		bootbox.alert("<h4><span class='label label-error'>Error!</span>&nbsp;&nbsp;未找到此日程信息！</h4>");
+                        	}
+                        },
+                        error:function(){
+                          	alert("未找到此日程信息！");
+                        }
+                    });
+			        
+			    },
 			    eventMouseover: function (calEvent, jsEvent, view) {
 			    	//鼠标滑过时有提示
-	                var startDate = $.fullCalendar.formatDate(calEvent.start, "YYYY-MM-DD HH:mm");
-	                var endDate = $.fullCalendar.formatDate(calEvent.end, "YYYY-MM-DD HH:mm");
-	                $(this).attr('title', startDate + " - " + endDate + " " + "标题" + " : " + calEvent.title);
-	                $(this).css('font-weight', 'normal');
-	                $(this).tooltip({
-	                    effect: 'toggle',
-	                    cancelDefault: true
+	                var startDate = $.fullCalendar.moment(calEvent.start).format("YYYY-MM-DD HH:mm");
+	                var endDate = $.fullCalendar.moment(calEvent.end).format("YYYY-MM-DD HH:mm");
+	                $(this).attr('title', startDate + " ~ " + endDate + " " + "标题" + " : " + calEvent.title);
+	                $(this).css({
+	                	"font-weight": "bold"
 	                });
+	                $(this).tooltip({
+	                	placement: 'bottom'
+	                });
+	                $(this).tooltip('show');
 	            },
 	            eventDrop: function( event, delta, revertFunc ) { 
 	            	//拖动日程时触发
 	            	bootbox.confirm("<h5><span class='label label-warning'>Warning!</span>&nbsp;&nbsp;预定时间已改变,您确定改变为当前的预定时间吗?</h5>", function(result) {
 	        			if(result){
-	        				var para = {id: event.id, allDay: event.allDay, start: $.fullCalendar.formatDate(event.start, "YYYY-MM-DD HH:mm"), end: $.fullCalendar.formatDate(event.end, "YYYY-MM-DD HH:mm")};
+	        				var para = {id: event.id, allDay: event.allDay, start: $.fullCalendar.moment(event.start, "YYYY-MM-DD HH:mm"), end: $.fullCalendar.moment(event.end, "YYYY-MM-DD HH:mm")};
 	        				$.ajax({
-	                            url: "calendarAction/updateCalendar", //要访问的后台地址
-	        					dataType: "POST",
+	                            url: "${ctx}/calendarAction/updateCalendar",
+	                            dataType : "json",
+	 	                        type : "POST",
 	                            data: para,
 	                            success: function (data) {
 	                            	bootbox.alert("<h4><span class='label label-success'>Success!</span>&nbsp;&nbsp;修改成功！</h4>");
@@ -124,10 +185,11 @@
 	            	//拖动日程大小改变时间触发
 	    	    	bootbox.confirm("<h5><span class='label label-warning'>Warning!</span>&nbsp;&nbsp;预定时间已改变,您确定改变为当前的预定时间吗? </h5>", function(result) {
 		    			if(result){
-		    				var para = {id: event.id, start: $.fullCalendar.formatDate(event.start, "YYYY-MM-DD HH:mm"), end: $.fullCalendar.formatDate(event.end, "YYYY-MM-DD HH:mm")};
+		    				var para = {id: event.id, start: $.fullCalendar.moment(event.start, "YYYY-MM-DD HH:mm"), end: $.fullCalendar.moment(event.end, "YYYY-MM-DD HH:mm")};
 		    				$.ajax({
-		                       url: "calendarAction/updateCalendar",
-		                       type: "POST",
+		                       url: "${ctx}/calendarAction/updateCalendar",
+		                       dataType : "json",
+		                       type : "POST",
 		                       data: para,
 		                       success: function (data) {
 		                       		bootbox.alert("<h4><span class='label label-success'>Success!</span>&nbsp;&nbsp;修改成功！</h4>");
@@ -143,48 +205,67 @@
 	    		    }); 
 	            },
 	            select: function(start, end) {
-	            	var model = $('#addCalendar').modal('show');
+	            	var model = $('#calendarModal').modal('show');
 	            	model.find("input[name=beginDate]").val($.fullCalendar.moment(start).format("YYYY-MM-DD"));
 	            	model.find("input[name=endDate]").val($.fullCalendar.moment(end).format("YYYY-MM-DD"));
-	            	
-	            	modal.find('form').on('submit', function(ev){
+	            	model.find("#modalLabel").html("添加预定信息");
+	            	model.find('form').on('submit', function(ev){
 	            		ev.preventDefault();
-		            	var event = new Object();
-		            	event.title = model.find("input[name=title]").val();
-		            	event.start = model.find("input[name=beginDate]").val();
-		            	event.end = model.find("input[name=endDate]").val();
+	            		
+	            		var c_title = model.find("input[name=title]").val();
+		            	var c_content = model.find("textarea[name=content]").val();
+		            	var c_beginDate = model.find("input[name=beginDate]").val();
+		            	var c_endDate = model.find("input[name=endDate]").val();
+		            	var c_remark = model.find("textarea[name=remark]").val();
 		            	
+		            	var event = new Object();
+		            	event.title = c_title;
+		            	event.start = c_beginDate;
+		            	event.end = c_endDate;
+		            	var para = {title: c_title, content: c_content, beginDate: c_beginDate, endDate: c_endDate, remark: c_remark};
 		            	$.ajax({
-	                       url: "calendarAction/addCalendar",
-	                       type: "POST",
+	                       url: "${ctx}/calendarAction/addCalendar",
+	                       dataType : "json",
+	                       type : "POST",
 	                       data: para,
 	                       success: function (data) {
-	                       		bootbox.alert("<h4><span class='label label-success'>Success!</span>&nbsp;&nbsp;修改成功！</h4>");
+	                    	   if(data.id != 0 ){
+	                    		   event.id = data.id;
+	                    		   $("#calendar").fullCalendar('renderEvent', event, true);
+	                       	       bootbox.alert("<h4><span class='label label-success'>Success!</span>&nbsp;&nbsp;添加成功！</h4>");
+	                       	       $('#calendarModal').modal('hide');
+	                    	   }else{
+	                    		   bootbox.alert("<h4><span class='label label-error'>Error!</span>&nbsp;&nbsp;添加失败！</h4>");
+	                    	   }
 	                       },
 	                       error:function(){
-	                      		alert("改变日程出错,日程已还原为改变之前！");
-	                      		revertFunc();//还原到拖动之前
+	                      		alert("添加日程失败！");
 	                       }
 	                   });
 	            	});
-	            	
-	               $("#beginDate,#endDate").datetimepicker({
-	        	    	language: 'zh-CN',
-	        	        format: "yyyy-mm-dd hh:ii",
-	        	        // minView: "month", //选择日期后，不会再跳转去选择时分秒 
-	        	        autoclose: true,
-	        	        todayBtn: true,
-	        	        todayHighlight: true,
-	        	        pickerPosition: "bottom-left"
-	        	   });
 	            }
 			    
   			})
   		}
-  		
+  		$("#beginDate,#endDate").datetimepicker({
+	    	language: 'zh-CN',
+	        format: "yyyy-mm-dd hh:ii",
+	        // minView: "month", //选择日期后，不会再跳转去选择时分秒 
+	        autoclose: true,
+	        todayBtn: true,
+	        todayHighlight: true,
+	        pickerPosition: "bottom-left"
+	   });
   		renderCalendar();
   	 });
   	
+  	function valid( val ){
+  		if(val == '' || val == null){
+  			return false;
+  		}else{
+  			return true;
+  		}
+  	}
   </script>
 </head>
 <body onload="displayPart('${fn:length(newsList)}');">
@@ -209,13 +290,13 @@
 		  </div>
 		  
 		  <!-- modal -->
-		  <div class="modal fade" id="addCalendar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		  <div class="modal fade" id="calendarModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
 			  <div class="modal-dialog">
-			    <form class="no-margin" action="calendarAction/doAdd" method="post">
+			    <form class="no-margin" method="post">
 			    <div class="modal-content">
 			      <div class="modal-header">
 			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			        <h4 class="modal-title" id="exampleModalLabel">添加预定信息</h4>
+			        <h4 class="modal-title" id="modalLabel"></h4>
 			      </div>
 			      <div class="modal-body">
 					<table class="table table-striped table-hover table-bordered">
@@ -223,7 +304,7 @@
 			    		<td>标题</td>
 			    		<td>
 			    			<form:errors path="title" cssClass="valid_text"></form:errors>
-			    			<input type="text" name="title" value="${book.title }" class="form-control" placeholder="请输入标题">
+			    			<input type="text" name="title" value="${book.title }" class="form-control" placeholder="请输入标题" required>
 			    		</td>
 			    		
 			    	</tr>
@@ -231,7 +312,7 @@
 			    		<td>内容</td>
 			    		<td>
 			    			<form:errors path="content" cssClass="valid_text"></form:errors>
-			    			<textarea name="content" class="form-control" rows="3" cols="53" placeholder="请输入内容"></textarea>
+			    			<textarea name="content" class="form-control" rows="3" cols="53" placeholder="请输入内容" required></textarea>
 			    		</td>
 			    	</tr>
 			    	<tr>
@@ -259,10 +340,6 @@
 			    		</td>
 			    	</tr>
 			    	<tr>
-			    		<td>联系人</td>
-			    		<td><input name="lxfs" type="text" value="" class="form-control" placeholder="联系电话" required/></td>
-			    	</tr>
-			    	<tr>
 			    		<td>备注</td>
 			    		<td><textarea name="remark" class="form-control" rows="3" cols="53" placeholder="备注信息"></textarea></td>
 			    	</tr>
@@ -272,15 +349,14 @@
 			        <button type="submit" class="btn btn-success btn-sm">Save</button>
 			    	<button type="button" class="btn btn-warning btn-sm" data-dismiss="modal">Close</button>
 			      </div>
-			    </form>
 			    </div>
+			    </form>
 			  </div>
 		  </div>
-		  
+		</div>  
 	  	</div>
 	 </div>
 	</div>
-  </div>
   <c:import url="../footer.jsp" />
 </body>
 </html>

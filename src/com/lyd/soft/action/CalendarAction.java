@@ -1,16 +1,16 @@
 package com.lyd.soft.action;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.lyd.soft.entity.Calendar;
 import com.lyd.soft.entity.Teacher;
 import com.lyd.soft.service.ICalendarService;
+import com.lyd.soft.util.BeanUtils;
 import com.lyd.soft.util.DateUtils;
 import com.lyd.soft.util.StringUtils;
 import com.lyd.soft.util.UserUtils;
@@ -61,11 +62,81 @@ public class CalendarAction {
 		return list;
 	}
 	
-	public String addCalendar(@ModelAttribute("calendar") Calendar calendar, HttpSession session){
+	@RequestMapping(value = "/getCalendar")
+	@ResponseBody
+	public Calendar getCalendar(HttpServletRequest request) throws Exception{
+		Calendar calendar = new Calendar();
+		String id = request.getParameter("id");
+		if(!StringUtils.isBlank(id)){
+			calendar = this.calendarService.findById(id);
+		}else{
+			calendar.setId(0);
+		}
+		return calendar;
+	}
+	
+	@RequestMapping(value = "/updateCalendar")
+	@ResponseBody
+	public Calendar updateCalendar(HttpServletRequest request, HttpSession session) throws Exception{
+		Calendar calendar = new Calendar();
+		String id = request.getParameter("id");
+		String title = request.getParameter("title"); 
+		String content = request.getParameter("content"); 
+		String start = request.getParameter("beginDate");
+		String end = request.getParameter("endDate");
+		String remark = request.getParameter("remark");
+		String create_date = request.getParameter("createDate");
+		Date startDate = DateUtils.StringToDate(start, "yyyy-MM-dd HH:mm");
+		Date endDate = DateUtils.StringToDate(end, "yyyy-MM-dd HH:mm");
+		Date createDate = DateUtils.StringToDate(create_date, "yyyy-MM-dd HH:mm");
 		Teacher teacher = UserUtils.getUserFromSession(session);
 		calendar.setTeacher(teacher);
+		calendar.setTitle(title);
+		calendar.setContent(content);
+		calendar.setBeginDate(startDate);
+		calendar.setEndDate(endDate);
+		calendar.setRemark(remark);
+		calendar.setCreateDate(createDate);
+		calendar.setUpdateDate(new Date());
+		calendar.setIsDelete(0);
+		
+		if(!StringUtils.isBlank(id)){
+			calendar.setId(new Integer(id));
+			this.calendarService.doUpdate(calendar);
+		}else{
+			calendar.setId(0);
+		}
+		return calendar;
+	}
+	
+	@RequestMapping(value = "/addCalendar")
+	@ResponseBody
+	public Calendar addCalendar(HttpServletRequest request, HttpSession session) throws Exception{
+		Calendar calendar = new Calendar();
+		String title = request.getParameter("title"); 
+		String content = request.getParameter("content"); 
+		String start = request.getParameter("beginDate");
+		String end = request.getParameter("endDate");
+		String remark = request.getParameter("remark");
+		
+		Date startDate = DateUtils.StringToDate(start, "yyyy-MM-dd HH:mm");
+		Date endDate = DateUtils.StringToDate(end, "yyyy-MM-dd HH:mm");
+		
+		Teacher teacher = UserUtils.getUserFromSession(session);
+		calendar.setTeacher(teacher);
+		calendar.setTitle(title);
+		calendar.setContent(content);
+		calendar.setBeginDate(startDate);
+		calendar.setEndDate(endDate);
+		calendar.setRemark(remark);
 		calendar.setCreateDate(new Date());
 		calendar.setIsDelete(0);
-		return null;
+		Serializable id = this.calendarService.doAdd(calendar);
+		if(!BeanUtils.isBlank(id)){
+			calendar.setId((int)id);
+		}else{
+			calendar.setId(0);
+		}
+		return calendar;
 	}
 }
