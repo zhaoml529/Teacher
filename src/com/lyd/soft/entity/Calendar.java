@@ -71,6 +71,13 @@ public class Calendar implements Serializable {
 	@Column(name = "IS_DELETE")
 	private Integer isDelete;				//删除
 
+	public Calendar(){
+		
+	}
+	
+	public Calendar(Integer id){
+		this.id = id;
+	}
 	public Integer getId() {
 		return id;
 	}

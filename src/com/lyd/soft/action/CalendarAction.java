@@ -1,17 +1,18 @@
 package com.lyd.soft.action;
 
+import java.io.PrintWriter;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -144,6 +145,45 @@ public class CalendarAction {
 		Serializable id = this.calendarService.doAdd(calendar);
 		if(!BeanUtils.isBlank(id)){
 			calendar.setId((int)id);
+		}else{
+			calendar.setId(0);
+		}
+		return calendar;
+	}
+	
+	@RequestMapping(value = "/deleteCalendar")
+	public void deleteCalendar(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		PrintWriter out = response.getWriter();
+		String id = request.getParameter("id");
+		if(!StringUtils.isBlank(id)){
+			this.calendarService.doDelete(new Calendar(new Integer(id)));
+			out.print("success");
+		}else{
+			out.print("fail");
+		}
+		out.flush();
+		out.close();
+	}
+	
+	@RequestMapping(value = "/dropOrResizeCalendar")
+	@ResponseBody
+	public Calendar dropCalendar(HttpServletRequest request) throws Exception{
+		Calendar calendar = new Calendar();
+		String id = request.getParameter("id");
+		String start = request.getParameter("beginDate");
+		String end = request.getParameter("endDate");
+		Date startDate = DateUtils.StringToDate(start, "yyyy-MM-dd HH:mm");
+		Date endDate = DateUtils.StringToDate(end, "yyyy-MM-dd HH:mm");
+		Boolean allDay = false;
+		if(DateUtils.diffDate(endDate, startDate) >= 24){ //大于1天
+			allDay = true;
+		}
+		if(!StringUtils.isBlank(id)){
+			calendar = this.calendarService.findById(id);
+			calendar.setAllDay(allDay);
+			calendar.setBeginDate(startDate);
+			calendar.setEndDate(endDate);
+			this.calendarService.doUpdate(calendar);
 		}else{
 			calendar.setId(0);
 		}
