@@ -43,7 +43,7 @@ public class Calendar implements Serializable {
 	private String content;					//内容
 	
 	@Column(name = "ALL_DAY")
-	private Integer allDay;					//1.全天  0.不是全天
+	private Boolean allDay;					//1.全天  0.不是全天
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
@@ -103,11 +103,12 @@ public class Calendar implements Serializable {
 		this.content = content;
 	}
 
-	public Integer getAllDay() {
+
+	public Boolean getAllDay() {
 		return allDay;
 	}
 
-	public void setAllDay(Integer allDay) {
+	public void setAllDay(Boolean allDay) {
 		this.allDay = allDay;
 	}
 

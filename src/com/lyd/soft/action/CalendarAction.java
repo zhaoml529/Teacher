@@ -89,6 +89,11 @@ public class CalendarAction {
 		Date startDate = DateUtils.StringToDate(start, "yyyy-MM-dd HH:mm");
 		Date endDate = DateUtils.StringToDate(end, "yyyy-MM-dd HH:mm");
 		Date createDate = DateUtils.StringToDate(create_date, "yyyy-MM-dd HH:mm");
+		Boolean allDay = false;
+		if(DateUtils.diffDate(endDate, startDate) >= 24){ //大于1天
+			allDay = true;
+		}
+		
 		Teacher teacher = UserUtils.getUserFromSession(session);
 		calendar.setTeacher(teacher);
 		calendar.setTitle(title);
@@ -96,6 +101,7 @@ public class CalendarAction {
 		calendar.setBeginDate(startDate);
 		calendar.setEndDate(endDate);
 		calendar.setRemark(remark);
+		calendar.setAllDay(allDay);
 		calendar.setCreateDate(createDate);
 		calendar.setUpdateDate(new Date());
 		calendar.setIsDelete(0);
@@ -118,9 +124,12 @@ public class CalendarAction {
 		String start = request.getParameter("beginDate");
 		String end = request.getParameter("endDate");
 		String remark = request.getParameter("remark");
-		
+		Boolean allDay = false;
 		Date startDate = DateUtils.StringToDate(start, "yyyy-MM-dd HH:mm");
 		Date endDate = DateUtils.StringToDate(end, "yyyy-MM-dd HH:mm");
+		if(DateUtils.diffDate(endDate, startDate) >= 24){ //大于1天
+			allDay = true;
+		}
 		
 		Teacher teacher = UserUtils.getUserFromSession(session);
 		calendar.setTeacher(teacher);
@@ -129,6 +138,7 @@ public class CalendarAction {
 		calendar.setBeginDate(startDate);
 		calendar.setEndDate(endDate);
 		calendar.setRemark(remark);
+		calendar.setAllDay(allDay);
 		calendar.setCreateDate(new Date());
 		calendar.setIsDelete(0);
 		Serializable id = this.calendarService.doAdd(calendar);

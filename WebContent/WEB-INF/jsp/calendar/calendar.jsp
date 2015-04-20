@@ -5,7 +5,7 @@
 <head>
 <meta charset="utf-8">
   <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><![endif]-->
-  <title>课题列表</title>
+  <title>日程信息</title>
   <meta name="keywords" content="" />
   <meta name="description" content="" />
   <meta name="viewport" content="width=device-width">
@@ -50,6 +50,7 @@
 				events: function(start, end, timezone, callback) {
 					//页面初始化显示日程信息
 					//moment().format("YYYY-MM-DD HH:mm:ss")  --Visit the MomentJS website
+					$("#calendar").fullCalendar('removeEvents'); 
 					var startDate = $.fullCalendar.moment(start).format("YYYY-MM-DD");
 					var endDate = $.fullCalendar.moment(end).format("YYYY-MM-DD");
 			        var para = {start:startDate, end:endDate};
@@ -66,7 +67,7 @@
 		                            events.allDay = false;  
 		                            events.start = $.fullCalendar.moment(data[i].beginDate).format("YYYY-MM-DD HH:mm");
 		                            events.end =   $.fullCalendar.moment(data[i].endDate).format("YYYY-MM-DD HH:mm");
-		                            //events.description = data[i].remark;
+		                            events.description = data[i].remark;
 		                            $("#calendar").fullCalendar('renderEvent',events,true);//把从后台取出的数据进行封装以后在页面上以fullCalendar的方式进行显示  
 		                        }  
 		                  }
@@ -74,7 +75,6 @@
 			    },
 			    eventClick: function(calEvent, jsEvent, view) {
 					//点击日程修改操作
-			        $(this).css('border-color', 'red');
 					//读取日程信息
     				$.ajax({
                         url: "${ctx}/calendarAction/getCalendar",
@@ -149,7 +149,7 @@
 			    	//鼠标滑过时有提示
 	                var startDate = $.fullCalendar.moment(calEvent.start).format("YYYY-MM-DD HH:mm");
 	                var endDate = $.fullCalendar.moment(calEvent.end).format("YYYY-MM-DD HH:mm");
-	                $(this).attr('title', startDate + " ~ " + endDate + " " + "标题" + " : " + calEvent.title);
+	                $(this).attr('title', "标题: " + calEvent.title+" 时间: "+startDate + " ~ " + endDate);
 	                $(this).css({
 	                	"font-weight": "bold"
 	                });
@@ -160,16 +160,29 @@
 	            },
 	            eventDrop: function( event, delta, revertFunc ) { 
 	            	//拖动日程时触发
+	            	alert(event.allDay);
+	            	return false;
 	            	bootbox.confirm("<h5><span class='label label-warning'>Warning!</span>&nbsp;&nbsp;预定时间已改变,您确定改变为当前的预定时间吗?</h5>", function(result) {
 	        			if(result){
-	        				var para = {id: event.id, allDay: event.allDay, start: $.fullCalendar.moment(event.start, "YYYY-MM-DD HH:mm"), end: $.fullCalendar.moment(event.end, "YYYY-MM-DD HH:mm")};
+	        				var para = {
+	        						id: event.id, 
+	        						allDay: event.allDay, 
+	        						start: $.fullCalendar.moment(event.start).format("YYYY-MM-DD HH:mm"),
+	        						end: $.fullCalendar.moment(event.end).format("YYYY-MM-DD HH:mm")
+	        						};
 	        				$.ajax({
 	                            url: "${ctx}/calendarAction/updateCalendar",
 	                            dataType : "json",
 	 	                        type : "POST",
 	                            data: para,
 	                            success: function (data) {
-	                            	bootbox.alert("<h4><span class='label label-success'>Success!</span>&nbsp;&nbsp;修改成功！</h4>");
+	                            	if(data.id != 0 ){
+     	                    		   $('#calendar').fullCalendar('updateEvent', event);
+        	                       	       bootbox.alert("<h4><span class='label label-success'>Success!</span>&nbsp;&nbsp;修改成功！</h4>");
+        	                       	 	   $('#calendarModal').modal('hide');
+     	                    	   }else{
+     	                    		   bootbox.alert("<h4><span class='label label-error'>Error!</span>&nbsp;&nbsp;修改失败！</h4>");
+     	                    	   }
 		                        },
 		                        error:function(){
 		                          	alert("改变日程出错,日程已还原为改变之前！");
@@ -185,14 +198,20 @@
 	            	//拖动日程大小改变时间触发
 	    	    	bootbox.confirm("<h5><span class='label label-warning'>Warning!</span>&nbsp;&nbsp;预定时间已改变,您确定改变为当前的预定时间吗? </h5>", function(result) {
 		    			if(result){
-		    				var para = {id: event.id, start: $.fullCalendar.moment(event.start, "YYYY-MM-DD HH:mm"), end: $.fullCalendar.moment(event.end, "YYYY-MM-DD HH:mm")};
+		    				var para = {id: event.id, start: $.fullCalendar.moment(event.start).format("YYYY-MM-DD HH:mm"), end: $.fullCalendar.moment(event.end).format("YYYY-MM-DD HH:mm")};
 		    				$.ajax({
 		                       url: "${ctx}/calendarAction/updateCalendar",
 		                       dataType : "json",
 		                       type : "POST",
 		                       data: para,
 		                       success: function (data) {
-		                       		bootbox.alert("<h4><span class='label label-success'>Success!</span>&nbsp;&nbsp;修改成功！</h4>");
+		                    	   if(data.id != 0 ){
+    	                    		   $('#calendar').fullCalendar('updateEvent', event);
+       	                       	       bootbox.alert("<h4><span class='label label-success'>Success!</span>&nbsp;&nbsp;修改成功！</h4>");
+       	                       	 	   $('#calendarModal').modal('hide');
+    	                    	   }else{
+    	                    		   bootbox.alert("<h4><span class='label label-error'>Error!</span>&nbsp;&nbsp;修改失败！</h4>");
+    	                    	   }
 		                       },
 		                       error:function(){
 		                      		alert("改变日程出错,日程已还原为改变之前！");
@@ -206,6 +225,7 @@
 	            },
 	            select: function(start, end) {
 	            	var model = $('#calendarModal').modal('show');
+	            	alert($.fullCalendar.moment(start).format("YYYY-MM-DD HH:mm"))
 	            	model.find("input[name=beginDate]").val($.fullCalendar.moment(start).format("YYYY-MM-DD"));
 	            	model.find("input[name=endDate]").val($.fullCalendar.moment(end).format("YYYY-MM-DD"));
 	            	model.find("#modalLabel").html("添加预定信息");
@@ -244,7 +264,6 @@
 	                   });
 	            	});
 	            }
-			    
   			})
   		}
   		$("#beginDate,#endDate").datetimepicker({
@@ -256,6 +275,13 @@
 	        todayHighlight: true,
 	        pickerPosition: "bottom-left"
 	   });
+	   $('#calendarModal').on('hidden.bs.modal', function (e) {
+		    //modal关闭时调用
+	       	$("input[name=title]").val("");
+	    	$("textarea[name=content]").val("");
+	    	$("textarea[name=remark]").val("");
+	   })
+	   
   		renderCalendar();
   	 });
   	
