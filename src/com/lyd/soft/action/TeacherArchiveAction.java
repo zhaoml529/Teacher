@@ -4,7 +4,9 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -257,5 +259,20 @@ public class TeacherArchiveAction {
 			redirectAttribute.addFlashAttribute(Constants.MESSAGE, "申请审批成功！请等待系部管理员审核...");
 		}
 		return "redirect:/teacherArchiveAction/details";
+	}
+	
+	/**
+	 * 待审核数量
+	 * @param session
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/getCount")
+	@ResponseBody
+	public Map<String, Integer> getArchiveCount() throws Exception {
+		Integer count = this.itaService.getCount(Constants.PENDING);
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("count", count);
+		return map;
 	}
 }

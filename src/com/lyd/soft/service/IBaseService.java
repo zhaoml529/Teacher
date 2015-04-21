@@ -11,7 +11,7 @@ public interface IBaseService<T> {
 	 
 	public List<T> findByWhere(String tableSimpleName,String[] columns,String[] values, String[] orderBy, String[] orderType) throws Exception;
 	 
-	public List<T> getCount(String tableSimpleName) throws Exception;
+	public Integer getCount(String tableSimpleName, String[] columns, String[] values) throws Exception;
 	 
 	public Serializable add(T bean) throws Exception;
 	 
@@ -26,4 +26,6 @@ public interface IBaseService<T> {
 	public List<T> findByPage(String tableSimpleName,String[] columns,String[] values, String[] orderBy, String[] orderType) throws Exception;
 	
 	public List<T> getRangeDate(String tableSimpleName,String[] columns,String[] values) throws Exception;
+	
+	public List<T> findByQuery(final Class<T> entity, String[] columns, String[] querys) throws Exception;
 }

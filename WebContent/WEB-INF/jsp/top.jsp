@@ -1,5 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<script type="text/javascript">
+$(function(){
+	$.ajax({
+        url: "${ctx}/messageAction/getCount", 
+        dataType : "json",
+        type : "POST",
+        data: {},
+        success: function (data) {
+        	if(data.count > 0){
+        		$("#messageCount").html(data.count);
+        	}
+        }
+   });
+});
+</script>
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
 <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 	<div class="navbar-inner">
@@ -17,7 +32,7 @@
       <ul class="pull-right nav navbar-nav">
 		<li class="item-test"><a href="${ctx }/loginAction/main">首页</a></li>
 		<li class="item-test"><a href="${ctx }/newsAction/toList_page">新闻</a></li>
-		<li class="item-test"><a href="${ctx }/messageAction/toList_page"><span class="badge pull-right">9</span>站内信</a></li>
+		<li class="item-test"><a href="${ctx }/messageAction/toList_page"><span id="messageCount" class="pull-right badge badge-success"></span>站内信</a></li>
 		<li class="item-test"><a href="${ctx }/teacherAction/details">用户中心</a></li>
 		<li class="item-test"><a href="${ctx }/loginAction/logout">退出</a></li>
 	  </ul>          

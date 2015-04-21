@@ -40,7 +40,7 @@
 					right: 'month,agendaWeek,agendaDay'
 				},
 				lang: currentLangCode,
-				firstDay: 1,
+				firstDay: 1, //The day that each week begins.Sunday=0, Monday=1, Tuesday=2, etc.
 				editable: true,
 				eventLimit: true, // allow "more" link when too many events
 				weekNumbers: true,

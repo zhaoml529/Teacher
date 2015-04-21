@@ -21,4 +21,6 @@ public interface ITeacherService {
 	public Teacher findByName(String name) throws Exception;
 	
 	public Teacher findById(String teacherId) throws Exception;
+	
+	public List<Teacher> searchByName(String name) throws Exception;
 }

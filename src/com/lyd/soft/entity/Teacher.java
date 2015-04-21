@@ -12,6 +12,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -49,6 +50,7 @@ public class Teacher implements Serializable{
 	
 	@ManyToOne(targetEntity = Department.class)
 	@JoinColumn(name="DEPT_ID",updatable=false)
+	@JsonIgnore
 	private Department department;		//所属机构
 	
 	@Column(name = "ROLE")

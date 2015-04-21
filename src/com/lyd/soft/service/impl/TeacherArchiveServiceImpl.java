@@ -62,5 +62,10 @@ public class TeacherArchiveServiceImpl extends BaseServiceImpl<TeacherArchive> i
 	public List<TeacherArchive> findByDept(String dept_id, String status) throws Exception {
 		return findByPage("TeacherArchive", new String[]{"teacher.department.id", "isPass", "isDelete"}, new String[]{dept_id, status, "0"}, new String[]{"updateDate"}, new String[]{"DESC"});
 	}
+
+	@Override
+	public Integer getCount(String status) throws Exception {
+		return getCount("TeacherArchive", new String[]{"isPass"}, new String[]{status});
+	}
 	
 }

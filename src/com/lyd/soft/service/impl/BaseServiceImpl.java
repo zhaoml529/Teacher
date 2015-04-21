@@ -2,6 +2,7 @@ package com.lyd.soft.service.impl;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -38,7 +39,11 @@ public class BaseServiceImpl<T> implements IBaseService<T> {
      	   }
         }
         List<T> list = this.baseDao.createQuery(sff.toString()); 
-        return list.size()>0?list:null; 
+        if(BeanUtils.isBlank(list)){
+        	return Collections.emptyList();
+        }else{
+        	return list;
+        }
 	}
 
 	@Override
@@ -84,18 +89,34 @@ public class BaseServiceImpl<T> implements IBaseService<T> {
         	   }
            }
            List<T> list = this.baseDao.createQuery(sb.toString());  
-           return list.size()>0?list:null;  
+           if(BeanUtils.isBlank(list)){
+           		return Collections.emptyList();
+           }else{
+           		return list;
+           } 
         }else{  
-            return null;  
+        	return Collections.emptyList();
         } 
 	}
 
 	@Override
 	@Transactional(propagation=Propagation.NOT_SUPPORTED, readOnly=true)
-	public List<T> getCount(String tableSimpleName) throws Exception{
-    	String hql = "select count(*) from " + tableSimpleName;
-    	List<T> list = this.baseDao.createQuery(hql);
-    	return list;
+	public Integer getCount(String tableSimpleName, String[] columns, String[] values) throws Exception{
+		StringBuffer sb = new StringBuffer();
+		sb.append("select count(*) from ").append(tableSimpleName);
+		if(columns.length == values.length && columns.length != 0 && values.length != 0){
+			sb.append( " a where ");
+			for(int i = 0; i < columns.length; i++){  
+	            sb.append("a.").append(columns[i]).append("='").append(values[i]).append("'");  
+	            if(i < columns.length-1){  
+	                sb.append(" and ");  
+	            }  
+            }
+			Integer count = this.baseDao.getCount(sb.toString());  
+            return count;  
+		}else{  
+            return 0;  
+        }
 	}
 
 	@Override
@@ -185,10 +206,14 @@ public class BaseServiceImpl<T> implements IBaseService<T> {
 	       }
 	       logger.info("findByPage: HQL: "+hql);
 	       List<T> list = this.baseDao.findByPage(hql, firstResult, maxResult); 
-	       return list.size()>0?list:null;
+	       if(BeanUtils.isBlank(list)){
+          		return Collections.emptyList();
+           }else{
+          		return list;
+           } 
         }else{
         	logger.info("findByPage: columns.length != values.length");
-        	return null;
+        	return Collections.emptyList();
         }
 	}
 
@@ -210,5 +235,16 @@ public class BaseServiceImpl<T> implements IBaseService<T> {
         return list.size()>0?list:null;
 	}
 
+	@Override
+	@Transactional(propagation=Propagation.NOT_SUPPORTED, readOnly=true)
+	public List<T> findByQuery(Class<T> entity, String[] columns,
+			String[] querys) throws Exception {
+		List<T> list =  this.baseDao.findByQuery(entity, columns, querys);
+		if(BeanUtils.isBlank(list)){
+      		return Collections.emptyList();
+       }else{
+      		return list;
+       } 
+	}
 	
 }

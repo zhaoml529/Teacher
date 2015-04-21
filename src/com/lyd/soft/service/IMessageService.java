@@ -18,4 +18,6 @@ public interface IMessageService {
 	
 	public List<Message> findAll() throws Exception;
 	
+	public Integer getMessageCount(String teacherId) throws Exception;
+	
 }

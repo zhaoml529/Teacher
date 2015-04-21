@@ -48,22 +48,14 @@ public class CanendarServiceImpl extends BaseServiceImpl<Calendar> implements
 	@Transactional(propagation=Propagation.NOT_SUPPORTED, readOnly=true)
 	public Calendar findById(String id) throws Exception {
 		Calendar calendar = getUnique("Calendar", new String[]{"id"}, new String[] {id});
-		if(BeanUtils.isBlank(calendar)){
-			return null;
-		}else{
-			return calendar;
-		}
+		return calendar;
 	}
 
 	@Override
 	@Transactional(propagation=Propagation.NOT_SUPPORTED, readOnly=true)
 	public List<Calendar> findByTeacherId(String teacher_id) throws Exception {
 		List<Calendar> list = findByWhere("Calendar", new String[]{"teacher"}, new String[]{teacher_id}, new String[]{}, new String[]{});
-		if(BeanUtils.isBlank(list)){
-			return null;
-		}else{
-			return list;
-		}
+		return list;
 	}
 
 	@Override
@@ -71,11 +63,7 @@ public class CanendarServiceImpl extends BaseServiceImpl<Calendar> implements
 	public List<Calendar> findByDateRange(String teacherId, String beginDate, String endDate)
 			throws Exception {
 		List<Calendar> list = getRangeDate("Calendar", new String[]{"teacher", "beginDate"}, new String[]{teacherId, beginDate, endDate});
-		if(BeanUtils.isBlank(list)){
-			return null;
-		}else{
-			return list;
-		}
+		return list;
 	}
 	
 }

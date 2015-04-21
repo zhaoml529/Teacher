@@ -5,14 +5,21 @@
 <head>
   <meta charset="utf-8">
   <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><![endif]-->
+  <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+   <script src="${ctx}/js/html5shiv.js"></script>
+   <script src="${ctx}/js/respond.min.js"></script>
+  <![endif]-->  
   <title>教师档案管理系统</title>
   <meta name="keywords" content="" />
   <meta name="description" content="" />
   <meta name="viewport" content="width=device-width">  
+  <meta http-equiv="X-UA-Compatible" content="IE=9" />
   <link rel="stylesheet" href="${ctx}/css/messenger.css" type="text/css" />
   <link rel="stylesheet" href="${ctx}/css/messenger-theme-flat.css" type="text/css" />
   <script type="text/javascript" src="${ctx}/js/messenger.min.js"></script>
   <script type="text/javascript" src="${ctx}/js/messenger-theme-flat.js"></script>
+  <script type="text/javascript" src="${ctx}/js/fullcalendar/zh-cn.js"></script>
   <script type="text/javascript">
     $(function(){
     	var msg = '';
@@ -32,83 +39,109 @@
 		}
 	  	Messenger().post({
   		  message: msg+"${user.teacherName}<br/>您上次登录时间为 :${user.lgoinDate}",
-	  	  hideAfter: 8,
+	  	  hideAfter: 6,
 	  	  status: 500,
 	  	  showCloseButton: true,
 	  	});
-
+	  	
+	  	//approvalArchive(); //待审核
+	  	
+	  	//readMessage(); //未读信息
+	  	
+	  	renderCalendar(); //初始化日程信息
     });
     
-  </script>
- <%--  <script type="text/javascript" src="${ctx}/js/calendar.js"></script> --%>  
- <script>
-
-	$(document).ready(function() {
-
-		$('#calendar').fullCalendar({
-			defaultDate: '2014-11-12',
-			editable: true,
+    function renderCalendar() {
+    	$('#calendar').fullCalendar({
+    		header: {
+				right: 'prev,next today',
+				left: 'title',
+			},
+			lang: 'zh-cn',
+			firstDay: 1,
 			eventLimit: true, // allow "more" link when too many events
-			events: [
-				{
-					title: 'All Day Event',
-					start: '2014-11-01'
-				},
-				{
-					title: 'Long Event',
-					start: '2014-11-07',
-					end: '2014-11-10'
-				},
-				{
-					id: 999,
-					title: 'Repeating Event',
-					start: '2014-11-09T16:00:00'
-				},
-				{
-					id: 999,
-					title: 'Repeating Event',
-					start: '2014-11-16T16:00:00'
-				},
-				{
-					title: 'Conference',
-					start: '2014-11-11',
-					end: '2014-11-13'
-				},
-				{
-					title: 'Meeting',
-					start: '2014-11-12T10:30:00',
-					end: '2014-11-12T12:30:00'
-				},
-				{
-					title: 'Lunch',
-					start: '2014-11-12T12:00:00'
-				},
-				{
-					title: 'Meeting',
-					start: '2014-11-12T14:30:00'
-				},
-				{
-					title: 'Happy Hour',
-					start: '2014-11-12T17:30:00'
-				},
-				{
-					title: 'Dinner',
-					start: '2014-11-12T20:00:00'
-				},
-				{
-					title: 'Birthday Party',
-					start: '2014-11-13T07:00:00'
-				},
-				{
-					title: 'Click for Google',
-					url: 'http://google.com/',
-					start: '2014-11-28'
-				}
-			]
-		});
-		
-	});
+			weekNumbers: true,
+			events: function(start, end, timezone, callback) {
+				//页面初始化显示日程信息
+				//moment().format("YYYY-MM-DD HH:mm:ss")  --Visit the MomentJS website
+				$("#calendar").fullCalendar('removeEvents'); 
+				var startDate = $.fullCalendar.moment(start).format("YYYY-MM-DD");
+				var endDate = $.fullCalendar.moment(end).format("YYYY-MM-DD");
+		        var para = {start:startDate, end:endDate};
+		        $.ajax({
+	                   url: "${ctx}/calendarAction/listCalendar", 
+	                   dataType : "json",
+                       type : "POST",
+	                   data: para,
+	                   success: function (data) {
+	                     for(var i=0;i<data.length;i++) {  
+	                            var events = new Object();  
+	                            events.id = data[i].id;  
+	                            events.title = data[i].title==null?'无':data[i].title;  
+	                            events.allDay = false;  
+	                            events.start = $.fullCalendar.moment(data[i].beginDate).format("YYYY-MM-DD HH:mm");
+	                            events.end =   $.fullCalendar.moment(data[i].endDate).format("YYYY-MM-DD HH:mm");
+	                            events.description = data[i].remark;
+	                            $("#calendar").fullCalendar('renderEvent',events,true);//把从后台取出的数据进行封装以后在页面上以fullCalendar的方式进行显示  
+	                        }  
+	                  }
+                });
+		    },
+		    eventMouseover: function (calEvent, jsEvent, view) {
+		    	//鼠标滑过时有提示
+                var startDate = $.fullCalendar.moment(calEvent.start).format("YYYY-MM-DD HH:mm");
+                var endDate = $.fullCalendar.moment(calEvent.end).format("YYYY-MM-DD HH:mm");
+                $(this).attr('title', "标题: " + calEvent.title+" 时间: "+startDate + " ~ " + endDate);
+                $(this).css({
+                	"font-weight": "bold"
+                });
+                $(this).tooltip({
+                	placement: 'bottom'
+                });
+                $(this).tooltip('show');
+            }
+    	});
+	};
 
+	function readMessage(){
+		$.ajax({
+            url: "${ctx}/messageAction/getCount", 
+            dataType : "json",
+            type : "POST",
+            data: {},
+            success: function (data) {
+            	if(data.count > 0){
+            		$("#messageCount").html(data.count);
+            		Messenger().post({
+	      	  		  message: "您当前有 "+data.count+" 条未读信息！",
+	      		  	  hideAfter: 7,
+	      		  	  status: 500,
+	      		  	  showCloseButton: true,
+           		  	});
+            	}
+            }
+       });
+	}
+	
+	function approvalArchive(){
+		$.ajax({
+            url: "${ctx}/teacherArchiveAction/getCount", 
+            dataType : "json",
+            type : "POST",
+            data: {},
+            success: function (data) {
+            	if(data.count > 0){
+            		$("#approvalArchive").html(data.count);
+            		Messenger().post({
+	      	  		  message: "当前有 "+data.count+" 个档案需要您进行审批！",
+	      		  	  hideAfter: 8,
+	      		  	  status: 500,
+	      		  	  showCloseButton: true,
+           		  	});
+            	}
+            }
+       });
+	}
 </script>
 </head>
 <body>
@@ -125,7 +158,51 @@
 	    	  <div class="page-header">
 	            <h2>欢迎使用 高校教师档案管理系统</h2>
 	          </div>
-	            <p>File Manager System 由邯郸学院信息工程学院(CIE/HDC)11级计算机科学与技术专接本班提供技术支持。</p>
+	            <p>File Manager System 由邯郸学院信息工程学院 11级计算机科学与技术专接本班刘亚迪同学独立开发完成。</p>
+	            <p><h3><b>技术选型</b></h3></p>
+	            <p><h4><b>管理</b></h4></p>
+            	<p><ul><li>Github版本控制</li></ul></p>
+	            <p><h4><b>后端</b></h4></p>
+            	<p>
+            		<ul>
+            			<li>Ioc容器 Spring</li>
+            			<li>Web框架 SpringMVC</li>
+            			<li>Orm框架 Hibernate</li>
+            			<li>验证框架 Hibernate Validator</li>
+            			<li>数据源 Proxool</li>
+            			<li>日志 Log4j</li>
+            			<li>Jsp 模版视图</li>
+            		</ul>
+            	</p>
+	            <p><h4><b>前端</b></h4></p>
+	            <p>
+            		<ul>
+            			<li>Bootstrap 框架</li>
+            			<li>Bootstrap-datatimepicker 日历选择</li>
+            			<li>KindEditor 富文本框</li>
+            			<li>Bootbox 弹框</li>
+            			<li>Message 消息提示</li>
+            			<li>Jquery-fileupload 文件上传</li>
+            			<li>Fullcalendar 日历插件</li>
+            			<li>icheck 美化单选复选框</li>
+            		</ul>
+            	</p>
+     			<p><h4><b>数据库</b></h4></p>
+     			<p>
+            		<ul>
+            			<li>目前只支持MySQL,建议MySQL5.5及以上</li>
+            		</ul>
+            	</p>
+            	<p><h4><b>支持的浏览器</b></h4></p>
+            	<p>
+            		<ul>
+            			<li>Chrome</li>
+            			<li>Firefox</li>
+            			<li>IE8及以上(不建议使用IE)</li>
+            			<li>360极速浏览器</li>
+            			<li>其他浏览器暂时未测试</li>
+            		</ul>
+            	</p>
 	            <p>你可以进行以下操作：</p>
 	            <ul>
 				    <li>查看当前新闻：<a href="/guetoj/news.html">点击进入</a> </li>
@@ -190,4 +267,28 @@
     </div>
 	<c:import url="footer.jsp" />
 </body>
+<script type="text/javascript">
+$(function(){
+	var messageCount = $("#messageCount").html();
+	var approvalCount = $("#approvalArchive").html();
+	alert(messageCount+"--"+approvalCount);
+	if(messageCount !=null && messageCount != ''){
+		Messenger().post({
+		  message: "您当前有 "+messageCount+" 条未读信息!!!！",
+	  	  hideAfter: 7,
+	  	  status: 500,
+	  	  showCloseButton: true,
+	  	});
+	}
+	
+	if(approvalCount !=null && approvalCount != ''){
+		Messenger().post({
+  		  message: "当前有 "+approvalCount+" 个档案需要您进行审批！11",
+	  	  hideAfter: 8,
+	  	  status: 500,
+	  	  showCloseButton: true,
+	  	});
+	}
+})
+</script>
 </html>

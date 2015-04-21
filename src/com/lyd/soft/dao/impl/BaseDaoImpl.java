@@ -3,9 +3,13 @@ package com.lyd.soft.dao.impl;
 import java.io.Serializable;
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -74,4 +78,29 @@ public class BaseDaoImpl<T> implements IBaseDao<T> {
 	    return (T) query.uniqueResult();
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<T> findByQuery(Class<T> entity, String[] columns, String[] querys){
+		Session session=sessionFactory.getCurrentSession();
+    	Criteria criteria = session.createCriteria(entity);
+    	if(columns.length==querys.length && columns.length != 0){  
+            for(int i = 0; i < columns.length; i++){  
+            	criteria.add(Restrictions.like(columns[i], querys[i], MatchMode.START));
+            }
+            criteria.add(Restrictions.eq("isDelete", new Integer(0)));
+            criteria.addOrder(Order.asc(columns[0]));
+            criteria.setMaxResults(15);
+        }else{
+        	return null;
+        }
+        List<T> list=criteria.list();
+        return list;
+	}
+
+	@Override
+	public Integer getCount(String hql) throws Exception {
+		Query query = getSession().createQuery(hql);
+		int count=(int)((long)query.uniqueResult());
+	    return Integer.valueOf(count);
+	}
 }

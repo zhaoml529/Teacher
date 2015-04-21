@@ -91,4 +91,21 @@ public interface IBaseDao<T> {
 	 */
 	public T unique(final String hql) throws Exception;
 	
+	/**
+	 * 模糊查询
+	 * @param tableSimpleName
+	 * @param columns
+	 * @param querys
+	 * @return
+	 * @throws Exception
+	 */
+	public List<T> findByQuery(Class<T> entity, String[] columns, String[] querys) throws Exception;
+	
+	/**
+	 * 获取数量
+	 * @param hql
+	 * @return
+	 * @throws Exception
+	 */
+	public Integer getCount(final String hql) throws Exception;
 }

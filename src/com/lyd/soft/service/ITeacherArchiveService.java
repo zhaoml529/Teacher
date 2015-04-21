@@ -23,4 +23,6 @@ public interface ITeacherArchiveService {
 	
 	public TeacherArchive findByTeaId(String teacherId) throws Exception;
 	
+	public Integer getCount(String status) throws Exception;
+	
 }

@@ -1,7 +1,9 @@
 package com.lyd.soft.action;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.lyd.soft.entity.Message;
@@ -46,8 +49,6 @@ public class MessageAction {
 			model.addAttribute("message", new Message());
 		}
 		String orderBy = request.getParameter("orderBy");
-		String pageNum = request.getParameter("pageNum");
-		System.out.println("pageNum: "+pageNum);
 		String option = "DESC";
 		if(!BeanUtils.isBlank(orderBy)){
 			option = orderBy;
@@ -209,4 +210,19 @@ public class MessageAction {
 		return "redirect:/messageAction/toList_page";
 	}
 	
+	/**
+	 * 未读信息数量
+	 * @param session
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/getCount")
+	@ResponseBody
+	public Map<String, Integer> getMessageCount(HttpSession session) throws Exception {
+		Teacher user = UserUtils.getUserFromSession(session);
+		Integer count = this.messageService.getMessageCount(user.getTeacherId());
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("count", count);
+		return map;
+	}
 }

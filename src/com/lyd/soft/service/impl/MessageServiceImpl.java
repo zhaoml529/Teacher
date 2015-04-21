@@ -39,27 +39,24 @@ public class MessageServiceImpl extends BaseServiceImpl<Message> implements
 	@Transactional(propagation=Propagation.NOT_SUPPORTED, readOnly=true)
 	public List<Message> toList(String teacherId, String option) throws Exception {
 		List<Message> list = findByPage("Message", new String[]{"toUser"}, new String[]{teacherId}, new String[]{"createDate"}, new String[]{option});
-		if(BeanUtils.isBlank(list)){
-			return null;
-		}else{
-			return list;
-		}
+		return list;
 	}
 
 	@Override
 	@Transactional(propagation=Propagation.NOT_SUPPORTED, readOnly=true)
 	public Message findById(Integer id) throws Exception {
 		Message msg = getBean(Message.class, id);
-		if(BeanUtils.isBlank(msg)){
-			return null;
-		}else{
-			return msg;
-		}
+		return msg;
 	}
 
 	@Override
 	public List<Message> findAll() throws Exception {
 		return getAllList("Message", new String[]{}, new String[]{});
+	}
+
+	@Override
+	public Integer getMessageCount(String teacherId) throws Exception {
+		return getCount("Message", new String[]{"toUser", "review", "isDelete"}, new String[]{teacherId, "0", "0"});
 	}
 
 }
