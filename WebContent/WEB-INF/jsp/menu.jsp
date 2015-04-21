@@ -1,6 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
+<script type="text/javascript">
+$(function(){
+	$.ajax({
+        url: "${ctx}/teacherArchiveAction/getArchiveCount", 
+        dataType : "json",
+        type : "POST",
+        data: {},
+        success: function (data) {
+        	if(data.count > 0){
+        		$("#approvalArchive").html(data.count);
+        	}
+        }
+   });
+});
+</script>
 <div class="navbar-collapse collapse templatemo-sidebar">
 <div class="well" style="padding: 8px 3px;">
 <ul class="templatemo-sidebar-menu">
@@ -33,8 +48,13 @@
 	  </li>
 	  <li><a href="${ctx }/calendarAction/toCalendar"><i class="glyphicon glyphicon-calendar"></i>日程管理</a></li>
   </c:if>
+  <c:if test="${user.role == 'manager'}">
+  	  <li><a href="${ctx }/teacherAction/toList_page?dept_id=${user.department.id}"><i class="fa fa-users"></i>教师列表</a></li>
+  </c:if>
+  <c:if test="${user.role == 'admin'}">
+  	  <li><a href="${ctx }/teacherAction/toList_page"><i class="fa fa-users"></i>教师列表</a></li>
+  </c:if>
   <c:if test="${user.role == 'manager' or user.role == 'admin' }">
-	  <li><a href="${ctx }/teacherAction/toList_page?dept_id=-1"><i class="fa fa-users"></i>教师列表</a></li>
 	  <li class="sub">
 	    <a href="javascript:;">
 	      <i class="fa fa-cog"></i>系统设置 <div class="pull-right"><span class="caret"></span></div>
@@ -49,3 +69,19 @@
 </ul>
 </div>
 </div><!--/.navbar-collapse -->
+
+<!-- Modal -->
+<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">确定退出吗?</h4>
+      </div>
+      <div class="modal-footer">
+        <a href="${ctx }/loginAction/login_view" class="btn btn-primary">Yes</a>
+        <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+      </div>
+    </div>
+  </div>
+</div>

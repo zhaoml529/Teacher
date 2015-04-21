@@ -15,5 +15,7 @@ public interface IDepartmentService {
 	
 	public List<Department> toList() throws Exception;
 	
+	public List<Department> getAll() throws Exception;
+	
 	public Department findById(Integer id) throws Exception;
 }

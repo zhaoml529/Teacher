@@ -115,7 +115,7 @@
 			 	<button type="button" class="btn btn-danger btn-sm" onclick="delSelect();">删除</button>
 			 </div>
 		     <%-- <form name="message" action="${ctx }/messageAction/toList_page" method="post"> --%>
-             <form:form name="message" action="${ctx }/messageAction/toList_page" modelAttribute="message" method="post" >
+             <form:form name="message" id="pageForm" action="${ctx }/messageAction/toList_page" modelAttribute="message" method="post" >
              <input name="orderBy" id="orderBy" type="hidden" />
              <table class="table table-striped table-hover table-bordered">
                <thead>
@@ -148,7 +148,7 @@
                  </tr>
                </c:forEach>
                <tr>
-              		<td colspan="5" align="center">${page }</td>
+              		<td colspan="5" align="center"><c:out value="${page }" escapeXml="false"/></td>
                </tr>
                </tbody>
              </table>

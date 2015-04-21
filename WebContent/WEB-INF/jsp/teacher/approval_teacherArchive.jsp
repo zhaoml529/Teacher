@@ -61,7 +61,7 @@
 	          <div class="panel-body">
 	          <div class="table-responsive">
 	          <c:choose>
-	          	<c:when test="${teacher == null }">
+	          	<c:when test="${teacherArchive == null }">
 	          		<div class="alert alert-warning">
 	          			<span class='label label-danger'>Message:</span>&nbsp;您还没有个人档案信息，点击&nbsp;<button type="button" onclick="toAdd();" class="btn btn-success btn-sm">创建</button>&nbsp;创建您的个人档案。
 	          		</div>
@@ -72,16 +72,16 @@
 					  		<td colspan="4" align="center">
 					  			个人档案信息
 					  			<c:choose>
-					  				<c:when test="${teacher.isPass == 'WAITING_FOR_APPROVAL' }">
+					  				<c:when test="${teacherArchive.isPass == 'WAITING_FOR_APPROVAL' }">
 							  			<span class="label label-warning pull-right">待审批</span>
 					  				</c:when>
-					  				<c:when test="${teacher.isPass == 'PENDING' }">
+					  				<c:when test="${teacherArchive.isPass == 'PENDING' }">
 							  			<span class="label label-info pull-right">审批中...</span>
 					  				</c:when>
-					  				<c:when test="${teacher.isPass == 'APPROVAL_SUCCESS' }">
+					  				<c:when test="${teacherArchive.isPass == 'APPROVAL_SUCCESS' }">
 							  			<span class="label label-success pull-right">审批通过</span>
 					  				</c:when>
-					  				<c:when test="${teacher.isPass == 'APPROVAL_FAILED' }">
+					  				<c:when test="${teacherArchive.isPass == 'APPROVAL_FAILED' }">
 							  			<span class="label label-danger pull-right">审批失败</span>
 					  				</c:when>
 					  			</c:choose>
@@ -94,129 +94,129 @@
 					  		</td>
 					  		<td colspan="2" rowspan="7" align="center">
 				  			    <c:set var="noPic" value="/images/no_picture.gif" />
-						        <img id="photo" src="${ctx }${! empty teacher.teacherPic?teacher.teacherPic :noPic }" alt="个人照片" width="200px" class="img-thumbnail">
+						        <img id="photo" src="${ctx }${! empty teacherArchive.teacherPic?teacherArchive.teacherPic :noPic }" alt="个人照片" width="200px" class="img-thumbnail">
 					  		</td>
 					  	</tr>
 					  	<tr>
 					  		<td>性别</td>
 					  		<td>
-					  			${teacher.sex == 0?'女':'男' }
+					  			${teacherArchive.sex == 0?'女':'男' }
 					  		</td>
 					  	</tr>
 					  	<tr>
 					  		<td>出生日期</td>
 					  		<td>
-					  			${teacher.birthday }
+					  			${teacherArchive.birthday }
 					  		</td>
 					  	</tr>
 					  	<tr>
 					  		<td>籍贯</td>
 					  		<td>
-					  			${teacher.nativePlace }
+					  			${teacherArchive.nativePlace }
 					  		</td>
 					  	</tr>
 					  	<tr>
 					  		<td>参加工作时间</td>
 					  		<td>
-								${teacher.workDate }
+								${teacherArchive.workDate }
 					  		</td>
 					  	</tr>
 					  	<tr>
 					  		<td>身份证号码</td>
 					  		<td>
-					  			${teacher.IDNumber }
+					  			${teacherArchive.IDNumber }
 					  		</td>
 					  	</tr>
 					  	<tr>
 					  		<td>政治面貌</td>
 					  		<td>
-					  			${teacher.politicalStatus }
+					  			${teacherArchive.politicalStatus }
 					  		</td>
 					  	</tr>
 				  		<tr>
 					  		<td>联系电话</td>
 					  		<td>
-					  			${teacher.phoneNumber }
+					  			${teacherArchive.phoneNumber }
 					  		</td>
 					  		<td>个人邮箱</td>
 					  		<td>
-					  			${teacher.email }
+					  			${teacherArchive.email }
 					  		</td>
 					  	</tr>
 					  	<tr>
 					  		<td>第一学历</td>
 					  		<td>
-					  			${teacher.education1 }
+					  			${teacherArchive.education1 }
 					  		</td>
 				  			<td>第二学历</td>
 					  		<td>
-					  			${teacher.education2 }
+					  			${teacherArchive.education2 }
 					  		</td>
 					  	</tr>
 					  	<tr>
 					  		<td>第一学历取得时间</td>
 					  		<td>
-					  			${teacher.getEducation1 }
+					  			${teacherArchive.getEducation1 }
 					  		</td>
 							<td>第二学历取得时间</td>
 					  		<td>
-					  			${teacher.getEducation2 }
+					  			${teacherArchive.getEducation2 }
 					  		</td>
 					  	</tr>
 					  	<tr>
 					  		<td>第一学历毕业院校</td>
 					  		<td>
-					  			${teacher.graSchool1 }
+					  			${teacherArchive.graSchool1 }
 					  		</td>
 							<td>第二学历毕业院校</td>
 					  		<td>
-					  			${teacher.graSchool2 }
+					  			${teacherArchive.graSchool2 }
 					  		</td>
 					  	</tr>
 					  	<tr>
 					  		<td>最高学位</td>
 					  		<td>
-					  			${teacher.degree }
+					  			${teacherArchive.degree }
 					  		</td>
 					  		<td>学位取得时间</td>
 					  		<td>
-					  			${teacher.getDegree }
+					  			${teacherArchive.getDegree }
 					  		</td>
 					  	</tr>
 					  	<tr>
 					  		<td>专业领域</td>
 					  		<td>
-					  			${teacher.professionArea }
+					  			${teacherArchive.professionArea }
 					  		</td>
 					  		<td>普通话水平</td>
 					  		<td>
-					  			${teacher.mandarinLevel }
+					  			${teacherArchive.mandarinLevel }
 					  		</td>
 					  	</tr>
 					  	<tr>
 					  		<td>是否为双师型教师</td>
 					  		<td>
-					  			${teacher.isDoubleTeachers==0?"否":"是" }
+					  			${teacherArchive.isDoubleTeachers==0?"否":"是" }
 					  		</td>
 					  		<td>技术职务等级</td>
 					  		<td>
-					  			${teacher.technicalPosition }
+					  			${teacherArchive.technicalPosition }
 					  		</td>
 					  	</tr>
 					  	<tr>
 					  		<td>是否为骨干教师</td>
 					  		<td>
-					  			${teacher.isBackbone==1?"是":"否" } 
+					  			${teacherArchive.isBackbone==1?"是":"否" } 
 					  		</td>
 					  		<td>佐证证件及编号</td>
 					  		<td>
-					  			${teacher.evidenceNumber }
+					  			${teacherArchive.evidenceNumber }
 					  		</td>
 					  	</tr>
 					  	<tr>
 					  		<td>是否为学科带头人</td>
 					  		<td>
-					  			${teacher.isSubjectLeader==0?"否":"是" }
+					  			${teacherArchive.isSubjectLeader==0?"否":"是" }
 					  		</td>
 					  		<td></td>
 					  		<td></td>
@@ -225,12 +225,12 @@
 					  	<tr>
 					  		<td>备注</td>
 					  		<td colspan="3">
-					  			<c:out value="${teacher.remark }" escapeXml="false" />
+					  			<c:out value="${teacherArchive.remark }" escapeXml="false" />
 					  		</td>
 					  	</tr>
 					  </table>
-					  <button type="button" onclick="approval('${teacher.id}',true);" class="btn btn-success btn-sm">通过</button>
-			  		  <button type="button" onclick="approval('${teacher.id}',false);" class="btn btn-danger btn-sm">不通过</button>
+					  <button type="button" onclick="approval('${teacherArchive.id}',true);" class="btn btn-success btn-sm">通过</button>
+			  		  <button type="button" onclick="approval('${teacherArchive.id}',false);" class="btn btn-danger btn-sm">不通过</button>
 	          	</c:otherwise>
 	          </c:choose>
 	          </div>

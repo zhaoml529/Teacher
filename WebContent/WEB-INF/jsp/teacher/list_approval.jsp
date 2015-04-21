@@ -5,7 +5,7 @@
 <head>
 <meta charset="utf-8">
   <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><![endif]-->
-  <title>教师列表</title>
+  <title>审批列表</title>
   <meta name="keywords" content="" />
   <meta name="description" content="" />
   <meta name="viewport" content="width=device-width">
@@ -72,7 +72,8 @@
           	</tbody>
           </table>
 		  <div class="well well-sm">
-			  ${page }
+			  <c:out value="${page }" escapeXml="false"/> 
+		  </div>
 		  </div>
 		  </form>
 		  </div>

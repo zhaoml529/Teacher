@@ -82,7 +82,7 @@
 	          <div class="panel-body">
 	          <div class="table-responsive">
 	          <c:choose>
-	          	<c:when test="${teacher == null }">
+	          	<c:when test="${teacherArchive == null }">
 	          		<div class="alert alert-warning">
 	          			<span class='label label-danger'>Message:</span>&nbsp;您还没有个人档案信息，点击&nbsp;<button type="button" onclick="toAdd();" class="btn btn-success btn-sm">创建</button>&nbsp;创建您的个人档案。
 	          		</div>

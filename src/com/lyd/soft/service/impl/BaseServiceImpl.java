@@ -160,7 +160,7 @@ public class BaseServiceImpl<T> implements IBaseService<T> {
 		}
 		if (pagination.getTotalSum() == 0) {
 			List<T> list = new ArrayList<T>();
-			if(columns.length <= 0 && values.length <= 0){
+			if(columns.length <= 0 || values.length <= 0){
 				list = getAllList(tableSimpleName, orderBy, orderType);
 			}else{
 				list = findByWhere(tableSimpleName, columns, values, orderBy, orderType);
@@ -183,38 +183,37 @@ public class BaseServiceImpl<T> implements IBaseService<T> {
 		pagination.processTotalPage();
 		PaginationThreadUtils.set(pagination);
 		StringBuffer sb = new StringBuffer();  
-        sb.append("select a from ").append(tableSimpleName).append( " a where ");  
-        if(columns.length==values.length){  
+        sb.append("select a from ").append(tableSimpleName).append( " a ");  
+        if(columns.length==values.length && columns.length > 0){  
+        	sb.append("where ");
             for(int i = 0; i < columns.length; i++){  
                 sb.append("a.").append(columns[i]).append("='").append(values[i]).append("'");  
                 if(i < columns.length-1){  
                     sb.append(" and ");  
                 }  
            }
-	       if(orderBy.length > 0 && orderBy.length == orderType.length){
-	     	   sb.append(" order by ");
-	     	   for(int i = 0; i < orderBy.length; i++){
-	     		   sb.append("a.").append(orderBy[i]).append(" ").append(orderType[i]);
-	     		   if(i < orderBy.length-1){
-	     			   sb.append(", ");
-	     		   }
-	     	   }
-	       }
-	       String hql = sb.toString();
-	       if(hql.endsWith("where ")){
-	    	   hql = hql.substring(0, hql.length()-6);
-	       }
-	       logger.info("findByPage: HQL: "+hql);
-	       List<T> list = this.baseDao.findByPage(hql, firstResult, maxResult); 
-	       if(BeanUtils.isBlank(list)){
-          		return Collections.emptyList();
-           }else{
-          		return list;
-           } 
-        }else{
-        	logger.info("findByPage: columns.length != values.length");
-        	return Collections.emptyList();
         }
+        if(orderBy.length > 0 && orderBy.length == orderType.length){
+     	   sb.append(" order by ");
+     	   for(int i = 0; i < orderBy.length; i++){
+     		   sb.append("a.").append(orderBy[i]).append(" ").append(orderType[i]);
+     		   if(i < orderBy.length-1){
+     			   sb.append(", ");
+     		   }
+     	   }
+        }
+        String hql = sb.toString();
+        if(hql.endsWith("where ")){
+    	   hql = hql.substring(0, hql.length()-6);
+        }
+        logger.info("findByPage: HQL: "+hql);
+        List<T> list = this.baseDao.findByPage(hql, firstResult, maxResult); 
+        if(BeanUtils.isBlank(list)){
+      		return Collections.emptyList();
+        }else{
+      		return list;
+        } 
+        
 	}
 
 	/**

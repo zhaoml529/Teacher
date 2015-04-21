@@ -16,7 +16,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -43,7 +42,7 @@ public class MessageAction {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/toList_page", method = RequestMethod.GET)
+	@RequestMapping(value = "/toList_page")
 	public String toList(HttpServletRequest request, HttpSession session, Model model) throws Exception{
 		if(!model.containsAttribute("message")){
 			model.addAttribute("message", new Message());
@@ -216,7 +215,7 @@ public class MessageAction {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/getCount")
+	@RequestMapping(value = "/getMessageCount")
 	@ResponseBody
 	public Map<String, Integer> getMessageCount(HttpSession session) throws Exception {
 		Teacher user = UserUtils.getUserFromSession(session);

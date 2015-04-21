@@ -37,4 +37,9 @@ public class DepartmentSericeImpl extends BaseServiceImpl<Department> implements
 		return getUnique("Department", new String[]{"id"}, new String[]{id.toString()});
 	}
 
+	@Override
+	public List<Department> getAll() throws Exception {
+		return getAllList("Department", new String[]{}, new String[]{});
+	}
+
 }

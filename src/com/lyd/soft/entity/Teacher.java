@@ -56,6 +56,16 @@ public class Teacher implements Serializable{
 	@Column(name = "ROLE")
 	private String role;				//角色  teacher  manager  admin (教师、系部管理员、管理员)
 	
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@Column(name = "CREATE_DATE")
+	private Date createDate;			//创建时间
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@Column(name = "UPDATE_DATE")
+	private Date updateDate;			//修改时间
+	
 	@Column(name = "IS_DELETE")
 	private Integer isDelete;			//删除
     
@@ -138,6 +148,21 @@ public class Teacher implements Serializable{
 	public void setRole(String role) {
 		this.role = role;
 	}
-	
+
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+
+	public Date getUpdateDate() {
+		return updateDate;
+	}
+
+	public void setUpdateDate(Date updateDate) {
+		this.updateDate = updateDate;
+	}
 	
 }

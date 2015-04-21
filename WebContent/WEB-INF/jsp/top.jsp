@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<c:set var="ctx" value="${pageContext.request.contextPath}" />
 <script type="text/javascript">
 $(function(){
 	$.ajax({
-        url: "${ctx}/messageAction/getCount", 
+        url: "${ctx}/messageAction/getMessageCount", 
         dataType : "json",
         type : "POST",
         data: {},
@@ -44,19 +45,22 @@ $(function(){
 <nav class="navbar navbar-default" role="navigation">
 	<div class="container">
     <div class="navbar-inner">
-        	<div class="style-switcher pull-left">
-                <a href="javascript:chooseStyle('none', 60, 'none');"><span class="style" style="background-color:#000000;"></span></a>
-                <a href="javascript:chooseStyle('style1', 60, 'blue');"><span class="style" style="background-color:#0088CC;"></span></a>
-                <a href="javascript:chooseStyle('style2', 60, 'purple');"><span class="style" style="background-color:#7c5706;"></span></a>
-                <a href="javascript:chooseStyle('style3', 60, 'green');"><span class="style" style="background-color:#468847;"></span></a>
-                <a href="javascript:chooseStyle('style4', 60, 'grey');"><span class="style" style="background-color:#4e4e4e;"></span></a>
-                <a href="javascript:chooseStyle('style5', 60, 'orange');"><span class="style" style="background-color:#d85515;"></span></a>
-                <a href="javascript:chooseStyle('style6', 60, 'pink');"><span class="style" style="background-color:#a00a69;"></span></a>
-                <a href="javascript:chooseStyle('style7', 60, 'red');"><span class="style" style="background-color:#a30c22;"></span></a>          	
-            </div>
-           <form class="navbar-form navbar-right pull-right" role="search">
-			    <input type="text" class="form-control" placeholder="Search">
-		   </form><!-- container -->
+       	<div class="style-switcher pull-left">
+             <a href="javascript:chooseStyle('none', 60, 'none');"><span class="style" style="background-color:#000000;"></span></a>
+             <a href="javascript:chooseStyle('style1', 60, 'blue');"><span class="style" style="background-color:#0088CC;"></span></a>
+             <a href="javascript:chooseStyle('style2', 60, 'purple');"><span class="style" style="background-color:#7c5706;"></span></a>
+             <a href="javascript:chooseStyle('style3', 60, 'green');"><span class="style" style="background-color:#468847;"></span></a>
+             <a href="javascript:chooseStyle('style4', 60, 'grey');"><span class="style" style="background-color:#4e4e4e;"></span></a>
+             <a href="javascript:chooseStyle('style5', 60, 'orange');"><span class="style" style="background-color:#d85515;"></span></a>
+             <a href="javascript:chooseStyle('style6', 60, 'pink');"><span class="style" style="background-color:#a00a69;"></span></a>
+             <a href="javascript:chooseStyle('style7', 60, 'red');"><span class="style" style="background-color:#a30c22;"></span></a>          	
+         </div>
+         <form class="navbar-form navbar-right pull-right" role="search">
+         	 <div class="form-group">
+			      <label class="control-label">欢迎：${user.teacherName }</label>
+			      <input type="text" class="form-control" placeholder="Search">
+			 </div>
+	     </form><!-- container -->
     </div><!-- navbar-inner -->
     </div>
 </nav>

@@ -247,48 +247,36 @@
       </div>
     </div>
    
-    <!-- Modal -->
-    <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-            <h4 class="modal-title" id="myModalLabel">Are you sure you want to sign out?</h4>
-          </div>
-          <div class="modal-footer">
-            <a href="sign-in.html" class="btn btn-primary">Yes</a>
-            <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-          </div>
-        </div>
-      </div>
-    </div>
       
     </div>
     </div>
 	<c:import url="footer.jsp" />
 </body>
 <script type="text/javascript">
-$(function(){
-	var messageCount = $("#messageCount").html();
-	var approvalCount = $("#approvalArchive").html();
-	alert(messageCount+"--"+approvalCount);
-	if(messageCount !=null && messageCount != ''){
-		Messenger().post({
-		  message: "您当前有 "+messageCount+" 条未读信息!!!！",
-	  	  hideAfter: 7,
-	  	  status: 500,
-	  	  showCloseButton: true,
-	  	});
-	}
-	
-	if(approvalCount !=null && approvalCount != ''){
-		Messenger().post({
-  		  message: "当前有 "+approvalCount+" 个档案需要您进行审批！11",
-	  	  hideAfter: 8,
-	  	  status: 500,
-	  	  showCloseButton: true,
-	  	});
-	}
-})
+$(document).ajaxSuccess(function(evt, request, settings){  
+    var url = settings.url;
+    var req = url.substring(url.lastIndexOf('/')+1);
+    if(req == "getMessageCount" || req == "getArchiveMessage"){
+    	var messageCount = $("#messageCount").html();
+    	var approvalCount = $("#approvalArchive").html();
+    	if(messageCount !=null && messageCount != ''){
+    		Messenger().post({
+    		  message: "您当前有 "+messageCount+" 条未读信息！",
+    	  	  hideAfter: 7,
+    	  	  status: 500,
+    	  	  showCloseButton: true,
+    	  	});
+    	}
+    	
+    	if(approvalCount !=null && approvalCount != ''){
+    		Messenger().post({
+      		  message: "当前有 "+approvalCount+" 个档案需要您进行审批！",
+    	  	  hideAfter: 8,
+    	  	  status: 500,
+    	  	  showCloseButton: true,
+    	  	});
+    	}
+    }
+}); 
 </script>
 </html>

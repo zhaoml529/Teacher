@@ -267,7 +267,7 @@ public class TeacherArchiveAction {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/getCount")
+	@RequestMapping(value = "/getArchiveCount")
 	@ResponseBody
 	public Map<String, Integer> getArchiveCount() throws Exception {
 		Integer count = this.itaService.getCount(Constants.PENDING);
