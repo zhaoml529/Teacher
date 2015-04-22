@@ -11,8 +11,13 @@
   <meta name="viewport" content="width=device-width">
   <script type="text/javascript" src="${ctx}/js/util.js"></script>
   <script type="text/javascript">
-  	function edit( id ){
-  		window.location.href="${ctx}/teacherAction/doUpdate/"+id;
+  	function edit( id,dept_id ){
+  		if(dept_id == null){
+  			window.location.href="${ctx}/teacherAction/toUpdate/"+id+"/0";
+  		}else{
+  			window.location.href="${ctx}/teacherAction/toUpdate/"+id+"/"+dept_id;
+  		}
+  		
   	}
   </script>
 </head>
@@ -32,15 +37,17 @@
 		  </blockquote>
 		  <form action="${ctx }/teacherAction/toList_page" id="pageForm" method="post">
 		  <input type="hidden" name="dept_id" value="${dept_id }" />
-		  <div class="table-responsive">
-		  <div class="btn-group pull-right">
-			  <button type="button" class="btn btn-default  btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-			    查看 <span class="caret"></span>
+		  <div class="table-responsive" style="margin: -25px 0 0 0;">
+            <!-- Split button -->
+			<div class="btn-group pull-right" style="margin-bottom: 5px">
+			  <button type="button" class="btn btn-info btn-sm" onclick="javascript:window.location.href='${ctx }/teacherAction/toAdd?dept_id=${dept_id }'">添加</button>
+			  <button type="button" class="btn btn-info dropdown-toggle" style="height: 30px" data-toggle="dropdown" aria-expanded="false">
+			    <span class="caret"></span>
+			    <span class="sr-only">Toggle Dropdown</span>
 			  </button>
 			  <ul class="dropdown-menu" role="menu">
 			    <li><a href="${ctx }/teacherAction/toList_page?dept_id=${dept_id }&orderBy=ASC">姓名升序</a></li>
 			    <li><a href="${ctx }/teacherAction/toList_page?dept_id=${dept_id }&orderBy=DESC">姓名降序</a></li>
-			    <%-- <li><a href="${ctx }/teacherArchiveAction/toApprovalList_page?status=PENDING">审核中</a></li> --%>
 			    <li class="divider"></li>
 			    <li><a href="${ctx }/teacherAction/toList_page?dept_id=${dept_id }">刷新列表</a></li>
 			  </ul>
@@ -81,7 +88,7 @@
             			</c:choose>
             		</td>
             		<td align="center">
-            			<button type="button" onclick="edit('${teacher.teacherId}');" class="btn btn-success btn-sm">编辑</button>
+            			<button type="button" onclick="edit('${teacher.teacherId}', '${dept_id }');" class="btn btn-success btn-sm">编辑</button>
             			<c:choose>
 	            			<c:when test="${teacher.isDelete == 0 }">
 	            				<button type="button" onclick="accountStop('${teacher.teacherId}');" class="btn btn-danger btn-sm">停用</button>
