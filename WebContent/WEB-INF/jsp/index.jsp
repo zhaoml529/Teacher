@@ -44,14 +44,12 @@
 	  	  showCloseButton: true,
 	  	});
 	  	
-	  	//approvalArchive(); //待审核
+	  	initNews(); //新闻列表
 	  	
-	  	//readMessage(); //未读信息
-	  	
-	  	renderCalendar(); //初始化日程信息
+	  	initCalendar(); //初始化日程信息
     });
     
-    function renderCalendar() {
+    function initCalendar() {
     	$('#calendar').fullCalendar({
     		header: {
 				right: 'prev,next today',
@@ -103,45 +101,20 @@
     	});
 	};
 
-	function readMessage(){
+	function initNews(){
 		$.ajax({
-            url: "${ctx}/messageAction/getCount", 
+            url: "${ctx}/newsAction/initNews_page", 
             dataType : "json",
             type : "POST",
             data: {},
             success: function (data) {
-            	if(data.count > 0){
-            		$("#messageCount").html(data.count);
-            		Messenger().post({
-	      	  		  message: "您当前有 "+data.count+" 条未读信息！",
-	      		  	  hideAfter: 7,
-	      		  	  status: 500,
-	      		  	  showCloseButton: true,
-           		  	});
-            	}
+            	$.each(data, function(i,item){  
+            	      $("#newsList").append("<li class='list-group-item'><span class='glyphicon glyphicon-link'></span>&nbsp;&nbsp;<b><a href='${ctx }/newsAction/details/"+item.id+"'>"+item.title+"</a></b><span class='more'><span class='glyphicon glyphicon-edit'></span>&nbsp;"+moment(item.updateDate).format("YYYY-MM-DD HH:mm:ss")+"</span></li>");
+           	    });   
             }
        });
 	}
 	
-	function approvalArchive(){
-		$.ajax({
-            url: "${ctx}/teacherArchiveAction/getCount", 
-            dataType : "json",
-            type : "POST",
-            data: {},
-            success: function (data) {
-            	if(data.count > 0){
-            		$("#approvalArchive").html(data.count);
-            		Messenger().post({
-	      	  		  message: "当前有 "+data.count+" 个档案需要您进行审批！",
-	      		  	  hideAfter: 8,
-	      		  	  status: 500,
-	      		  	  showCloseButton: true,
-           		  	});
-            	}
-            }
-       });
-	}
 </script>
 </head>
 <body>
@@ -218,18 +191,18 @@
 		  <div class="row-fluid">
 		  <div class="panel panel-default">
 			  <!-- Default panel contents -->
-			  <div class="panel-heading"><span class="glyphicon glyphicon-th-list"></span>&nbsp;最新新闻<a href="${ctx }/newsAction/toList_page" class="more">more>>&nbsp;</a></div>
+			  <div class="panel-heading"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;最新新闻<a href="${ctx }/newsAction/toList_page" class="more">more>>&nbsp;</a></div>
 			  <div class="panel-body">
 			    <p>高校教师档案管理系统V1.0上线...</p>
 			  </div>
 			
 			  <!-- List group -->
-			  <ul class="list-group">
-			    <li class="list-group-item"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;<b><a href="#">Cras justo odio</a></b><span class="more"><span class="glyphicon glyphicon-edit"></span>&nbsp;2014-05-26 10:51:12</span></li>
-			    <li class="list-group-item"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;<b><a href="#">Dapibus ac facilisis in</a></b><span class="more"><span class="glyphicon glyphicon-edit"></span>&nbsp;2014-04-21 11:33:22</span></li>
-			    <li class="list-group-item"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;<b><a href="#">Morbi leo risus</a></b><span class="more"><span class="glyphicon glyphicon-edit"></span>&nbsp;2014-04-06 21:23:11</span></li>
-			    <li class="list-group-item"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;<b><a href="#">Porta ac consectetur ac</a></b><span class="more"><span class="glyphicon glyphicon-edit"></span>&nbsp;2014-03-05 11:51:32</span></li>
-			    <li class="list-group-item"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;<b><a href="#">Vestibulum at eros</a></b><span class="more"><span class="glyphicon glyphicon-edit"></span>&nbsp;2014-02-26 10:51:12</span></li>
+			  <ul id="newsList" class="list-group">
+			    <li class="list-group-item"><span class="glyphicon glyphicon-link"></span>&nbsp;&nbsp;<b><a href="#">Cras justo odio</a></b><span class="more"><span class="glyphicon glyphicon-edit"></span>&nbsp;2014-05-26 10:51:12</span></li>
+			    <li class="list-group-item"><span class="glyphicon glyphicon-link"></span>&nbsp;&nbsp;<b><a href="#">Dapibus ac facilisis in</a></b><span class="more"><span class="glyphicon glyphicon-edit"></span>&nbsp;2014-04-21 11:33:22</span></li>
+			    <li class="list-group-item"><span class="glyphicon glyphicon-link"></span>&nbsp;&nbsp;<b><a href="#">Morbi leo risus</a></b><span class="more"><span class="glyphicon glyphicon-edit"></span>&nbsp;2014-04-06 21:23:11</span></li>
+			    <li class="list-group-item"><span class="glyphicon glyphicon-link"></span>&nbsp;&nbsp;<b><a href="#">Porta ac consectetur ac</a></b><span class="more"><span class="glyphicon glyphicon-edit"></span>&nbsp;2014-03-05 11:51:32</span></li>
+			    <li class="list-group-item"><span class="glyphicon glyphicon-link"></span>&nbsp;&nbsp;<b><a href="#">Vestibulum at eros</a></b><span class="more"><span class="glyphicon glyphicon-edit"></span>&nbsp;2014-02-26 10:51:12</span></li>
 			  </ul>
 		  </div>
 		  </div> <!-- row-fluid -->
