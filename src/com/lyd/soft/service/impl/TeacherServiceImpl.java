@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.lyd.soft.entity.Teacher;
 import com.lyd.soft.service.ITeacherService;
 import com.lyd.soft.util.BeanUtils;
-import com.lyd.soft.util.StringUtils;
 
 @Service
 public class TeacherServiceImpl extends BaseServiceImpl<Teacher> implements ITeacherService {

@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.lyd.soft.entity.Message;
 import com.lyd.soft.service.IMessageService;
-import com.lyd.soft.util.BeanUtils;
 
 @Service
 public class MessageServiceImpl extends BaseServiceImpl<Message> implements

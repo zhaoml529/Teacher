@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.lyd.soft.entity.Book;
-import com.lyd.soft.entity.Paper;
 import com.lyd.soft.service.IBookService;
 import com.lyd.soft.util.BeanUtils;
 

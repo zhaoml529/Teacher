@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.lyd.soft.entity.Calendar;
 import com.lyd.soft.service.ICalendarService;
-import com.lyd.soft.util.BeanUtils;
 
 @Service
 public class CanendarServiceImpl extends BaseServiceImpl<Calendar> implements
