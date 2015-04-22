@@ -53,6 +53,8 @@ $(function(){
   </c:if>
   <c:if test="${user.role == 'admin'}">
   	  <li><a href="${ctx }/teacherAction/toList_page"><i class="fa fa-users"></i>教师列表</a></li>
+  	  <li><a href="${ctx }/teacherArchiveAction/toApprovalList_page"><i class="glyphicon glyphicon-tasks"></i><span id="approvalArchive" class="badge pull-right"></span>档案管理</a></li>
+  	  <li><a href="${ctx }/teacherAction/toList_page"><i class="fa fa-cubes"></i>数据统计</a></li>
   </c:if>
   <c:if test="${user.role == 'manager' or user.role == 'admin' }">
 	  <li class="sub">
@@ -61,7 +63,7 @@ $(function(){
 	    </a>
 	    <ul class="templatemo-submenu">
 	      <li><a href="${ctx }/newsAction/toAdd">发布新闻</a></li>
-	      <li><a href="${ctx }/teacherArchiveAction/toApprovalList_page">档案管理<span id="approvalArchive" class="badge"></span></a></li>
+	      <li><a href="${ctx }/teacherAction/toList_page">系部管理</a></li>
 	    </ul>
 	  </li>
   </c:if>
