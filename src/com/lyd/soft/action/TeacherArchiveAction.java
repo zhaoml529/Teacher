@@ -61,7 +61,7 @@ public class TeacherArchiveAction {
 		}else{
 			logger.debug("教师id为空！");
 		}
-		return "teacher/details_teacherArchive";
+		return "teacherArchive/details_teacherArchive";
 	}
 	
 	@RequestMapping(value = "/toAdd")
@@ -69,7 +69,7 @@ public class TeacherArchiveAction {
 		if(!model.containsAttribute("teacherArchive")){
 			model.addAttribute("teacherArchive", new TeacherArchive());
 		}
-		return "teacher/add_teacherArchive";
+		return "teacherArchive/add_teacherArchive";
 	}
 	
 	@RequestMapping(value = "/doAdd")
@@ -105,7 +105,7 @@ public class TeacherArchiveAction {
 				logger.info("id 为空！");
 			}
 		}
-		return "teacher/update_teacherArchive";
+		return "teacherArchive/update_teacherArchive";
 	}
 	
 	@RequestMapping(value = "/doUpdate")
@@ -178,7 +178,7 @@ public class TeacherArchiveAction {
 			model.addAttribute("page", pagination.getPageStr());
 			model.addAttribute("list", list);
 		}
-		return "/teacher/list_approval";
+		return "teacherArchive/list_approval";
 	}
 	
 	
@@ -197,7 +197,7 @@ public class TeacherArchiveAction {
 		}else{
 			logger.error("The teacherArchive id is empty!");
 		}
-		return "/teacher/approval_teacherArchive";
+		return "teacherArchive/approval_teacherArchive";
 	}
 	
 	@RequestMapping(value = "/approval/{id}/{flag}")
