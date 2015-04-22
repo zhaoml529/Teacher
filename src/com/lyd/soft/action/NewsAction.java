@@ -15,6 +15,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.lyd.soft.entity.Message;
 import com.lyd.soft.entity.News;
@@ -57,9 +58,6 @@ public class NewsAction {
 	
 	@RequestMapping("/toList_page")
 	public String toList(HttpServletRequest request, Model model) throws Exception {
-		String pageNum = request.getParameter("pageNum");
-		String testName = request.getParameter("newName");
-		System.out.println(pageNum+" ----------------- "+testName);
 		List<News> list = this.newsService.toList();
 		Pagination pagination = PaginationThreadUtils.get();
 		model.addAttribute("page", pagination.getPageStr());
@@ -137,4 +135,17 @@ public class NewsAction {
 		return "redirect:/newsAction/toList_page";
 	}
 	
+	/**
+	 * 主页初始化新闻列表
+	 * @param request
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/initNews_page")
+	@ResponseBody
+	public List<News> initNewsList(HttpServletRequest request, Model model) throws Exception {
+		List<News> list = this.newsService.toList();
+		return list;
+	}
 }
