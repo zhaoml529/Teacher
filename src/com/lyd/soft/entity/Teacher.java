@@ -11,8 +11,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Size;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -29,9 +32,12 @@ public class Teacher implements Serializable{
 	private String teacherId;			//教师编号
 	
 	@Column(name = "TEACHER_NAME", nullable = false)
+	@NotBlank(message="{teacher.name.not.empty}")
 	private String teacherName;			//教师姓名
 	
 	@Column(name = "PASSWORD", nullable = false)
+	@NotBlank(message="{teacher.password.not.empty}")
+	//@Size(min=5, max=20, message="{teacher.password.length.illegal}") 
 	private String password;			//登录密码
 	
 	@Temporal(TemporalType.DATE)
@@ -54,6 +60,7 @@ public class Teacher implements Serializable{
 	private Department department;		//所属机构
 	
 	@Column(name = "ROLE")
+	@NotBlank(message = "{teacher.role.not.empty}")
 	private String role;				//角色  teacher  manager  admin (教师、系部管理员、管理员)
 	
 	@Temporal(TemporalType.TIMESTAMP)
