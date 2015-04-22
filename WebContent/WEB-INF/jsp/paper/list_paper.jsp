@@ -59,7 +59,7 @@
 		  </blockquote>
 		  <form:form action="${ctx }/paperAction/toList_page?type=${type }" id="pageForm" method="POST">
           <div class="table-responsive" style="margin: -25px 0 0 0;">
-          <!-- Split button -->
+            <!-- Split button -->
 			<div class="btn-group pull-right" style="margin-bottom: 5px">
 			  <button type="button" class="btn btn-success btn-sm" onclick="javascript:window.location.href='${ctx }/paperAction/toAdd?type=${type }'">添加</button>
 			  <button type="button" class="btn btn-success dropdown-toggle" style="height: 30px" data-toggle="dropdown" aria-expanded="false">
