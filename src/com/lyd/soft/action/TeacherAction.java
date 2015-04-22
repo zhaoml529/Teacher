@@ -119,6 +119,14 @@ public class TeacherAction {
 		return "redirect:/teacherAction/toList_page";
 	}
 	
+	@RequestMapping(value = "/activation/{id}")
+	public String activation(@PathVariable("id") String id) throws Exception{
+		Teacher teacher = this.teacherService.findById(id);
+		teacher.setIsDelete(0);
+		
+		return "redirect:/teacherAction/toList_page";
+	}
+	
 	@RequestMapping(value = "/searchTeacher")
 	@ResponseBody
 	public List<Teacher> getTeacherList(HttpServletRequest request) throws Exception{
