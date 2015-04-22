@@ -1,5 +1,6 @@
 package com.lyd.soft.action;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -77,8 +78,21 @@ public class TeacherAction {
 		return "teacher/details_teacher";
 	}
 	
-	@RequestMapping(value = "/toUpdate/{id}")
-	public String toUpdate(@PathVariable("id") String id, Model model) throws Exception{
+	@RequestMapping(value = "/toAdd")
+	public String toAdd(@RequestParam(value = "dept_id", required = false) String dept_id,Model model) throws Exception{
+		if(!model.containsAttribute("teacher")){
+			model.addAttribute("teacher", new Teacher());
+		}
+		List<Department> deptList = this.departmentService.getAll();
+		model.addAttribute("deptList", deptList);
+		model.addAttribute("dept_id", dept_id);
+		return "teacher/add_teacher";
+	}
+	
+	@RequestMapping(value = "/toUpdate/{id}/{dept_id}")
+	public String toUpdate(@PathVariable("id") String id,
+							@PathVariable("dept_id") Integer dept_id,
+							Model model) throws Exception{
 		if(!model.containsAttribute("teacher")){
 			if(!StringUtils.isBlank(id)){
 				Teacher user = this.teacherService.findById(id);
@@ -87,21 +101,50 @@ public class TeacherAction {
 				model.addAttribute(Constants.MESSAGE, "此用户不存在！");
 			}
 		}
+		if(dept_id != 0){
+			model.addAttribute("dept_id", dept_id);
+		}
 		List<Department> deptList = this.departmentService.getAll();
 		model.addAttribute("deptList", deptList);
 		return "teacher/update_teacher";
 	}
+	
+	@RequestMapping(value ="/doAdd")
+	public String doAdd(@ModelAttribute("teacher") @Valid Teacher teacher, BindingResult results,
+						@RequestParam(value = "dept_id", required = false) String dept_id,
+						Model model) throws Exception{
+		if(results.hasErrors()){
+			toAdd(dept_id, model);
+		}
+		SimpleDateFormat df = new SimpleDateFormat("MMddSSS");
+		String id = df.format(new Date()).toString();
+		teacher.setTeacherId(id);
+		teacher.setIsDelete(0);
+		teacher.setRegDate(new Date());
+		this.teacherService.doAdd(teacher);
+		model.addAttribute(Constants.MESSAGE, "添加成功！");
+		String result = null;
+		if(StringUtils.isBlank(dept_id)){
+			result = "redirect:/teacherAction/toList_page";
+		}else{
+			result = "redirect:/teacherAction/toList_page?dept_id="+dept_id; 
+		}
+		return result;
+	}
+	
 	@RequestMapping(value ="/doUpdate")
 	public String doUpdate(@ModelAttribute("teacher") @Valid Teacher teacher, 
 						   BindingResult results, 
 						   Model model,
+						   @RequestParam(value = "dept_id", required = false) Integer dept_id,
 						   HttpSession session,
 						   RedirectAttributes redirectAttributes) throws Exception{
 		if(results.hasErrors()){
-			toUpdate(teacher.getTeacherId(), model);
+			toUpdate(teacher.getTeacherId(), dept_id, model);
 		}
 		Teacher user = UserUtils.getUserFromSession(session);
 		teacher.setUpdateDate(new Date());
+		teacher.setIsDelete(0);
 		this.teacherService.doUpdate(teacher);
 		if("admin".equals(user.getDepartment().getName())){
 			//待测试,toList_page是否能获取到dept_id
@@ -115,6 +158,7 @@ public class TeacherAction {
 	public String stopAccount(@PathVariable("id") String id) throws Exception{
 		Teacher teacher = this.teacherService.findById(id);
 		teacher.setIsDelete(1);
+		this.teacherService.doUpdate(teacher);
 		//加入dept_id 待测试
 		return "redirect:/teacherAction/toList_page";
 	}
@@ -123,7 +167,7 @@ public class TeacherAction {
 	public String activation(@PathVariable("id") String id) throws Exception{
 		Teacher teacher = this.teacherService.findById(id);
 		teacher.setIsDelete(0);
-		
+		this.teacherService.doUpdate(teacher);
 		return "redirect:/teacherAction/toList_page";
 	}
 	
