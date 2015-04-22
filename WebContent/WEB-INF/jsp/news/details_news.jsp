@@ -35,9 +35,10 @@
 				 		<fmt:formatDate value="${news.updateDate }" type="both"/>&nbsp;
 				 		<span class="glyphicon glyphicon-eye-open"></span>
 				 		${news.view }
-				 		
-				 		<a class="more" data-toggle="tooltip" data-placement="bottom" title="修改" href="${ctx }/newsAction/toUpdate/${news.id }"><span class="glyphicon glyphicon-pencil more"></span></a>
-				 		<a class="more" data-toggle="tooltip" data-placement="bottom" title="删除" href="${ctx }/newsAction/doDelete/${news.id }"><span class="glyphicon glyphicon-trash more"></span></a>
+				 		<c:if test="${user.role == 'manager' or user.role == 'admin' }">
+					 		<a class="more" data-toggle="tooltip" data-placement="bottom" title="删除" href="${ctx }/newsAction/doDelete/${news.id }"><span class="glyphicon glyphicon-trash more"></span></a>
+					 		<a class="more" data-toggle="tooltip" data-placement="bottom" title="修改" href="${ctx }/newsAction/toUpdate/${news.id }"><span class="glyphicon glyphicon-pencil more"></span></a>
+				 		</c:if>
 				 		
 				 	</p>
 				 </blockquote>
