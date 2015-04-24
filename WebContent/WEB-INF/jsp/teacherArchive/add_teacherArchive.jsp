@@ -237,6 +237,13 @@
 			  		<td>
 			  			<form:errors path="degree" cssClass="valid_text"></form:errors>
 			  			<input type="text" name="degree" value="${teacherArchive.degree }" class="form-control" placeholder="Enter degree">
+			  			<select class="form-control" name="degree">
+			  				<option value="0">--请选择--</option>
+			  				<option ${teacherArchive.degree == '博士'?'selected':'' } value="博士">博士学位</option>
+			  				<option ${teacherArchive.degree == '硕士'?'selected':'' } value="硕士">硕士学位</option>
+			  				<option ${teacherArchive.degree == '学士'?'selected':'' } value="学士">学士学位</option>
+			  				<option ${teacherArchive.degree == '其他'?'selected':'' } value="其他">其他</option>
+			  			</select>
 			  		</td>
 			  		<td>学位取得时间</td>
 			  		<td>

@@ -32,7 +32,7 @@
 		  </blockquote>
 		  <form action="${ctx }/teacherArchiveAction/toList_page" id="pageForm" method="post">
 		  <div class="table-responsive">
-		  <div class="btn-group pull-right">
+		  <div class="btn-group pull-right" style="margin-bottom: 5px">
 			  <button type="button" class="btn btn-default  btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 			    查看 <span class="caret"></span>
 			  </button>
@@ -80,7 +80,6 @@
 	  	</div>
 	 </div>
 	</div>
-  </div>
   <c:import url="../footer.jsp" />
 </body>
 </html>

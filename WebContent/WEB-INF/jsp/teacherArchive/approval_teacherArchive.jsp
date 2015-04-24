@@ -30,13 +30,16 @@
 		 	});
   		} 
   		
-  		$(function () { $("[data-toggle='tooltip']").tooltip(); });
+  		$("[data-toggle='tooltip']").tooltip();
   	 });
   
      function approval( id, flag ){
     	 window.location.href="${ctx }/teacherArchiveAction/approval/"+id+"/"+flag;
      }
      
+     function revoke( id ){
+    	 window.location.href="${ctx }/teacherArchiveAction/revoke/"+id;
+     }
   </script>
 </head>
 <body>
@@ -229,8 +232,28 @@
 					  		</td>
 					  	</tr>
 					  </table>
-					  <button type="button" onclick="approval('${teacherArchive.id}',true);" class="btn btn-success btn-sm">通过</button>
-			  		  <button type="button" onclick="approval('${teacherArchive.id}',false);" class="btn btn-danger btn-sm">不通过</button>
+					  <c:choose>
+					  	<c:when test="${user.role == 'admin' }">
+					  		 <c:choose>
+							  	<c:when test="${teacherArchive.isPass == 'PENDING'}">
+							  		<button type="button" data-toggle="tooltip" data-placement="top" title="审核中，不能退回" class="btn btn-success btn-sm">退回,重新审批</button>
+							  	</c:when>
+							  	<c:when test="${teacherArchive.isPass == 'APPROVAL_SUCCESS'}">
+							  		<button type="button" data-toggle="tooltip" data-placement="top" title="审核已通过" class="btn btn-success btn-sm">退回,重新审批</button>
+							  	</c:when>
+							  	<c:when test="${teacherArchive.isPass == 'WAITING_FOR_APPROVAL'}">
+							  		<button type="button" data-toggle="tooltip" data-placement="top" title="用户还没申请审批，不能退回" onclick="revoke('${teacherArchive.id}');" class="btn btn-success btn-sm">退回,重新审批</button>
+							  	</c:when>
+							  	<c:when test="${teacherArchive.isPass == 'APPROVAL_FAILED'}">
+							  		<button type="button" data-toggle="tooltip" data-placement="top" title="审批失败，不能回退" class="btn btn-success btn-sm">退回,重新审批</button>
+							  	</c:when>
+							 </c:choose>
+					  	</c:when>
+					  	<c:when test="${user.role == 'manager' }">
+							 <button type="button" onclick="approval('${teacherArchive.id}',true);" class="btn btn-success btn-sm">通过</button>
+					  		 <button type="button" onclick="approval('${teacherArchive.id}',false);" class="btn btn-danger btn-sm">不通过</button>
+					  	</c:when>
+					  </c:choose>
 	          	</c:otherwise>
 	          </c:choose>
 	          </div>

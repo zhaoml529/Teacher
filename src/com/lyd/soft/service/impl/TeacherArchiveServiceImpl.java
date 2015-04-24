@@ -9,6 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.lyd.soft.entity.TeacherArchive;
 import com.lyd.soft.service.ITeacherArchiveService;
+import com.lyd.soft.util.Constants;
+import com.lyd.soft.util.StringUtils;
 
 @Service
 public class TeacherArchiveServiceImpl extends BaseServiceImpl<TeacherArchive> implements ITeacherArchiveService {
@@ -35,26 +37,30 @@ public class TeacherArchiveServiceImpl extends BaseServiceImpl<TeacherArchive> i
 
 	@Override
 	@Transactional(propagation=Propagation.NOT_SUPPORTED, readOnly=true)
-	public List<TeacherArchive> toList() throws Exception {
-		return findByWhere("TeacherArchive", new String[]{}, new String[]{}, new String[]{"updateDate"}, new String[]{"DESC"});
+	public List<TeacherArchive> toList(String status) throws Exception {
+		if(!StringUtils.isBlank(status)){
+			return findByPage("TeacherArchive", new String[]{"isPass", "isDelete"}, new String[]{status, "0"}, new String[]{"updateDate"}, new String[]{"DESC"});
+		}else{
+			return findByPage("TeacherArchive", new String[]{"isDelete"}, new String[]{"0"}, new String[]{"updateDate"}, new String[]{"DESC"});
+		}
 	}
 
 	@Override
 	@Transactional(propagation=Propagation.NOT_SUPPORTED, readOnly=true)
 	public TeacherArchive findByName(String name) throws Exception {
-		return getUnique("TeacherArchive", new String[]{"teacherName"}, new String[]{name});
+		return getUnique("TeacherArchive", new String[]{"teacherName", "isDelete"}, new String[]{name, "0"});
 	}
 
 	@Override
 	@Transactional(propagation=Propagation.NOT_SUPPORTED, readOnly=true)
 	public TeacherArchive findById(String id) throws Exception {
-		return getUnique("TeacherArchive", new String[]{"id"}, new String[]{id});
+		return getUnique("TeacherArchive", new String[]{"id", "isDelete"}, new String[]{id, "0"});
 	}
 
 	@Override
 	@Transactional(propagation=Propagation.NOT_SUPPORTED, readOnly=true)
 	public TeacherArchive findByTeaId(String teacherId) throws Exception {
-		return getUnique("TeacherArchive", new String[]{"teacher.teacherId"}, new String[]{teacherId});
+		return getUnique("TeacherArchive", new String[]{"teacher.teacherId", "isDelete"}, new String[]{teacherId, "0"});
 	}
 
 	@Override
@@ -64,8 +70,13 @@ public class TeacherArchiveServiceImpl extends BaseServiceImpl<TeacherArchive> i
 	}
 
 	@Override
-	public Integer getCount(String status) throws Exception {
-		return getCount("TeacherArchive", new String[]{"isPass"}, new String[]{status});
+	public Integer getCount(String dept_id, String status) throws Exception {
+		return getCount("TeacherArchive", new String[]{"teacher.department","isPass", "isDelete"}, new String[]{dept_id, status, "0"});
+	}
+
+	@Override
+	public List<TeacherArchive> getAllList() throws Exception {
+		return findByWhere("TeacherArchive", new String[]{"isPass", "isDelete"}, new String[]{Constants.APPROVAL_SUCCESS, "0"}, new String[]{"updateDate"}, new String[]{"DESC"});
 	}
 	
 }

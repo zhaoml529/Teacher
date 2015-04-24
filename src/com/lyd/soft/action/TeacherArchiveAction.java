@@ -164,7 +164,8 @@ public class TeacherArchiveAction {
 	 * @throws Exception
 	 */
 	@RequestMapping(value = "/toApprovalList_page")
-	public String toApprovalList(@RequestParam(value="status", required=false) String status, Model model, HttpSession session) throws Exception{
+	public String toApprovalList(@RequestParam(value="status", required=false) String status, 
+								Model model, HttpSession session) throws Exception{
 		Teacher user = UserUtils.getUserFromSession(session);
 		Integer dept_id = user.getDepartment().getId();
 		List<TeacherArchive> list = new ArrayList<TeacherArchive>();
@@ -269,10 +270,51 @@ public class TeacherArchiveAction {
 	 */
 	@RequestMapping(value = "/getArchiveCount")
 	@ResponseBody
-	public Map<String, Integer> getArchiveCount() throws Exception {
-		Integer count = this.itaService.getCount(Constants.PENDING);
+	public Map<String, Integer> getArchiveCount(HttpSession session) throws Exception {
+		Teacher user = UserUtils.getUserFromSession(session);
+		Integer dept_id = user.getDepartment().getId();
+		String role = user.getRole();
+		Integer count = 0;
+		if(!BeanUtils.isBlank(dept_id) && !"admin".equals(role)){
+			count = this.itaService.getCount(dept_id.toString(), Constants.PENDING);
+		}
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		map.put("count", count);
 		return map;
+	}
+	
+	/**
+	 * 管理员admin查看教师档案列表
+	 * @return
+	 * @throws Exception 
+	 */
+	@RequestMapping(value ="/getArchiveList_page")
+	public String getArchiveList_page(@RequestParam(value="status", required=false) String status,
+									  Model model) throws Exception{
+		List<TeacherArchive> list = null;
+		if(StringUtils.isBlank(status)){
+			list = this.itaService.toList(null);
+		}else{
+			list = this.itaService.toList(status);
+		}
+		Pagination pagination = PaginationThreadUtils.get();
+		model.addAttribute("page", pagination.getPageStr());
+		model.addAttribute("status", status);
+		model.addAttribute("list", list);
+		return "teacherArchive/list_teacherArchive";
+	}
+	
+	/**
+	 * 管理员admin查看详情
+	 * @param id
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/detailsOfArchivel/{id}")
+	public String detailsOfArchivel(@PathVariable("id") String id, Model model) throws Exception{
+		TeacherArchive teacherArchive = this.itaService.findById(id);
+		model.addAttribute("teacher", teacherArchive);
+		return "teacherArchive/approval_teacherArchive";
 	}
 }

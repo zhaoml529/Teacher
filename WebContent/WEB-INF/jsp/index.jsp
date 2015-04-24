@@ -195,14 +195,9 @@
 			  <div class="panel-body">
 			    <p>高校教师档案管理系统V1.0上线...</p>
 			  </div>
-			
 			  <!-- List group -->
 			  <ul id="newsList" class="list-group">
-			    <li class="list-group-item"><span class="glyphicon glyphicon-link"></span>&nbsp;&nbsp;<b><a href="#">Cras justo odio</a></b><span class="more"><span class="glyphicon glyphicon-edit"></span>&nbsp;2014-05-26 10:51:12</span></li>
-			    <li class="list-group-item"><span class="glyphicon glyphicon-link"></span>&nbsp;&nbsp;<b><a href="#">Dapibus ac facilisis in</a></b><span class="more"><span class="glyphicon glyphicon-edit"></span>&nbsp;2014-04-21 11:33:22</span></li>
-			    <li class="list-group-item"><span class="glyphicon glyphicon-link"></span>&nbsp;&nbsp;<b><a href="#">Morbi leo risus</a></b><span class="more"><span class="glyphicon glyphicon-edit"></span>&nbsp;2014-04-06 21:23:11</span></li>
-			    <li class="list-group-item"><span class="glyphicon glyphicon-link"></span>&nbsp;&nbsp;<b><a href="#">Porta ac consectetur ac</a></b><span class="more"><span class="glyphicon glyphicon-edit"></span>&nbsp;2014-03-05 11:51:32</span></li>
-			    <li class="list-group-item"><span class="glyphicon glyphicon-link"></span>&nbsp;&nbsp;<b><a href="#">Vestibulum at eros</a></b><span class="more"><span class="glyphicon glyphicon-edit"></span>&nbsp;2014-02-26 10:51:12</span></li>
+			  	  <!-- 此处是新闻列表 -->
 			  </ul>
 		  </div>
 		  </div> <!-- row-fluid -->

@@ -13,7 +13,7 @@ public interface ITeacherArchiveService {
 	
 	public void doDelete(TeacherArchive entity) throws Exception;
 	
-	public List<TeacherArchive> toList() throws Exception;
+	public List<TeacherArchive> toList(String status) throws Exception;
 	
 	public List<TeacherArchive> findByDept(String dept_id, String status) throws Exception;
 	
@@ -23,6 +23,7 @@ public interface ITeacherArchiveService {
 	
 	public TeacherArchive findByTeaId(String teacherId) throws Exception;
 	
-	public Integer getCount(String status) throws Exception;
+	public Integer getCount(String dept_id, String status) throws Exception;
 	
+	public List<TeacherArchive> getAllList() throws Exception;
 }

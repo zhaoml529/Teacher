@@ -30,7 +30,7 @@
 		 	});
   		} 
   		
-  		$(function () { $("[data-toggle='tooltip']").tooltip(); });
+  		$("[data-toggle='tooltip']").tooltip();
   	 });
   
      function toAdd(){
@@ -251,18 +251,18 @@
 					  	</tr>
 					  </table>
 					  <c:choose>
-					  	<c:when test="${teacherArchive.isPass == 'PENDING'}">
-					  		<button type="button" data-toggle="tooltip" data-placement="top" title="审核中请等待..." class="btn btn-success btn-sm">申请审核</button>
-					  		<button type="button" data-toggle="tooltip" data-placement="top" title="审核中不能修改" class="btn btn-success btn-sm">修改</button>
-					  	</c:when>
-					  	<c:when test="${teacherArchive.isPass == 'APPROVAL_SUCCESS'}">
-					  		<button type="button" data-toggle="tooltip" data-placement="top" title="审核已通过" class="btn btn-success btn-sm">申请审核</button>
-					  		<button type="button" data-toggle="tooltip" data-placement="top" title="审核已通过不能修改" class="btn btn-success btn-sm">修改</button>
-					  	</c:when>
-					  	<c:otherwise>
-					  		<button type="button" onclick="toApproval('${teacherArchive.id}');" class="btn btn-success btn-sm">申请审核</button>
-					  		<button type="button" onclick="toUpdate('${teacherArchive.id}');" class="btn btn-success btn-sm">修改</button>
-					  	</c:otherwise>
+						  	<c:when test="${teacherArchive.isPass == 'PENDING'}">
+						  		<button type="button" data-toggle="tooltip" data-placement="top" title="审核中请等待..." class="btn btn-success btn-sm">申请审核</button>
+						  		<button type="button" data-toggle="tooltip" data-placement="top" title="审核中不能修改" class="btn btn-success btn-sm">修改</button>
+						  	</c:when>
+						  	<c:when test="${teacherArchive.isPass == 'APPROVAL_SUCCESS'}">
+						  		<button type="button" data-toggle="tooltip" data-placement="top" title="审核已通过" class="btn btn-success btn-sm">申请审核</button>
+						  		<button type="button" data-toggle="tooltip" data-placement="top" title="审核已通过不能修改" class="btn btn-success btn-sm">修改</button>
+						  	</c:when>
+						  	<c:otherwise>
+						  		<button type="button" onclick="toApproval('${teacherArchive.id}');" class="btn btn-success btn-sm">申请审核</button>
+						  		<button type="button" onclick="toUpdate('${teacherArchive.id}');" class="btn btn-success btn-sm">修改</button>
+						  	</c:otherwise>
 					  </c:choose>
 	          	</c:otherwise>
 	          </c:choose>
