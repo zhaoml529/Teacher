@@ -12,8 +12,37 @@
   <script type="text/javascript" src="${ctx}/js/Chart.min.js"></script>
   <script type="text/javascript">
 	  $(function(){
-		  var ctx = document.getElementById("degree").getContext("2d");
-		  var pieChartData = [
+		  var ctx_1 = document.getElementById("technicalPosition").getContext("2d");
+		  var ctx_2 = document.getElementById("degree").getContext("2d");
+		  var ctx_3 = document.getElementById("mandarinLevel").getContext("2d");
+		  var technicalData = [
+   		      {
+   		        value: "${technicalMap['教授']}",
+   		        color:"#F7464A",
+   		        highlight: "#FF5A5E",
+   		        label: "教授士"
+   		      },
+   		      {
+   		        value: "${technicalMap['副教授']}",
+   		        color: "#46BFBD",
+   		        highlight: "#5AD3D1",
+   		        label: "副教授"
+   		      },
+   		      {
+   		        value: "${technicalMap['讲 师']}",
+   		        color: "#FDB45C",
+   		        highlight: "#FFC870",
+   		        label: "讲 师"
+   		      },
+   		      {
+   		        value: "${technicalMap['助理讲师']}",
+   		        color: "#35FB6A",
+   		        highlight: "#DD463D",
+   		        label: "助理讲师"
+   		      }
+   	      ] // pie chart data
+		  
+		  var degreeData = [
 		      {
 		        value: "${degreeMap['学士']}",
 		        color:"#F7464A",
@@ -39,7 +68,68 @@
 		        label: "其他"
 		      }
 	      ] // pie chart data
-		  var myNewChart = new Chart(ctx).Doughnut(pieChartData,{
+	      
+	      //暂时不用这个方式显示
+		  var levelData1 = [
+   		      {
+   		        value: "${levelMap['一级甲等']}",
+   		        color:"#F7464A",
+   		        highlight: "#FF5A5E",
+   		        label: "一级甲等"
+   		      },
+   		      {
+   		        value: "${levelMap['一级乙等']}",
+   		        color: "#46BFBD",
+   		        highlight: "#5AD3D1",
+   		        label: "一级乙等"
+   		      },
+   		      {
+   		        value: "${levelMap['二级甲等']}",
+   		        color: "#FDB45C",
+   		        highlight: "#FFC870",
+   		        label: "二级甲等"
+   		      },
+   		      {
+   		        value: "${levelMap['二级乙等']}",
+   		        color: "#35FB6A",
+   		        highlight: "#FF9966",
+   		        label: "二级乙等"
+   		      },
+   		      {
+   		        value: "${levelMap['三级甲等']}",
+   		        color: "#35FB6A",
+   		        highlight: "#CC9966",
+   		        label: "三级甲等"
+   		      },
+   		      {
+   		        value: "${levelMap['三级乙等']}",
+   		        color: "#35FB6A",
+   		        highlight: "#CC0033",
+   		        label: "三级乙等"
+   		      }
+   	      ] // pie chart data
+	      
+   	      
+	   	  var levelData = {
+	   			labels : ["一级甲等","一级乙等","二级甲等","二级乙等","三级甲等","三级乙等"],
+	   			datasets : [
+	   				{
+	   					fillColor : "rgba(220,220,220,0.5)",
+	   					strokeColor : "rgba(220,220,220,1)",
+	   					pointColor : "rgba(220,220,220,1)",
+	   					pointStrokeColor : "#fff",
+	   					data : ["${levelMap['一级甲等']}","${levelMap['一级乙等']}","${levelMap['二级甲等']}","${levelMap['二级乙等']}","${levelMap['三级甲等']}","${levelMap['三级乙等']}"]
+	   				}
+	   			]
+	      }
+   	      
+		  var myNewChart = new Chart(ctx_1).Doughnut(technicalData,{
+	          responsive: true
+	      });
+		  var myNewChart = new Chart(ctx_2).Doughnut(degreeData,{
+	          responsive: true
+	      });
+		  var myNewChart = new Chart(ctx_3).Radar(levelData,{
 	          responsive: true
 	      });
 	  });
@@ -57,36 +147,30 @@
             <li class="active">数据统计</li>
           </ol>
           <blockquote>
-				<span class="glyphicon glyphicon-th-list"></span>&nbsp;档案管理&nbsp;<span class="caret"></span>
+				<span class="glyphicon glyphicon-th-list"></span>&nbsp;数据统计&nbsp;<span class="caret"></span>
 		  </blockquote>
           <div class="row-fluid">
               <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="panel panel-info">
-                  <div class="panel-heading">Pie Chart &amp; Doughnut Chart</div>
+                  <div class="panel-heading">包括：技术职务等级统计、学位统计、普通话水平统计</div>
                 </div>
                 <div class="row templatemo-chart-row">
-                  <div class="templatemo-chart-box col-lg-3 col-md-3 col-sm-4 col-xs-12">
-                    <canvas id="templatemo-pie-chart"></canvas>
-                    <h4>Pie Chart</h4>
-                    <span class="text-muted">Maecenas non</span>  
+                  <div class="templatemo-chart-box col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                    <canvas id="technicalPosition"></canvas>
+                    <h4>技术职务等级</h4>
+                    <span class="text-muted">统计： 教授、副教授、讲 师、助理讲师</span>  
                   </div>
                   
-                  <div class="templatemo-chart-box col-lg-3 col-md-3 col-sm-4 col-xs-12">           
+                  <div class="templatemo-chart-box col-lg-4 col-md-4 col-sm-4 col-xs-12">           
                     <canvas id="degree"></canvas>
                     <h4>学位统计</h4>
                     <span class="text-muted">统计：学士、硕士、博士学位</span> 
                   </div>
                   
-                  <div class="templatemo-chart-box col-lg-3 col-md-3 col-sm-4 col-xs-12">           
-                    <canvas id="templatemo-radar-chart"></canvas>
-                    <h4>Radar Chart</h4>
-                    <span class="text-muted">Lorem sed</span> 
-                  </div>
-
-                  <div class="templatemo-chart-box col-lg-3 col-md-3 col-sm-4 col-xs-12">           
-                    <canvas id="templatemo-polar-chart"></canvas>
-                    <h4>Polar Area Chart</h4>
-                    <span class="text-muted">Curabitur</span> 
+                  <div class="templatemo-chart-box col-lg-4 col-md-4 col-sm-4 col-xs-12">           
+                    <canvas id="mandarinLevel"></canvas>
+                    <h4>普通话水平</h4>
+                    <span class="text-muted">统计：一级甲等、一级乙等、二级甲等、二级乙等、三级甲等、三级乙等</span> 
                   </div>
                 </div>                  
               </div>
