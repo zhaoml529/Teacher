@@ -1,5 +1,4 @@
-
-
+﻿
 /**
  * 隐藏文字过长，加省略号。。。
  * body onload 调用displayPart
