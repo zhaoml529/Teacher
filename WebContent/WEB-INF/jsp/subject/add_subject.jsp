@@ -35,7 +35,7 @@
         <div class="templatemo-content">
           <ol class="breadcrumb">
             <li><span class="glyphicon glyphicon-home"></span>&nbsp;<a href="${ctx }/loginAction/main">首页</a></li>
-            <li><a href="#">课题添加</a></li>
+            <li class="active">课题添加</li>
           </ol>
           <blockquote>
 				<span class="glyphicon glyphicon-th-list"></span>&nbsp;课题添加&nbsp;<span class="caret"></span>

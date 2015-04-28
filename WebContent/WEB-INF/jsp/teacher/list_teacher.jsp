@@ -11,6 +11,20 @@
   <meta name="viewport" content="width=device-width">
   <script type="text/javascript" src="${ctx}/js/util.js"></script>
   <script type="text/javascript">
+  	$(function(){
+		if('${message}' != ""){
+			Messenger.options = {
+			    extraClasses: 'messenger-fixed messenger-on-bottom messenger-on-right',
+			    theme: 'flat'
+			}
+		 	Messenger().post({
+			  message: "<h5>${message}</h5>",
+		 	  hideAfter: 3,
+		 	  showCloseButton: true,
+		 	});
+		} 
+	 });
+  	
   	function edit( id,dept_id ){
   		if(dept_id == null){
   			window.location.href="${ctx}/teacherAction/toUpdate/"+id+"/0";

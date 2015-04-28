@@ -20,7 +20,7 @@
         <div class="templatemo-content">
           <ol class="breadcrumb">
             <li><span class="glyphicon glyphicon-home"></span>&nbsp;<a href="${ctx }/loginAction/main">首页</a></li>
-            <li><a href="#">添加教师</a></li>
+            <li class="active">添加教师</li>
           </ol>
           <blockquote>
 				<span class="glyphicon glyphicon-th-list"></span>&nbsp;添加教师&nbsp;<span class="caret"></span>
