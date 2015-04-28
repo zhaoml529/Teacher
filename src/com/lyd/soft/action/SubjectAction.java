@@ -129,7 +129,6 @@ public class SubjectAction {
 		if(results.hasErrors()){
 			return toUpdate(subject.getId(), model);
 		}
-		System.out.println(request.getParameter("subName"));
 		subject.setUpdateDate(new Date());
 		subject.setIsDelete(0);
 		this.subjectService.doUpdate(subject);

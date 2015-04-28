@@ -49,6 +49,14 @@ public class Department implements Serializable{
 	@JoinColumn(name="DEPT_ID",updatable=false)
     private Set<Teacher> teacher = new HashSet<Teacher>();
 
+	public Department(){
+		
+	}
+	
+	public Department(Integer id){
+		this.id = id;
+	}
+	
 	public Integer getId() {
 		return id;
 	}
