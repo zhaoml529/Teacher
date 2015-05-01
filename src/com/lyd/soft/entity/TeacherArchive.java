@@ -168,13 +168,13 @@ public class TeacherArchive implements Serializable {
 	@Column(name = "IS_PASS")
 	private String isPass;					//系部管理员审核
 
-	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "yyyy-MM-dd hh:mm")
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@Column(name = "CREATE_DATE")
 	private Date createDate;				//档案创建时间
 	
-	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "yyyy-MM-dd hh:mm")
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@Column(name = "UPDATE_DATE")
 	private Date updateDate;				//档案修改时间
 	

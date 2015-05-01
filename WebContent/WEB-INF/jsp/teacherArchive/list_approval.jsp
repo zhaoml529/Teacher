@@ -61,7 +61,7 @@
             	<tr>
             		<td>${teacher.teacher.teacherId }</td>
             		<td>${teacher.teacherName }</td>
-            		<td>${teacher.updateDate }</td>
+            		<td><fmt:formatDate value="${teacher.updateDate }" type="both"/> </td>
             		<td align="center">
 					  	<c:if test="${teacher.isPass == 'PENDING' }">
 	            			<button type="button" onclick="approval('${teacher.id}');" class="btn btn-success btn-sm">审核</button>

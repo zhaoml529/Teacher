@@ -89,8 +89,8 @@ public class TeacherArchiveAction {
 		teacherArchive.setCreateDate(new Date());
 		teacherArchive.setUpdateUser(user);
 		teacherArchive.setIsDelete(0);
-		String teacherPic = request.getParameter("pictureUrl");
-		teacherArchive.setTeacherPic(teacherPic);
+//		String teacherPic = request.getParameter("pictureUrl");
+//		teacherArchive.setTeacherPic(teacherPic);
 		this.itaService.doAdd(teacherArchive);
 		return "redirect:/teacherArchiveAction/details";
 	}
@@ -122,8 +122,6 @@ public class TeacherArchiveAction {
 		teacherArchive.setUpdateUser(updateUser);
 		teacherArchive.setIsPass(Constants.WAITING_FOR_APPROVAL);
 		teacherArchive.setIsDelete(0);
-		String teacherPic = request.getParameter("pictureUrl");
-		teacherArchive.setTeacherPic(teacherPic);
 		this.itaService.doUpdate(teacherArchive);
 		return "redirect:/teacherArchiveAction/details";
 	}
@@ -315,6 +313,16 @@ public class TeacherArchiveAction {
 	public String detailsOfArchivel(@PathVariable("id") String id, Model model) throws Exception{
 		TeacherArchive teacherArchive = this.itaService.findById(id);
 		model.addAttribute("teacher", teacherArchive);
+		return "teacherArchive/approval_teacherArchive";
+	}
+	
+	@RequestMapping(value = "/revoke/{id}")
+	public String revoke(@PathVariable("id") String id, Model model) throws Exception{
+		TeacherArchive teacherArchive = this.itaService.findById(id);
+		teacherArchive.setIsPass(Constants.APPROVAL_FAILED);
+		this.itaService.doUpdate(teacherArchive);
+		model.addAttribute(Constants.MESSAGE, "退回成功！");
+		model.addAttribute("teacherArchive", teacherArchive);
 		return "teacherArchive/approval_teacherArchive";
 	}
 }

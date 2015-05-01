@@ -239,10 +239,10 @@
 							  		<button type="button" data-toggle="tooltip" data-placement="top" title="审核中，不能退回" class="btn btn-success btn-sm">退回,重新审批</button>
 							  	</c:when>
 							  	<c:when test="${teacherArchive.isPass == 'APPROVAL_SUCCESS'}">
-							  		<button type="button" data-toggle="tooltip" data-placement="top" title="审核已通过" class="btn btn-success btn-sm">退回,重新审批</button>
+							  		<button type="button" onclick="revoke('${teacherArchive.id}');"class="btn btn-success btn-sm">退回,重新审批</button>
 							  	</c:when>
 							  	<c:when test="${teacherArchive.isPass == 'WAITING_FOR_APPROVAL'}">
-							  		<button type="button" data-toggle="tooltip" data-placement="top" title="用户还没申请审批，不能退回" onclick="revoke('${teacherArchive.id}');" class="btn btn-success btn-sm">退回,重新审批</button>
+							  		<button type="button" data-toggle="tooltip" data-placement="top" title="用户还没申请审批，不能退回" class="btn btn-success btn-sm">退回,重新审批</button>
 							  	</c:when>
 							  	<c:when test="${teacherArchive.isPass == 'APPROVAL_FAILED'}">
 							  		<button type="button" data-toggle="tooltip" data-placement="top" title="审批失败，不能回退" class="btn btn-success btn-sm">退回,重新审批</button>

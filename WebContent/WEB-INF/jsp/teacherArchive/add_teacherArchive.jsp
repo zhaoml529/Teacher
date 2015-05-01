@@ -98,7 +98,7 @@
 				    	<input type="text" name="teacherName" value="${user.teacherName }" class="form-control" readonly placeholder="Enter teachers name">
 			  		</td>
 			  		<td colspan="2" rowspan="7" align="center">
-			  			<input type="hidden" id="pictureUrl" name="pictureUrl" value="${teacherArchive.teacherPic }" />
+			  			<input type="hidden" id="pictureUrl" name="teacherPic" value="${teacherArchive.teacherPic }" />
 			  			<div class="thumbnail">
 			  			  <c:set var="noPic" value="/images/no_picture.gif" />
 					      <img id="photo" src="${ctx }${! empty teacherArchive.teacherPic?teacherArchive.teacherPic :noPic }" alt="个人照片" width="200px" class="img-thumbnail">

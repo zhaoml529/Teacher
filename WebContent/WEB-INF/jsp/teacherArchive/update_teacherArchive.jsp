@@ -86,6 +86,8 @@
           <form:form action="${ctx }/teacherArchiveAction/doUpdate" modelAttribute="teacherArchive" method="POST">
           <input type="hidden" name="teacher.teacherId" value="${user.teacherId }"/>
           <input type="hidden" name="id" value="${teacherArchive.id }"/>
+          <input type="hidden" name="archiveNumber" value="${teacherArchive.archiveNumber }"/>
+          <input type="hidden" name="createDate" value="<fmt:formatDate value='${teacherArchive.createDate }' pattern='yyyy-MM-dd HH:mm:ss' />"/>
           <div class="panel panel-default"> 
 	          <div class="panel-body">
 	          <div class="table-responsive">
@@ -99,7 +101,7 @@
 				    	<input type="text" name="teacherName" value="${user.teacherName }" class="form-control" readonly placeholder="Enter teachers name">
 			  		</td>
 			  		<td colspan="2" rowspan="7" align="center">
-			  			<input type="hidden" id="pictureUrl" name="pictureUrl" value="${teacherArchive.teacherPic }" />
+			  			<input type="hidden" id="pictureUrl" name="teacherPic" value="${teacherArchive.teacherPic }" />
 			  			<div class="thumbnail">
 			  			  <c:set var="noPic" value="/images/no_picture.gif" />
 					      <img id="photo" src="${ctx }${! empty teacherArchive.teacherPic?teacherArchive.teacherPic :noPic }" alt="个人照片" width="200px" class="img-thumbnail">
@@ -136,7 +138,7 @@
 			  		<td>
 			  			<div class="input-group date form_datetime" id="birthday">
 			  				<div class="input-group">
-						    <input name="birthday" class="form-control" type="text" value="${teacherArchive.birthday }" readonly />
+						    <input name="birthday" class="form-control" type="text" value='<fmt:formatDate value="${teacherArchive.birthday }" type="date"/>' readonly />
 						    <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
 						    </div>
 						</div>
@@ -154,7 +156,7 @@
 			  		<td>
 						<div class="input-group date form_datetime" id="wordDate">
 							<div class="input-group">
-		                    <input name="workDate" class="form-control" type="text" value="${teacherArchive.workDate }" readonly required />
+		                    <input name="workDate" class="form-control" type="text" value="<fmt:formatDate value='${teacherArchive.workDate }' type='date'/>" readonly required />
 		                    <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
 							</div>
 		                </div>
@@ -204,7 +206,7 @@
 			  			<div class="input-group date form_datetime" id="getEducation1">
 			  				<div class="input-group">
 			  				<form:errors path="getEducation1" cssClass="valid_text"></form:errors>
-				    		<input type="text" name="getEducation1" value="${teacherArchive.getEducation1 }" class="form-control" readonly placeholder="Choose getEducation1">
+				    		<input type="text" name="getEducation1" value="<fmt:formatDate value='${teacherArchive.getEducation1 }' type='date'/>" class="form-control" readonly placeholder="Choose getEducation1">
 						    <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
 						    </div>
 						</div>
@@ -214,7 +216,7 @@
 			  			<div class="input-group date form_datetime" id="getEducation2">
 			  				<div class="input-group">
 			  				<form:errors path="getEducation2" cssClass="valid_text"></form:errors>
-				    		<input type="text" name="getEducation2" value="${teacherArchive.getEducation2 }" class="form-control" readonly placeholder="Choose getEducation2">
+				    		<input type="text" name="getEducation2" value="<fmt:formatDate value='${teacherArchive.getEducation2 }' type='date'/>" class="form-control" readonly placeholder="Choose getEducation2">
 						    <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
 						    </div>
 						</div>
@@ -249,7 +251,7 @@
 			  			<div class="input-group date form_datetime" id="getDegree">
 							<div class="input-group">
 		                    <form:errors path="getDegree" cssClass="valid_text"></form:errors>
-			  				<input type="text" name="getDegree" value="${teacherArchive.getDegree }" class="form-control" readonly placeholder="Choose degree Date">
+			  				<input type="text" name="getDegree" value="<fmt:formatDate value='${teacherArchive.getDegree }' type='date'/>" class="form-control" readonly placeholder="Choose degree Date">
 		                    <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
 							</div>
 		                </div>
