@@ -115,7 +115,7 @@
 						        <span class="btn btn-success fileinput-button btn-sm">
 				                    <i class="glyphicon glyphicon-plus"></i>
 				                    <span>选择头像...</span>
-				                    <input id="fileupload" type="file" name="teacherPic" />
+				                    <input id="fileupload" type="file" name="picture" />
 				                </span>
 					      </div>
 					    </div>
