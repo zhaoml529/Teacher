@@ -52,7 +52,7 @@
 			<ol class="breadcrumb">
 			  <li><span class="glyphicon glyphicon-home"></span>&nbsp;<a href="${ctx }/loginAction/main">主页</a></li>
 			  <li><a href="${ctx }/teacherArchiveAction/toApprovalList_page">档案管理</a></li>
-			  <li class="active">审批档案</li>
+			  <li class="active">审核档案</li>
 			</ol>
 			<blockquote>
 				<span class="glyphicon glyphicon-user"></span>&nbsp;个人档案&nbsp;<span class="caret"></span>
@@ -76,16 +76,16 @@
 					  			个人档案信息
 					  			<c:choose>
 					  				<c:when test="${teacherArchive.isPass == 'WAITING_FOR_APPROVAL' }">
-							  			<span class="label label-warning pull-right">待审批</span>
+							  			<span class="label label-warning pull-right">待审核</span>
 					  				</c:when>
 					  				<c:when test="${teacherArchive.isPass == 'PENDING' }">
-							  			<span class="label label-info pull-right">审批中...</span>
+							  			<span class="label label-info pull-right">审核中...</span>
 					  				</c:when>
 					  				<c:when test="${teacherArchive.isPass == 'APPROVAL_SUCCESS' }">
-							  			<span class="label label-success pull-right">审批通过</span>
+							  			<span class="label label-success pull-right">审核通过</span>
 					  				</c:when>
 					  				<c:when test="${teacherArchive.isPass == 'APPROVAL_FAILED' }">
-							  			<span class="label label-danger pull-right">审批失败</span>
+							  			<span class="label label-danger pull-right">未通过</span>
 					  				</c:when>
 					  			</c:choose>
 					  		</td>
@@ -236,16 +236,16 @@
 					  	<c:when test="${user.role == 'admin' }">
 					  		 <c:choose>
 							  	<c:when test="${teacherArchive.isPass == 'PENDING'}">
-							  		<button type="button" data-toggle="tooltip" data-placement="top" title="审核中，不能退回" class="btn btn-success btn-sm">退回,重新审批</button>
+							  		<button type="button" data-toggle="tooltip" data-placement="top" title="审核中，不能退回" class="btn btn-success btn-sm">退回,重新审核</button>
 							  	</c:when>
 							  	<c:when test="${teacherArchive.isPass == 'APPROVAL_SUCCESS'}">
-							  		<button type="button" onclick="revoke('${teacherArchive.id}');"class="btn btn-success btn-sm">退回,重新审批</button>
+							  		<button type="button" onclick="revoke('${teacherArchive.id}');"class="btn btn-success btn-sm">退回,重新审核</button>
 							  	</c:when>
 							  	<c:when test="${teacherArchive.isPass == 'WAITING_FOR_APPROVAL'}">
-							  		<button type="button" data-toggle="tooltip" data-placement="top" title="用户还没申请审批，不能退回" class="btn btn-success btn-sm">退回,重新审批</button>
+							  		<button type="button" data-toggle="tooltip" data-placement="top" title="用户还没申请审核，不能退回" class="btn btn-success btn-sm">退回,重新审核</button>
 							  	</c:when>
 							  	<c:when test="${teacherArchive.isPass == 'APPROVAL_FAILED'}">
-							  		<button type="button" data-toggle="tooltip" data-placement="top" title="审批失败，不能回退" class="btn btn-success btn-sm">退回,重新审批</button>
+							  		<button type="button" data-toggle="tooltip" data-placement="top" title="审核失败，不能回退" class="btn btn-success btn-sm">退回,重新审核</button>
 							  	</c:when>
 							 </c:choose>
 					  	</c:when>

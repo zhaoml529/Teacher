@@ -103,7 +103,7 @@
 							  			<span class="label label-success pull-right">审核通过</span>
 					  				</c:when>
 					  				<c:when test="${teacherArchive.isPass == 'APPROVAL_FAILED' }">
-							  			<span class="label label-danger pull-right">审核失败</span>
+							  			<span class="label label-danger pull-right">未通过</span>
 					  				</c:when>
 					  			</c:choose>
 					  		</td>

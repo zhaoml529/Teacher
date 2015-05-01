@@ -5,7 +5,7 @@
 <head>
 <meta charset="utf-8">
   <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><![endif]-->
-  <title>审批列表</title>
+  <title>审核列表</title>
   <meta name="keywords" content="" />
   <meta name="description" content="" />
   <meta name="viewport" content="width=device-width">
@@ -51,7 +51,7 @@
               <tr>
                 <th width="20%">教师ID</th>
                 <th width="20%">教师姓名</th>
-                <th width="20%">审批状态</th>
+                <th width="20%">审核状态</th>
                 <th width="20%">创建时间</th>
                 <th style="text-align: left; width: 20%">
                 	操作
@@ -66,16 +66,16 @@
             		<td>
             			<c:choose>
             				<c:when test="${teacher.isPass == 'WAITING_FOR_APPROVAL' }">
-            					<span class="label label-warning">待审批...</span>
+            					<span class="label label-warning">待审核...</span>
             				</c:when>
             				<c:when test="${teacher.isPass == 'APPROVAL_SUCCESS' }">
-            					<span class="label label-success">通过</span>
+            					<span class="label label-success">审核通过</span>
             				</c:when>
             				<c:when test="${teacher.isPass == 'PENDING' }">
-            					<span class="label label-info">审批中...</span>
+            					<span class="label label-info">审核中...</span>
             				</c:when>
             				<c:otherwise>
-            					<span class="label label-danger">不通过</span>
+            					<span class="label label-danger">未通过</span>
             				</c:otherwise>
             			</c:choose>
             		</td>
