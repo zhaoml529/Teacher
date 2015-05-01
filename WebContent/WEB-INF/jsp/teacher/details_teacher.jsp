@@ -37,6 +37,22 @@
           			<td>${teacher.teacherId }</td>
           		</tr>
           		<tr>
+          			<td>角色</td>
+          			<td>
+            			<c:choose>
+            				<c:when test="${teacher.role == 'teacher' }">
+            					教师
+            				</c:when>
+            				<c:when test="${teacher.role == 'manager' }">
+            					系部管理员
+            				</c:when>
+            				<c:when test="${teacher.role == 'admin' }">
+            					系统管理员
+            				</c:when>
+            			</c:choose>
+            		</td>
+          		</tr>
+          		<tr>
           			<th>注册时间</th>
           			<td>${teacher.regDate }</td>
           		</tr>
