@@ -257,7 +257,7 @@
 						  	</c:when>
 						  	<c:when test="${teacherArchive.isPass == 'APPROVAL_SUCCESS'}">
 						  		<button type="button" data-toggle="tooltip" data-placement="top" title="审核已通过" class="btn btn-success btn-sm">申请审核</button>
-						  		<button type="button" data-toggle="tooltip" data-placement="top" title="审核已通过不能修改" class="btn btn-success btn-sm">修改</button>
+						  		<button type="button" data-toggle="tooltip" data-placement="top" title="修改后，需重新申请审核" onclick="toUpdate('${teacherArchive.id}');" class="btn btn-success btn-sm">修改</button>
 						  	</c:when>
 						  	<c:otherwise>
 						  		<button type="button" onclick="toApproval('${teacherArchive.id}');" class="btn btn-success btn-sm">申请审核</button>
