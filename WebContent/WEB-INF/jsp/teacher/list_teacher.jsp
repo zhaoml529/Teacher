@@ -102,15 +102,17 @@
             			</c:choose>
             		</td>
             		<td align="center">
-            			<button type="button" onclick="edit('${teacher.teacherId}', '${dept_id }');" class="btn btn-success btn-sm">编辑</button>
-            			<c:choose>
-	            			<c:when test="${teacher.isDelete == 0 }">
-	            				<button type="button" onclick="accountStop('${teacher.teacherId}');" class="btn btn-danger btn-sm">停用</button>
-	            			</c:when>
-	            			<c:otherwise>
-	            				<button type="button" onclick="activation('${teacher.teacherId}');" class="btn btn-primary btn-sm">激活</button>
-	            			</c:otherwise>
-            			</c:choose>
+            			<c:if test="${teacher.role != 'admin' }">
+	            			<button type="button" onclick="edit('${teacher.teacherId}', '${dept_id }');" class="btn btn-success btn-sm">编辑</button>
+	            			<c:choose>
+		            			<c:when test="${teacher.isDelete == 0 }">
+		            				<button type="button" onclick="accountStop('${teacher.teacherId}');" class="btn btn-danger btn-sm">停用</button>
+		            			</c:when>
+		            			<c:otherwise>
+		            				<button type="button" onclick="activation('${teacher.teacherId}');" class="btn btn-primary btn-sm">激活</button>
+		            			</c:otherwise>
+	            			</c:choose>
+            			</c:if>
             		</td>
             	</tr>
             </c:forEach>
