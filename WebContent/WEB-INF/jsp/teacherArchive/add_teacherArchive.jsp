@@ -236,7 +236,6 @@
 			  		<td>最高学位</td>
 			  		<td>
 			  			<form:errors path="degree" cssClass="valid_text"></form:errors>
-			  			<input type="text" name="degree" value="${teacherArchive.degree }" class="form-control" placeholder="Enter degree">
 			  			<select class="form-control" name="degree">
 			  				<option value="0">--请选择--</option>
 			  				<option ${teacherArchive.degree == '博士'?'selected':'' } value="博士">博士学位</option>
