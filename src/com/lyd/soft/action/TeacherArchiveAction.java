@@ -129,7 +129,7 @@ public class TeacherArchiveAction {
 	@RequestMapping(value = "/uploadPic", method = RequestMethod.POST)
 	@ResponseBody
 	public String uploadPic(@Value("#{APP_PROPERTIES['upload.uploadTempDir']}") String path,
-							@RequestParam(value = "teacherPic", required = false) MultipartFile file, 
+							@RequestParam(value = "picture", required = false) MultipartFile file, 
 							HttpServletRequest request,
 							HttpSession session) throws Exception{
 		Teacher user = UserUtils.getUserFromSession(session);
