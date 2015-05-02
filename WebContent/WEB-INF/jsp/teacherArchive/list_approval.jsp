@@ -30,7 +30,7 @@
           <blockquote>
 				<span class="glyphicon glyphicon-th-list"></span>&nbsp;档案管理&nbsp;<span class="caret"></span>
 		  </blockquote>
-		  <form action="${ctx }/teacherArchiveAction/toList_page" id="pageForm" method="post">
+		  <form action="${ctx }/teacherArchiveAction/toApprovalList_page" id="pageForm" method="post">
 		  <div class="table-responsive">
 		  <div class="btn-group pull-right" style="margin-bottom: 5px">
 			  <button type="button" class="btn btn-default  btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
