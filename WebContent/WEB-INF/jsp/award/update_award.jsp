@@ -56,8 +56,8 @@
 		  	<tr>
 		  		<td>获奖名称</td>
 		  		<td>
-		  			<form:errors path="title" cssClass="valid_text"></form:errors>
-			    	<input type="text" name="title" value="${award.title }" class="form-control" placeholder="Enter Title">
+		  			<form:errors path="name" cssClass="valid_text"></form:errors>
+			    	<input type="text" name="name" value="${award.title }" class="form-control" placeholder="Enter Title">
 		  		</td>
 		  	</tr>
 		  	<tr>
