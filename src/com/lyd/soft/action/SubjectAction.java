@@ -133,6 +133,7 @@ public class SubjectAction {
 		subject.setUpdateDate(new Date());
 		subject.setIsDelete(0);
 		this.subjectService.doUpdate(subject);
+		redirectAttribute.addAttribute("type", subject.getType());
 		redirectAttribute.addFlashAttribute(Constants.MESSAGE, "修改成功！");
 		return "redirect:/subjectAction/toList_page";
 	}

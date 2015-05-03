@@ -104,6 +104,7 @@ public class PaperAction {
 		paper.setCreateDate(new Date());
 		paper.setIsDelete(0);
 		this.paperService.doAdd(paper);
+		redirectAttributes.addAttribute("type", paper.getType());
 		redirectAttributes.addFlashAttribute(Constants.MESSAGE, "添加成功！");
 		return "redirect:/paperAction/toList_page";
 	}
@@ -124,6 +125,7 @@ public class PaperAction {
 		paper.setUpdateDate(new Date());
 		this.paperService.doUpdate(paper);
 		model.addAttribute("paper", paper);
+		redirectAttributes.addAttribute("type", paper.getType());
 		redirectAttributes.addFlashAttribute(Constants.MESSAGE, "修改成功！");
 		return "redirect:/paperAction/toList_page";
 	}

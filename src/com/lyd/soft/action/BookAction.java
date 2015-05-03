@@ -97,6 +97,7 @@ public class BookAction {
 		book.setCreateDate(new Date());
 		book.setIsDelete(0);
 		this.bookService.doAdd(book);
+		redirectAttributes.addAttribute("type", book.getType());
 		redirectAttributes.addFlashAttribute(Constants.MESSAGE, "添加成功！");
 		return "redirect:/bookAction/toList_page?type="+book.getType();
 	}
@@ -117,6 +118,7 @@ public class BookAction {
 		book.setUpdateDate(new Date());
 		this.bookService.doUpdate(book);
 		model.addAttribute("book", book);
+		redirectAttributes.addAttribute("type", book.getType());
 		redirectAttributes.addFlashAttribute(Constants.MESSAGE, "修改成功！");
 		return "redirect:/bookAction/toList_page?type="+book.getType();
 	}

@@ -97,6 +97,7 @@ public class AwardingAction {
 		award.setCreateDate(new Date());
 		award.setIsDelete(0);
 		this.awardService.doAdd(award);
+		redirectAttributes.addAttribute("type", award.getType());
 		redirectAttributes.addFlashAttribute(Constants.MESSAGE, "添加成功！");
 		return "redirect:/awardAction/toList_page";
 	}
@@ -117,6 +118,7 @@ public class AwardingAction {
 		award.setUpdateDate(new Date());
 		this.awardService.doUpdate(award);
 		model.addAttribute("award", award);
+		redirectAttributes.addAttribute("type", award.getType());
 		redirectAttributes.addFlashAttribute(Constants.MESSAGE, "修改成功！");
 		return "redirect:/awardAction/toList_page";
 	}
