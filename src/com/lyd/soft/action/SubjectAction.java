@@ -103,6 +103,7 @@ public class SubjectAction {
 		subject.setIsDelete(0);
 		subject.setCreateDate(new Date());
 		this.subjectService.doAdd(subject);
+		redirectAttribute.addAttribute("type", subject.getType());
 		redirectAttribute.addFlashAttribute(Constants.MESSAGE, "添加成功！");
 		return "redirect:/subjectAction/toList_page";
 	}
