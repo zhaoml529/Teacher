@@ -32,6 +32,7 @@
           <form:form action="${ctx }/departmentAction/doUpdate" modelAttribute="department" method="POST">
           <input type="hidden" name="id" value="${department.id }"/>
           <input type="hidden" name="isDelete" value="${department.isDelete }"/>
+          <input type="hidden" name="createDate" value="<fmt:formatDate value='${department.createDate }' type='both'/>"/>
           <div class="table-responsive">
           	<table class="table table-bordered table-condensed">
 		  	<tr class="active">
@@ -41,7 +42,7 @@
 		  		<td>系部名称</td>
 		  		<td>
 		  			<form:errors path="name" cssClass="valid_text"></form:errors>
-			    	<input type="text" name="subName" value="${department.name }" class="form-control" placeholder="Enter name">
+			    	<input type="text" name="name" value="${department.name }" class="form-control" placeholder="Enter name">
 		  		</td>
 		  	</tr>
 		  	</table>

@@ -38,7 +38,7 @@
 		  		<td>系部名称</td>
 		  		<td>
 		  			<form:errors path="name" cssClass="valid_text"></form:errors>
-			    	<input type="text" name="name" value="${department.name }" class="form-control" placeholder="Enter name">
+			    	<input type="text" name="name" value="${department.name }" class="form-control" placeholder="Enter name" required>
 		  		</td>
 		  	</tr>
 		  	</table>

@@ -1,5 +1,6 @@
 package com.lyd.soft.action;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -70,6 +71,7 @@ public class DepartmentAction {
 			return toAdd(model);
 		}
 		department.setIsDelete(0);
+		department.setCreateDate(new Date());
 		this.departmentService.doAdd(department);
 		redirectAttribute.addFlashAttribute(Constants.MESSAGE, "添加成功！");
 		return "redirect:/departmentAction/toList_page";

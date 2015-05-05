@@ -30,10 +30,12 @@
           <form:form action="${ctx }/teacherAction/doAdd" modelAttribute="teacher" method="POST">
           <input type="hidden" name="dept_id" value="${dept_id }"/>
           <div class="table-responsive">
-          	<div class="alert alert-warning alert-dismissible" role="alert">
-			  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			  <strong>Warning!</strong> 您只能添加系部管理员所在系部的教师信息.
-			</div>
+          	<c:if test="${user.role == 'manager' }">
+				<div class="alert alert-warning alert-dismissible" role="alert">
+				  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				  <strong>Warning!</strong> 您只能添加系部管理员所在系部的教师信息.
+				</div>          	
+          	</c:if>
           	<table class="table table-bordered table-condensed">
 		  	<tr class="active">
 		  		<td colspan="2" align="center">添加教师</td>

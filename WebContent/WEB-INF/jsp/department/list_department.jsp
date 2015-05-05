@@ -71,6 +71,7 @@
 		  	<tr>
 		  		<td>#</td>
 		  		<td>系部名称</td>
+		  		<td>创建时间</td>
 		  		<td>
 		  			操作
 		  		</td>
@@ -86,6 +87,7 @@
 					  	<tr>
 					  		<td>${dept.id }</td>
 					  		<td>${dept.name }</td>
+					  		<td>${dept.createDate }</td>
 					  		<td>
 					  			<button type="button" class="btn btn-warning btn-xs" onclick="toUpdate('${dept.id}');" >修改</button>
 					  			<button type="button" class="btn btn-danger btn-xs" onclick="doDel('${dept.id}');">删除</button>

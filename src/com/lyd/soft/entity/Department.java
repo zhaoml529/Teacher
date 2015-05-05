@@ -1,6 +1,7 @@
 package com.lyd.soft.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,9 +14,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * 系部机构
@@ -39,6 +43,11 @@ public class Department implements Serializable{
 
 	@Column(name = "NAME")
 	private String name;			//系部名称
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@Column(name = "CREATE_DATE")
+	private Date createDate;		//创建时间
 	
 	@Column(name = "IS_DELETE")
 	private Integer isDelete;		//删除
@@ -87,6 +96,14 @@ public class Department implements Serializable{
 
 	public void setTeacher(Set<Teacher> teacher) {
 		this.teacher = teacher;
+	}
+	
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
 	}
 
 	public static long getSerialversionuid() {
