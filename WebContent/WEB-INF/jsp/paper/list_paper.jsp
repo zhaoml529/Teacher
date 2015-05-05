@@ -104,7 +104,7 @@
 					  		<td>${paper.periodicalName }</td>
 					  		<td>
 					  			<button type="button" class="btn btn-warning btn-xs" onclick="toUpdate('${paper.id}');" >修改</button>
-					  			<button type="button" class="btn btn-danger btn-xs" onclick="doDel('${paper.id}');">删除</button>
+					  			<button type="button" class="btn btn-danger btn-xs" onclick="doDel('${paper.type }', '${paper.id}');">删除</button>
 					  		</td>
 					  	</tr>
 					</c:forEach>

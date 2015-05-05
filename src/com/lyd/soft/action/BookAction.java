@@ -141,6 +141,7 @@ public class BookAction {
 		}else{
 			redirectAttributes.addFlashAttribute(Constants.MESSAGE, "删除失败，id为空！");
 		}
-		return "redirect:/bookAction/toList_page?type="+type;
+		redirectAttributes.addAttribute("type", type);
+		return "redirect:/bookAction/toList_page";
 	}
 }

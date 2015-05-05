@@ -138,14 +138,17 @@ public class PaperAction {
 		
 	}
 	
-	@RequestMapping(value = "/doDelete/{id}")
-	public String doDelete(@PathVariable("id") Integer id, RedirectAttributes redirectAttributes) throws Exception{
+	@RequestMapping(value = "/doDelete/{type}/{id}")
+	public String doDelete(@PathVariable("type") String type,
+						   @PathVariable("id") Integer id, 
+						   RedirectAttributes redirectAttributes) throws Exception{
 		if(!BeanUtils.isBlank(id)){
 			this.paperService.doDelete(new Paper(id));
 			redirectAttributes.addFlashAttribute(Constants.MESSAGE, "删除成功！");
 		}else{
 			redirectAttributes.addFlashAttribute(Constants.MESSAGE, "删除失败，id为空！");
 		}
+		redirectAttributes.addAttribute("type", type);
 		return "redirect:/paperAction/toList_page";
 	}
 	

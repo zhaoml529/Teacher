@@ -34,8 +34,8 @@
 		window.location.href="${ctx}/subjectAction/toUpdate/"+id;  		
   	}
   	
-  	function doDel( id ){
-  		window.location.href = "${ctx}/subjectAction/doDelete/"+id;
+  	function doDel( type, id ){
+  		window.location.href = "${ctx}/subjectAction/doDelete/"+type+"/"+id;
   	}
   	
   	function details( id ){
@@ -102,7 +102,7 @@
 					  		<td><fmt:formatDate value="${subject.updateDate }" type="both"/></td>
 					  		<td>
 					  			<button type="button" class="btn btn-warning btn-xs" onclick="toUpdate('${subject.id}');" >修改</button>
-					  			<button type="button" class="btn btn-danger btn-xs" onclick="doDel('${subject.id}');">删除</button>
+					  			<button type="button" class="btn btn-danger btn-xs" onclick="doDel('${subject.type }', '${subject.id}');">删除</button>
 					  		</td>
 					  	</tr>
 					</c:forEach>

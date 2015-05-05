@@ -138,8 +138,10 @@ public class SubjectAction {
 		return "redirect:/subjectAction/toList_page";
 	}
 	
-	@RequestMapping(value = "/doDelete/{id}")
-	public String doDelete(@PathVariable("id") Integer id, RedirectAttributes redirectAttribute) throws Exception{
+	@RequestMapping(value = "/doDelete/{type}/{id}")
+	public String doDelete(@PathVariable("type") String type,
+			 			   @PathVariable("id") Integer id, 
+			 			   RedirectAttributes redirectAttribute) throws Exception{
 		if(!BeanUtils.isBlank(id)){
 			this.subjectService.doDelete(new Subject(id));
 			redirectAttribute.addFlashAttribute(Constants.MESSAGE, "删除成功！");
@@ -147,6 +149,7 @@ public class SubjectAction {
 			logger.error("subject id is null...");
 			redirectAttribute.addFlashAttribute(Constants.MESSAGE, "删除失败!");
 		}
+		redirectAttribute.addAttribute("type", type);
 		return "redirect:/subjectAction/toList_page";
 	}
 }
