@@ -33,13 +33,16 @@ public class LoginAction {
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(@RequestParam("username")String name, @RequestParam("password")String passwd, HttpServletRequest request, Model model) throws Exception{
 		HttpSession session = request.getSession();
-		logger.info("login - username=" + name + ", password=" + passwd);
 		Teacher user = teacherService.findByName(name);
 		model.addAttribute("username", name);
 		if(!BeanUtils.isBlank(user)){
 			if(passwd.equals(user.getPassword())){
 				UserUtils.saveUserToSession(session, user);
 				return "index";
+			}else if(user.getIsDelete() == 0){
+				model.addAttribute("msg", "账户已停用");
+				logger.info("账户停用");
+				return "login";
 			}else{
 				model.addAttribute("msg", "密码不正确");
 				logger.info("密码不正确");

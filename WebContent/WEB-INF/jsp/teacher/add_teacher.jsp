@@ -9,6 +9,47 @@
   <meta name="keywords" content="" />
   <meta name="description" content="" />
   <meta name="viewport" content="width=device-width">
+  <style>
+	  .loading {
+	     background: white url("${ctx}/images/ui-anim_basic_16x16.gif") right center no-repeat;
+	  }
+  </style>
+    <script type="text/javascript">
+  	function checkname(){
+  		var teacherName = $("#teacherName").val();
+  		if(teacherName != ""){
+  			$.ajax({
+  	             url: "${ctx}/teacherAction/checkName", 
+  	             dataType : "json",
+  	             type : "POST",
+  	             data: {teacherName: teacherName},
+  	             success: function (data) {
+					if(data.check == 1){
+						$("#username").addClass('has-error has-feedback');
+						$("#errorTeacherName").text("此用户名已经存在！");
+			  			$("#errorTeacherName").removeClass("sr-only");
+			  			$("#teacherName").removeClass("loading");
+						$("#teacherName_sr").removeClass.addClass('glyphicon glyphicon-remove form-control-feedback');
+			  			$("#teacherName").focus();
+					}else{
+						$("#username").addClass('has-success has-feedback');
+						$("#errorTeacherName").text("可以使用此用户名！");
+			  			$("#errorTeacherName").removeClass("sr-only");
+			  			$("#teacherName").removeClass("loading");
+			  			$("#teacherName_sr").removeClass.addClass('glyphicon glyphicon-ok form-control-feedback');
+					}
+  	             }
+  	      	});
+  		}else{
+  			$("#teacherName").addClass('loading');
+  		}
+  	}
+  	
+  	function checking(){
+  		$("#teacherName").addClass('loading');
+  	}
+  	
+  </script>
 </head>
 <body>
   <c:import url="../top.jsp" />
@@ -26,8 +67,7 @@
 				<span class="glyphicon glyphicon-th-list"></span>&nbsp;添加教师&nbsp;<span class="caret"></span>
 		  </blockquote>
           <div class="row-fluid">
-          
-          <form:form action="${ctx }/teacherAction/doAdd" modelAttribute="teacher" method="POST">
+          <form:form action="${ctx }/teacherAction/doAdd" cssClass="form-inline" modelAttribute="teacher" method="POST">
           <input type="hidden" name="dept_id" value="${dept_id }"/>
           <div class="table-responsive">
           	<c:if test="${user.role == 'manager' }">
@@ -44,7 +84,11 @@
 		  		<td>教师姓名</td>
 		  		<td>
 		  			<form:errors path="teacherName" cssClass="valid_text"></form:errors>
-			    	<input type="text" name="teacherName" value="${teacher.teacherName }" class="form-control" placeholder="Enter subName" required/>
+		  			<div id="username" class="form-group">
+			              <label id="errorTeacherName" class="control-label pull-right sr-only"></label>
+			              <input type="text" id="teacherName" name="teacherName" value="${teacher.teacherName }" onfocus="checking();" onblur="checkname();" class="form-control" placeholder="Enter subName" required/>
+			              <span id="teacherName_sr" class="glyphicon glyphicon-remove form-control-feedback sr-only"></span>
+			        </div>
 		  		</td>
 		  	</tr>
 		  	<tr>

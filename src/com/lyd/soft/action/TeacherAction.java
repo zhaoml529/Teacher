@@ -2,7 +2,9 @@ package com.lyd.soft.action;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -25,6 +27,7 @@ import com.lyd.soft.pagination.Pagination;
 import com.lyd.soft.pagination.PaginationThreadUtils;
 import com.lyd.soft.service.IDepartmentService;
 import com.lyd.soft.service.ITeacherService;
+import com.lyd.soft.util.BeanUtils;
 import com.lyd.soft.util.Constants;
 import com.lyd.soft.util.StringUtils;
 import com.lyd.soft.util.UserUtils;
@@ -177,5 +180,22 @@ public class TeacherAction {
 		String teacherName = request.getParameter("teacherName");
 		List<Teacher> list = this.teacherService.searchByName(teacherName);
 		return list;
+	}
+	
+	@RequestMapping(value = "/checkName")
+	@ResponseBody
+	public Map<String, Integer> checkTeacherName(HttpServletRequest request) throws Exception{
+		String teacherName = request.getParameter("teacherName");
+		Teacher teacher = new Teacher();
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		if(!StringUtils.isBlank(teacherName)){
+			teacher = this.teacherService.findByName(teacherName);
+		}
+		if(BeanUtils.isBlank(teacher)){
+			map.put("check", 0);
+		}else{
+			map.put("check", 1);
+		}
+		return map;
 	}
 }

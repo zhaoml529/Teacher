@@ -57,7 +57,7 @@ $(function(){
          </div>
          <form class="navbar-form navbar-right pull-right" role="search">
          	 <div class="form-group">
-			      <label class="control-label">欢迎：${user.teacherName }</label>&nbsp;登录
+			      <label class="control-label">欢迎：${user.teacherName }&nbsp;登录</label>
 			      <!-- <input type="text" class="form-control" placeholder="Search"> -->
 			 </div>
 	     </form><!-- container -->
