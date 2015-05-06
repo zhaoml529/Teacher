@@ -25,6 +25,7 @@
   	             data: {teacherName: teacherName},
   	             success: function (data) {
 					if(data.check == 1){
+						$("#submit_flag").val('0');
 						$("#username").addClass('has-error has-feedback');
 						$("#errorTeacherName").text("此用户名已经存在！");
 			  			$("#errorTeacherName").removeClass("sr-only");
@@ -32,6 +33,7 @@
 						$("#teacherName_sr").removeClass.addClass('glyphicon glyphicon-remove form-control-feedback');
 			  			$("#teacherName").focus();
 					}else{
+						$("#submit_flag").val('1');
 						$("#username").addClass('has-success has-feedback');
 						$("#errorTeacherName").text("可以使用此用户名！");
 			  			$("#errorTeacherName").removeClass("sr-only");
@@ -49,6 +51,15 @@
   		$("#teacherName").addClass('loading');
   	}
   	
+  	function checkSubmit(){
+  		var flag = $("#submit_flag").val();
+  		if(flag == 0){
+  			bootbox.alert("<h4><span class='label label-error'>Error!</span>&nbsp;&nbsp;用户名已存在，不能添加此用户！</h4>");
+  			return false;
+  		}else{
+  			return true;
+  		}
+  	}
   </script>
 </head>
 <body>
@@ -84,6 +95,7 @@
 		  		<td>教师姓名</td>
 		  		<td>
 		  			<form:errors path="teacherName" cssClass="valid_text"></form:errors>
+		  			<input id="submit_flag" type="hidden" value="1" />
 		  			<div id="username" class="form-group">
 			              <label id="errorTeacherName" class="control-label pull-right sr-only"></label>
 			              <input type="text" id="teacherName" name="teacherName" value="${teacher.teacherName }" onfocus="checking();" onblur="checkname();" class="form-control" placeholder="Enter subName" required/>
@@ -129,7 +141,7 @@
 		  	</tr>
 		  	</table>
           </div>
-		  	<button type="submit" class="btn btn-success btn-sm">添加</button>
+		  	<button type="submit" onclick="return checkSubmit();" class="btn btn-success btn-sm">添加</button>
 	      </form:form>
           	
           </div><!-- row-fluid -->
