@@ -38,7 +38,7 @@
             </div>
           </div>
         </div>
-        <div class="form-group">
+<!--         <div class="form-group">
           <div class="col-md-12">
             <div class="col-sm-offset-2 col-sm-10">
               <div class="checkbox">
@@ -48,7 +48,7 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
         <div class="form-group">
           <div class="col-md-12">
             <div class="col-sm-offset-2 col-sm-10">
