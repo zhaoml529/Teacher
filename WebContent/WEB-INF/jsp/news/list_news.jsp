@@ -10,6 +10,18 @@
   <meta name="description" content="" />
   <meta name="viewport" content="width=device-width">
   <script type="text/javascript" src="${ctx}/js/util.js"></script>
+  
+  <script type="text/javascript">
+  	$(function(){
+  		var count = "${fn:length(newsList)}";
+  		for(var i=1;i<=count;i++){
+	  		$("#author_"+i).tooltip();
+	  		$("#updateDate_"+i).tooltip();
+	  		$("#view_"+i).tooltip();
+	  		$("#readmore_"+i).tooltip();
+  		}
+  	})
+  </script>
 </head>
 <body onload="displayPart('${fn:length(newsList)}');">
   <c:import url="../top.jsp" />
@@ -34,18 +46,18 @@
 				 </h3>
 				 <blockquote class="meta">
 				 	<p>
-				 		<span class="glyphicon glyphicon-user"></span>
+				 		<span id="author_${i.count }" data-placement="bottom" title="发布人" class="glyphicon glyphicon-user"></span>
 				 		${news.teacher.teacherName }&nbsp;
-				 		<span class="glyphicon glyphicon-edit"></span>
+				 		<span id="updateDate_${i.count}" data-placement="bottom" title="发布时间" class="glyphicon glyphicon-edit"></span>
 				 		<fmt:formatDate value="${news.updateDate }" type="both"/>&nbsp;
-				 		<span class="glyphicon glyphicon-eye-open"></span>
+				 		<span id="view_${i.count}" data-placement="bottom" title="查看数" class="glyphicon glyphicon-eye-open"></span>
 				 		${news.view }
 				 	</p>
 				 </blockquote><br>
 				 <div id="displayPart${i.index }" displayLength="200">
 				 	${news.content }
 				 </div>
-				 <a href="${ctx }/newsAction/details/${news.id }">Read more..</a>
+				 <a href="${ctx }/newsAction/details/${news.id }" id="readmore_${i.count}" data-placement="right" title="查看详情">Read more..</a>
 			  </div>	
 		  </c:forEach>
 		  <div class="well well-sm">
