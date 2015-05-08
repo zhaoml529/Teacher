@@ -26,7 +26,7 @@
   	             success: function (data) {
 					if(data.check == 1){
 						$("#submit_flag").val('0');
-						$("#username").addClass('has-error has-feedback');
+						$("#username").removeClass('has-success has-feedback').addClass('has-error has-feedback');
 						$("#errorTeacherName").text("此用户名已经存在！");
 			  			$("#errorTeacherName").removeClass("sr-only");
 			  			$("#teacherName").removeClass("loading");
@@ -34,7 +34,7 @@
 			  			$("#teacherName").focus();
 					}else{
 						$("#submit_flag").val('1');
-						$("#username").addClass('has-success has-feedback');
+						$("#username").removeClass('has-error has-feedback').addClass('has-success has-feedback');
 						$("#errorTeacherName").text("可以使用此用户名！");
 			  			$("#errorTeacherName").removeClass("sr-only");
 			  			$("#teacherName").removeClass("loading");
@@ -98,7 +98,7 @@
 		  			<input id="submit_flag" type="hidden" value="1" />
 		  			<div id="username" class="form-group">
 			              <label id="errorTeacherName" class="control-label pull-right sr-only"></label>
-			              <input type="text" id="teacherName" name="teacherName" value="${teacher.teacherName }" onfocus="checking();" onblur="checkname();" class="form-control" placeholder="Enter subName" required/>
+			              <input type="text" id="teacherName" name="teacherName" value="${teacher.teacherName }" onfocus="checking();" onblur="checkname();" class="form-control" placeholder="Enter teacherName" required/>
 			              <span id="teacherName_sr" class="glyphicon glyphicon-remove form-control-feedback sr-only"></span>
 			        </div>
 		  		</td>
@@ -133,9 +133,16 @@
 		  		<td>
 		  			<form:errors path="role" cssClass="valid_text"></form:errors>
 		  			<select name="role" required>  
-	  					<option ${teacher.role == "teacher"?"selected":"" } value="teacher">教师</option>
-	  					<option ${teacher.role == "manager"?"selected":"" } value="manager">系部管理员</option>
-	  					<option ${teacher.role == "admin"?"selected":"" } value="admin">系统管理员</option>
+		  				<c:choose>
+		  					<c:when test="${user.role == 'manager' }">
+		  						<option ${teacher.role == "teacher"?"selected":"" } value="teacher">教师</option>
+		  					</c:when>
+		  					<c:otherwise>
+		  						<option ${teacher.role == "teacher"?"selected":"" } value="teacher">教师</option>
+		  						<option ${teacher.role == "manager"?"selected":"" } value="manager">系部管理员</option>
+	  							<option ${teacher.role == "admin"?"selected":"" } value="admin">系统管理员</option>
+		  					</c:otherwise>
+		  				</c:choose>
 	  				</select>
 		  		</td>
 		  	</tr>
