@@ -178,9 +178,17 @@
             	</p>
 	            <p>你可以进行以下操作：</p>
 	            <ul>
-				    <li>查看当前新闻：<a href="/guetoj/news.html">点击进入</a> </li>
-				    <li>查看个人档案：<a href="/guetoj/problems.html">点击进入</a> </li>
-				    <li>管理个人日程：<a href="/guetoj/contests.html">点击进入</a></li>
+				    <li>查看当前新闻：<a href="${ctx }/newsAction/toList_page">点击进入</a> </li>
+				    <c:choose>
+				    	<c:when test="${user.role == 'admin' }">
+							<li>档案管理：<a href="${ctx }/teacherArchiveAction/getArchiveList_page">点击进入</a> </li>				    	
+							<li>数据统计：<a href="${ctx }/statisticsAction/toStatistics">点击进入</a> </li>				    	
+				    	</c:when>
+				    	<c:otherwise>
+						    <li>查看个人档案：<a href="${ctx }/teacherArchiveAction/details">点击进入</a> </li>
+						    <li>管理个人日程：<a href="${ctx }/calendarAction/toCalendar">点击进入</a></li>
+				    	</c:otherwise>
+				    </c:choose>
 	            </ul>
 	            <p>如果你有什么建议或问题, 请<a href="/guetoj/message/composetoadmin">联系我们</a>。
 	             </p>
