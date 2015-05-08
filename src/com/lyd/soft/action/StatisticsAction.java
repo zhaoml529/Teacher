@@ -1,5 +1,7 @@
 package com.lyd.soft.action;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.lyd.soft.entity.Teacher;
 import com.lyd.soft.entity.TeacherArchive;
+import com.lyd.soft.service.IStatisticsService;
 import com.lyd.soft.service.ITeacherArchiveService;
+import com.lyd.soft.util.DateUtils;
 import com.lyd.soft.util.UserUtils;
 
 @Controller
@@ -23,6 +27,9 @@ public class StatisticsAction {
 
 	@Autowired
 	private ITeacherArchiveService teacherArchiveService;
+	
+	@Autowired
+	private IStatisticsService statisticsService;
 	
 	@RequestMapping(value = "/toStatistics")
 	public String toStatistics(@RequestParam(value = "status", required = false) String status, Model model, HttpSession session) throws Exception{
@@ -47,6 +54,17 @@ public class StatisticsAction {
 		Map<String, Integer> technicalMap = new HashMap<String, Integer>();
 		Map<String, Integer> degreeMap = new HashMap<String, Integer>();
 		Map<String, Integer> levelMap = new HashMap<String, Integer>();
+		
+		Map<String, Integer> subjectTeachingMap = new HashMap<String, Integer>(5);
+		Map<String, Integer> paperTeachingMap = new HashMap<String, Integer>(5);
+		Map<String, Integer> bookTeachingMap = new HashMap<String, Integer>(5);
+		Map<String, Integer> awardTeachingMap = new HashMap<String, Integer>(5);
+		
+		Map<String, Integer> subjectScienceMap = new HashMap<String, Integer>(5);
+		Map<String, Integer> paperScienceMap = new HashMap<String, Integer>(5);
+		Map<String, Integer> bookScienceMap = new HashMap<String, Integer>(5);
+		Map<String, Integer> awardScienceMap = new HashMap<String, Integer>(5);
+		
 		List<TeacherArchive> list =  this.teacherArchiveService.getAllList();
 		for(TeacherArchive ta : list){
 			if("学士".equals(ta.getDegree())){
@@ -83,6 +101,7 @@ public class StatisticsAction {
 				level6++;
 			}
 		}
+		
 		degreeMap.put("学士", bachelorCount);
 		degreeMap.put("硕士", masterCount);
 		degreeMap.put("博士", doctorCount);
@@ -99,10 +118,44 @@ public class StatisticsAction {
 		levelMap.put("二级乙等", level4);
 		levelMap.put("三级甲等", level5);
 		levelMap.put("三级乙等", level6);
+		Integer year = DateUtils.getYear(new Date());
+		for(Integer i= year;i>year-5;i--){
+			Integer subjectTeachingCount = this.statisticsService.getSubjectCountByYEAR("teaching", i.toString());
+			Integer paperTeachingCount = this.statisticsService.getPaperCountByYEAR("teaching", i.toString());
+			Integer bookTeachingCount = this.statisticsService.getBookCountByYEAR("teaching", i.toString());
+			Integer awardTeachingCount = this.statisticsService.getAwardCountByYEAR("teaching", i.toString());
+			
+			subjectTeachingMap.put(i.toString(), subjectTeachingCount);
+			paperTeachingMap.put(i.toString(), paperTeachingCount);
+			bookTeachingMap.put(i.toString(), bookTeachingCount);
+			awardTeachingMap.put(i.toString(), awardTeachingCount);
+			
+			Integer subjectScienceCount = this.statisticsService.getSubjectCountByYEAR("science", i.toString());
+			Integer paperScienceCount = this.statisticsService.getPaperCountByYEAR("science", i.toString());
+			Integer bookScienceCount = this.statisticsService.getBookCountByYEAR("science", i.toString());
+			Integer awardScienceCount = this.statisticsService.getAwardCountByYEAR("science", i.toString());
+			
+			subjectScienceMap.put(i.toString(), subjectScienceCount);
+			paperScienceMap.put(i.toString(), paperScienceCount);
+			bookScienceMap.put(i.toString(), bookScienceCount);
+			awardScienceMap.put(i.toString(), awardScienceCount);
+		}
+		
 		
 		model.addAttribute("degreeMap", degreeMap);
 		model.addAttribute("technicalMap", technicalMap);
 		model.addAttribute("levelMap", levelMap);
+		
+		model.addAttribute("subjectTeachingMap", subjectTeachingMap);
+		model.addAttribute("paperTeachingMap", paperTeachingMap);
+		model.addAttribute("bookTeachingMap", bookTeachingMap);
+		model.addAttribute("awardTeachingMap", awardTeachingMap);
+		
+		model.addAttribute("subjectScienceMap", subjectScienceMap);
+		model.addAttribute("paperScienceMap", paperScienceMap);
+		model.addAttribute("bookScienceMap", bookScienceMap);
+		model.addAttribute("awardScienceMap", awardScienceMap);
+		
 		return "statistics/statistics";
 	}
 }

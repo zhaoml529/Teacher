@@ -11,6 +11,7 @@ public class Constants {
 	/***************** system *****************/
 	public static final String PICTURE_TYPE = "image/jpeg,image/jpg,image/bmp,image/gif,image/png,image/pjpeg,image/x-png";
 	public static final String MESSAGE = "message";
+	public static final String DB_NAME = "mysql";
 	
 	/***************** session key *****************/
     public static final String USER = "user";
