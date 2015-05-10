@@ -30,9 +30,9 @@
           <form:form action="${ctx }/teacherAction/doUpdate" modelAttribute="teacher" method="POST">
           <input type="hidden" name="teacherId" value="${teacher.teacherId }"/>
           <input type="hidden" name="dept_id" value="${dept_id }"/>
-          <input type="hidden" name="regDate" value="<fmt:formatDate value='${teacher.regDate }' type='both'/>"/>
+          <input type="hidden" name="regDate" value="<fmt:formatDate value='${teacher.regDate }' type='date'/>"/>
           <input type="hidden" name="lgoinDate" value="<fmt:formatDate value='${teacher.lgoinDate }' type='both'/>"/>
-          <input type="hidden" name="IPAddress" value="${IPAddress }"/>
+          <input type="hidden" name="IPAddress" value="${teacher.IPAddress }"/>
           <input type="hidden" name="createDate" value="<fmt:formatDate value='${teacher.createDate }' type='both'/>"/>
           <div class="table-responsive">
           	<table class="table table-bordered table-condensed">
@@ -57,11 +57,18 @@
 		  		<td>所属机构</td>
 		  		<td>
 		  			<form:errors path="department.id" cssClass="valid_text"></form:errors>
-		  			<select name="department.id" required>  
-		  				<c:forEach items="${deptList }" var="department">
-			  				<option ${teacher.department.id == department.id?"selected":"" } value="${department.id }">${department.name }</option>
-		  				</c:forEach>
-		  			</select>
+		  			<c:choose>
+		  				<c:when test="${user.role == 'admin' }">
+				  			<select name="department.id" required>  
+				  				<c:forEach items="${deptList }" var="department">
+					  				<option ${teacher.department.id == department.id?"selected":"" } value="${department.id }">${department.name }</option>
+				  				</c:forEach>
+				  			</select>
+		  				</c:when>
+		  				<c:otherwise>
+		  					<input type="text" name="role" value="${user.department.name }" class="form-control" disabled="disabled" required/>
+		  				</c:otherwise>
+		  			</c:choose>
 		  		</td>
 		  	</tr>
 		  	<tr>
@@ -69,9 +76,23 @@
 		  		<td>
 		  			<form:errors path="role" cssClass="valid_text"></form:errors>
 		  			<select name="role" required>  
-	  					<option ${teacher.role == "teacher"?"selected":"" } value="teacher">教师</option>
-	  					<option ${teacher.role == "manager"?"selected":"" } value="manager">系部管理员</option>
-	  					<option ${teacher.role == "admin"?"selected":"" } value="admin">系统管理员</option>
+		  				<c:choose>
+		  					<c:when test="${user.role == 'manager' }">
+		  						<c:choose>
+		  							<c:when test="${user_id == teacher.teacherId }">
+		  								<option selected value="manager">管理员</option>
+		  							</c:when>
+		  							<c:otherwise>
+				  						<option selected value="teacher">教师</option>
+		  							</c:otherwise>
+		  						</c:choose>
+		  					</c:when>
+		  					<c:otherwise>
+		  						<option ${teacher.role == "teacher"?"selected":"" } value="teacher">教师</option>
+		  						<option ${teacher.role == "manager"?"selected":"" } value="manager">系部管理员</option>
+	  							<option ${teacher.role == "admin"?"selected":"" } value="admin">系统管理员</option>
+		  					</c:otherwise>
+		  				</c:choose>
 	  				</select>
 		  		</td>
 		  	</tr>

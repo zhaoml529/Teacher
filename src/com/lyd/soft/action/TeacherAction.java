@@ -92,10 +92,10 @@ public class TeacherAction {
 		return "teacher/add_teacher";
 	}
 	
-	@RequestMapping(value = "/toUpdate/{id}/{dept_id}")
+	@RequestMapping(value = "/toUpdate/{id}")
 	public String toUpdate(@PathVariable("id") String id,
-							@PathVariable("dept_id") Integer dept_id,
-							Model model) throws Exception{
+						   @RequestParam(value = "dept_id", required = false) String dept_id,
+						   Model model) throws Exception{
 		if(!model.containsAttribute("teacher")){
 			if(!StringUtils.isBlank(id)){
 				Teacher user = this.teacherService.findById(id);
@@ -104,7 +104,7 @@ public class TeacherAction {
 				model.addAttribute(Constants.MESSAGE, "此用户不存在！");
 			}
 		}
-		if(dept_id != 0){
+		if(!StringUtils.isBlank(dept_id)){
 			model.addAttribute("dept_id", dept_id);
 		}
 		List<Department> deptList = this.departmentService.getAll();
@@ -124,6 +124,7 @@ public class TeacherAction {
 		teacher.setTeacherId(id);
 		teacher.setIsDelete(0);
 		teacher.setRegDate(new Date());
+		teacher.setCreateDate(new Date());
 		this.teacherService.doAdd(teacher);
 		model.addAttribute(Constants.MESSAGE, "添加成功！");
 		String result = null;
@@ -139,7 +140,7 @@ public class TeacherAction {
 	public String doUpdate(@ModelAttribute("teacher") @Valid Teacher teacher, 
 						   BindingResult results, 
 						   Model model,
-						   @RequestParam(value = "dept_id", required = false) Integer dept_id,
+						   @RequestParam(value = "dept_id", required = false) String dept_id,
 						   HttpSession session,
 						   RedirectAttributes redirectAttributes) throws Exception{
 		if(results.hasErrors()){
@@ -149,16 +150,21 @@ public class TeacherAction {
 		teacher.setUpdateDate(new Date());
 		teacher.setIsDelete(0);
 		this.teacherService.doUpdate(teacher);
-		if("admin".equals(user.getDepartment().getName())){
+		if("manager".equals(user.getRole())){
 			//待测试,toList_page是否能获取到dept_id
-			redirectAttributes.addFlashAttribute("dept_id", user.getDepartment().getId());
+			redirectAttributes.addAttribute("dept_id", user.getDepartment().getId());
 		}
 		redirectAttributes.addFlashAttribute(Constants.MESSAGE, "修改成功！");
 		return "redirect:/teacherAction/toList_page";
 	}
 	
 	@RequestMapping(value = "/stopAccount/{id}")
-	public String stopAccount(@PathVariable("id") String id) throws Exception{
+	public String stopAccount(@PathVariable("id") String id, 
+							  @RequestParam(value = "dept_id", required = false) String dept_id,
+							  RedirectAttributes redirectAttributes) throws Exception{
+		if(!StringUtils.isBlank(dept_id)){
+			redirectAttributes.addAttribute("dept_id", dept_id);
+		}
 		Teacher teacher = this.teacherService.findById(id);
 		teacher.setIsDelete(1);
 		this.teacherService.doUpdate(teacher);
@@ -167,7 +173,12 @@ public class TeacherAction {
 	}
 	
 	@RequestMapping(value = "/activation/{id}")
-	public String activation(@PathVariable("id") String id) throws Exception{
+	public String activation(@PathVariable("id") String id, 
+							 @RequestParam(value = "dept_id", required = false) String dept_id,
+							 RedirectAttributes redirectAttributes) throws Exception{
+		if(!StringUtils.isBlank(dept_id)){
+		redirectAttributes.addAttribute("dept_id", dept_id);
+		}
 		Teacher teacher = this.teacherService.findById(id);
 		teacher.setIsDelete(0);
 		this.teacherService.doUpdate(teacher);

@@ -25,13 +25,28 @@
 		} 
 	 });
   	
-  	function edit( id,dept_id ){
+  	function edit( id, dept_id ){
   		if(dept_id == null){
-  			window.location.href="${ctx}/teacherAction/toUpdate/"+id+"/0";
+  			window.location.href="${ctx}/teacherAction/toUpdate/"+id;
   		}else{
-  			window.location.href="${ctx}/teacherAction/toUpdate/"+id+"/"+dept_id;
+  			window.location.href="${ctx}/teacherAction/toUpdate/"+id+"?dept_id="+dept_id;
   		}
-  		
+  	}
+  	
+  	function accountStop( id, dept_id ){
+  		if(dept_id == null){
+  			window.location.href="${ctx}/teacherAction/stopAccount/"+id;
+  		}else{
+	  		window.location.href="${ctx}/teacherAction/stopAccount/"+id+"?dept_id="+dept_id;
+  		}
+  	}
+  	
+  	function activation( id, dept_id ){
+  		if(dept_id == null){
+  			window.location.href="${ctx}/teacherAction/activation/"+id;
+  		}else{
+	  		window.location.href="${ctx}/teacherAction/activation/"+id+"?dept_id="+dept_id;
+  		}
   	}
   </script>
 </head>
@@ -102,14 +117,14 @@
             			</c:choose>
             		</td>
             		<td align="center">
-            			<c:if test="${teacher.role != 'admin' }">
+            			<c:if test="${teacher.role != 'admin'  || teacher.teacherId == user_id }">
 	            			<button type="button" onclick="edit('${teacher.teacherId}', '${dept_id }');" class="btn btn-success btn-sm">编辑</button>
 	            			<c:choose>
 		            			<c:when test="${teacher.isDelete == 0 }">
-		            				<button type="button" onclick="accountStop('${teacher.teacherId}');" class="btn btn-danger btn-sm">停用</button>
+		            				<button type="button" onclick="accountStop('${teacher.teacherId}', '${dept_id }');" class="btn btn-danger btn-sm">停用</button>
 		            			</c:when>
 		            			<c:otherwise>
-		            				<button type="button" onclick="activation('${teacher.teacherId}');" class="btn btn-primary btn-sm">激活</button>
+		            				<button type="button" onclick="activation('${teacher.teacherId}', '${dept_id }');" class="btn btn-primary btn-sm">激活</button>
 		            			</c:otherwise>
 	            			</c:choose>
             			</c:if>

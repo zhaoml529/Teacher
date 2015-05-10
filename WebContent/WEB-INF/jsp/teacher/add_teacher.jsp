@@ -115,7 +115,7 @@
 		  		<td>
 		  			<form:errors path="department.id" cssClass="valid_text"></form:errors>
 		  			<c:choose>
-		  				<c:when test="${empty dept_id }">
+		  				<c:when test="${user.role == 'admin' }">
 				  			<select name="department.id" required>  
 				  				<c:forEach items="${deptList }" var="department">
 					  				<option ${teacher.department.id == department.id?"selected":"" } value="${department.id }">${department.name }</option>
@@ -123,7 +123,8 @@
 				  			</select>
 		  				</c:when>
 		  				<c:otherwise>
-		  					<input type="text" name="role" value="${user.department.name }" class="form-control" disabled="disabled" required/>
+		  					<input type="hidden" name="department.id" value="${user.department.id }" />
+		  					<input type="text" value="${user.department.name }" class="form-control" readonly="readonly" required/>
 		  				</c:otherwise>
 		  			</c:choose>
 		  		</td>
