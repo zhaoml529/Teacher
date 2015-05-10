@@ -68,6 +68,7 @@ public class TeacherServiceImpl extends BaseServiceImpl<Teacher> implements ITea
 	}
 
 	@Override
+	@Transactional(propagation=Propagation.NOT_SUPPORTED, readOnly=true)
 	public List<Teacher> searchByName(String name) throws Exception {
 		List<Teacher> list = findByQuery(Teacher.class, new String[]{"teacherName"}, new String[] {name});
 		return list;
