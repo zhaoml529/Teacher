@@ -62,7 +62,7 @@
   <script type="text/javascript">
   	var msg = '${msg}';
   	if(msg != ''){
-  		if(msg == '用户名不存在'){
+  		if(msg == '用户名不存在' || msg == '账户已停用'){
   			$("#username").removeClass().addClass('form-group has-error has-feedback');
   			$("#errorUserName").removeClass("sr-only");
   			$("#username_sr").removeClass("sr-only");
