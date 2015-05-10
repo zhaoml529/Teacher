@@ -1,5 +1,7 @@
 package com.lyd.soft.action;
 
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.lyd.soft.entity.Teacher;
 import com.lyd.soft.service.ITeacherService;
 import com.lyd.soft.util.BeanUtils;
+import com.lyd.soft.util.IPUtils;
 import com.lyd.soft.util.UserUtils;
 
 /**
@@ -36,13 +39,17 @@ public class LoginAction {
 		Teacher user = teacherService.findByName(name);
 		model.addAttribute("username", name);
 		if(!BeanUtils.isBlank(user)){
-			if(passwd.equals(user.getPassword())){
-				UserUtils.saveUserToSession(session, user);
-				return "index";
-			}else if(user.getIsDelete() == 0){
+			if(user.getIsDelete() == 1){
 				model.addAttribute("msg", "账户已停用");
 				logger.info("账户停用");
 				return "login";
+			}else if(passwd.equals(user.getPassword())){
+				UserUtils.saveUserToSession(session, user);
+				String ip = IPUtils.getIpAddr(request);
+				user.setIPAddress(ip);
+				user.setLgoinDate(new Date());
+				this.teacherService.doUpdate(user);
+				return "index";
 			}else{
 				model.addAttribute("msg", "密码不正确");
 				logger.info("密码不正确");
