@@ -41,12 +41,12 @@ public class Teacher implements Serializable{
 	private String password;			//登录密码
 	
 	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "yyyy-MM-dd hh:mm")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "REG_DATE")
 	private Date regDate;				//注册时间
 	
-	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "yyyy-MM-dd hh:mm")
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@Column(name = "LOGIN_DATE")
 	private Date lgoinDate;				//上次登录时间-下拉显示慢慢的隐藏
 	
@@ -55,7 +55,7 @@ public class Teacher implements Serializable{
 	
 	
 	@ManyToOne(targetEntity = Department.class)
-	@JoinColumn(name="DEPT_ID",updatable=false)
+	@JoinColumn(name="DEPT_ID")
 	@JsonIgnore
 	private Department department;		//所属机构
 	
