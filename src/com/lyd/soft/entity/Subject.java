@@ -42,6 +42,9 @@ public class Subject implements Serializable {
 	@JoinColumn(name="TEACHER_ID")
 	private Teacher teacher;	
 	
+	@Column(name = "DEPT_ID")
+	private Integer deptId;		//部门编号
+	
 	@Column(name = "SUB_ID")
 	private String subId;			//课题编号
 	
@@ -177,6 +180,14 @@ public class Subject implements Serializable {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	public Integer getDeptId() {
+		return deptId;
+	}
+
+	public void setDeptId(Integer deptId) {
+		this.deptId = deptId;
 	}
 	
 }

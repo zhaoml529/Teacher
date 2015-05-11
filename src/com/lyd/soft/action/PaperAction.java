@@ -80,7 +80,11 @@ public class PaperAction {
 		}else{
 			params[1] = "DESC";
 		}
-		paperList = this.paperService.findByTeaId(user.getTeacherId().toString(), params);
+		if("manager".equals(user.getRole())){
+			paperList = this.paperService.findByTeaId("manager", user.getTeacherId().toString(), params);
+		}else{
+			paperList = this.paperService.findByTeaId("teaching", user.getTeacherId().toString(), params);
+		}
 		Pagination pagination = PaginationThreadUtils.get();
 		model.addAttribute("page", pagination.getPageStr());
 		model.addAttribute("paperList", paperList);
@@ -100,7 +104,7 @@ public class PaperAction {
 		}
 		
 		Teacher teacher = UserUtils.getUserFromSession(session);
-		paper.setTeacher(teacher);
+		paper.setDeptId(teacher.getDepartment().getId());
 		paper.setCreateDate(new Date());
 		paper.setIsDelete(0);
 		this.paperService.doAdd(paper);

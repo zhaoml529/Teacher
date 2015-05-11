@@ -47,13 +47,21 @@ public class AwardingServiceImpl extends BaseServiceImpl<Awarding> implements IA
 
 	@Override
 	@Transactional(propagation=Propagation.NOT_SUPPORTED, readOnly=true)
-	public List<Awarding> findByTeaId(String teacherId, String[] params)
+	public List<Awarding> findByTeaId(String role, String teacherId, String[] params)
 			throws Exception {
 		List<Awarding> list = null;
 		if(BeanUtils.isBlank(params[0])){
-			list = findByPage("Awarding", new String[]{"teacher", "isDelete"}, new String[]{teacherId, "0"}, new String[]{"createDate"}, new String[]{params[1]});			
+			if("manager".equals(role)){
+				list = findByPage("Awarding", new String[]{"isDelete"}, new String[]{"0"}, new String[]{"createDate"}, new String[]{params[1]});
+			}else{
+				list = findByPage("Awarding", new String[]{"teacher.teacherId", "isDelete"}, new String[]{teacherId, "0"}, new String[]{"createDate"}, new String[]{params[1]});			
+			}
 		}else{
-			list = findByPage("Awarding", new String[]{"teacher", "type", "isDelete"}, new String[]{teacherId, params[0], "0"}, new String[]{"createDate"}, new String[]{params[1]});			
+			if("manager".equals(role)){
+				list = findByPage("Awarding", new String[]{"type", "isDelete"}, new String[]{params[0], "0"}, new String[]{"createDate"}, new String[]{params[1]});
+			}else{
+				list = findByPage("Awarding", new String[]{"teacher.teacherId", "type", "isDelete"}, new String[]{teacherId, params[0], "0"}, new String[]{"createDate"}, new String[]{params[1]});			
+			}
 		}
 		return list;
 	}

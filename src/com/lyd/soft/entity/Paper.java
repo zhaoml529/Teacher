@@ -43,6 +43,9 @@ public class Paper implements Serializable {
 	@JoinColumn(name="TEACHER_ID")
 	private Teacher teacher;	
 	
+	@Column(name = "DEPT_ID")
+	private Integer deptId;		//部门编号
+	
 	@Column(name = "TITLE")
 	@NotBlank(message="{paper.title.not.empty}")
 	private String title;			//论文名称
@@ -202,6 +205,14 @@ public class Paper implements Serializable {
 
 	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
+	}
+
+	public Integer getDeptId() {
+		return deptId;
+	}
+
+	public void setDeptId(Integer deptId) {
+		this.deptId = deptId;
 	}
 	
 }

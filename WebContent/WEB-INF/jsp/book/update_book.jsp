@@ -46,6 +46,7 @@
           <form:form action="${ctx }/bookAction/doUpdate" modelAttribute="book" method="POST">
           <input type="hidden" name="id" value="${book.id }"/>
           <input type="hidden" name="teacher.teacherId" value="${user.teacherId }"/>
+          <input type="hidden" name="deptId" value="${book.deptId }"/>
           <input type="hidden" name="type" value="${book.type }"/>
           <input type="hidden" name="createDate" value="<fmt:formatDate value='${book.createDate }' type='both'/>"/>
           <div class="table-responsive">

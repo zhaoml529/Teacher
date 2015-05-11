@@ -73,7 +73,11 @@ public class BookAction {
 		}else{
 			params[1] = "DESC";
 		}
-		bookList = this.bookService.findByTeaId(user.getTeacherId().toString(), params);
+		if("manager".equals(user.getRole())){
+			bookList = this.bookService.findByTeaId("manager", user.getTeacherId().toString(), params);
+		}else{
+			bookList = this.bookService.findByTeaId("teaching", user.getTeacherId().toString(), params);
+		}
 		Pagination pagination = PaginationThreadUtils.get();
 		model.addAttribute("page", pagination.getPageStr());
 		model.addAttribute("bookList", bookList);
@@ -93,7 +97,7 @@ public class BookAction {
 		}
 		
 		Teacher teacher = UserUtils.getUserFromSession(session);
-		book.setTeacher(teacher);
+		book.setDeptId(teacher.getDepartment().getId());
 		book.setCreateDate(new Date());
 		book.setIsDelete(0);
 		this.bookService.doAdd(book);

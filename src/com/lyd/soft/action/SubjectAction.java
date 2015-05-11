@@ -1,6 +1,7 @@
 package com.lyd.soft.action;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -63,7 +64,12 @@ public class SubjectAction {
 			}else{
 				params[1] = "DESC";
 			}
-			List<Subject> list = this.subjectService.toList(teacherId, params);
+			List<Subject> list = new ArrayList<Subject>();
+			if("manager".equals(teacher.getRole())){
+				list = this.subjectService.toList("manager", teacherId, params);
+			}else{
+				list = this.subjectService.toList("teacher", teacherId, params);
+			}
 			Pagination pagination = PaginationThreadUtils.get();
 			model.addAttribute("page", pagination.getPageStr());
 			model.addAttribute("list", list);
@@ -93,15 +99,18 @@ public class SubjectAction {
 	public String doAdd(@ModelAttribute("subject") @Valid Subject subject, 
 						BindingResult results,
 						Model model,
+						HttpSession session,
 						RedirectAttributes redirectAttribute) throws Exception{
 		if(results.hasErrors()){
 			return toAdd(subject.getType(), model);
 		}
+		Teacher teacher = UserUtils.getUserFromSession(session);
 		SimpleDateFormat df = new SimpleDateFormat("MMddSSS");
 		String id = df.format(new Date()).toString();
 		subject.setSubId(id);
 		subject.setIsDelete(0);
 		subject.setCreateDate(new Date());
+		subject.setDeptId(teacher.getDepartment().getId());
 		this.subjectService.doAdd(subject);
 		redirectAttribute.addAttribute("type", subject.getType());
 		redirectAttribute.addFlashAttribute(Constants.MESSAGE, "添加成功！");

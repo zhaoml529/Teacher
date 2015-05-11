@@ -60,6 +60,7 @@
 		  <form:form action="${ctx }/subjectAction/toList_page?type=${type }" id="pageForm" method="POST">
           <div class="table-responsive" style="margin: -25px 0 0 0;">
           <!-- Split button -->
+          <c:if test="${user.role == 'teacher' }">
 			<div class="btn-group pull-right" style="margin-bottom: 5px">
 			  <button type="button" class="btn btn-success btn-sm" onclick="javascript:window.location.href='${ctx }/subjectAction/toAdd?type=${type }'">添加</button>
 			  <button type="button" class="btn btn-success dropdown-toggle" style="height: 30px" data-toggle="dropdown" aria-expanded="false">
@@ -73,10 +74,14 @@
 			    <li><a href="${ctx }/subjectAction/toList_page?type=${type }">刷新列表</a></li>
 			  </ul>
 			</div>
+		  </c:if>
 		  <table class="table table-striped table-hover table-bordered">
 		  	<tr>
 		  		<td>#</td>
 		  		<td>课题名称</td>
+		  		<c:if test="${user.role == 'manager' }">
+		  			<td>所属教师</td>
+		  		</c:if>
 		  		<td>立项时间</td>
 		  		<td>课题级别</td>
 		  		<td>创建时间</td>
@@ -88,7 +93,7 @@
 		  	<c:choose>
 		  		<c:when test="${list== null || fn:length(list) == 0}">
 		  			<tr class="danger">
-		  				<td colspan="7" align="center">暂无数据</td>
+		  				<td colspan="${user.role = 'manager'?'8':'7' }" align="center">暂无数据</td>
 		  			</tr>
 		  		</c:when>
 		  		<c:otherwise>
@@ -96,13 +101,23 @@
 					  	<tr>
 					  		<td><a href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="详情" onclick="details('${subject.id}')">${subject.subId }</a></td>
 					  		<td>${subject.subName }</td>
+					  		<c:if test="${user.role == 'manager' }">
+					  			<td>${subject.teacher.teacherName }</td>
+					  		</c:if>
 					  		<td><fmt:formatDate value="${subject.subDate }" type="date"/></td>
 					  		<td>${subject.subLevel }</td>
 					  		<td><fmt:formatDate value="${subject.createDate }" type="both"/></td>
 					  		<td><fmt:formatDate value="${subject.updateDate }" type="both"/></td>
 					  		<td>
-					  			<button type="button" class="btn btn-warning btn-xs" onclick="toUpdate('${subject.id}');" >修改</button>
-					  			<button type="button" class="btn btn-danger btn-xs" onclick="doDel('${subject.type }', '${subject.id}');">删除</button>
+					  			<c:choose>
+					  				<c:when test="${user.role == 'manager' }">
+					  					<button type="button" class="btn btn-success btn-xs" onclick="details('${subject.id}')" >查看</button>
+					  				</c:when>
+					  				<c:otherwise>
+							  			<button type="button" class="btn btn-warning btn-xs" onclick="toUpdate('${subject.id}');" >修改</button>
+							  			<button type="button" class="btn btn-danger btn-xs" onclick="doDel('${subject.type }', '${subject.id}');">删除</button>
+					  				</c:otherwise>
+					  			</c:choose>
 					  		</td>
 					  	</tr>
 					</c:forEach>

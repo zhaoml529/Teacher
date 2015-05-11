@@ -16,6 +16,7 @@ public class Constants {
 	/***************** session key *****************/
     public static final String USER = "user";
     public static final String USER_ID = "user_id";
+    public static final String DEPT_ID = "dept_id";
     public static final String ROLE = "role";
     
 	/***************** default password (123456) *****************/

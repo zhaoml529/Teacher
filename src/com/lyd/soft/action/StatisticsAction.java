@@ -1,6 +1,5 @@
 package com.lyd.soft.action;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -14,12 +13,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.lyd.soft.entity.Teacher;
 import com.lyd.soft.entity.TeacherArchive;
 import com.lyd.soft.service.IStatisticsService;
 import com.lyd.soft.service.ITeacherArchiveService;
 import com.lyd.soft.util.DateUtils;
-import com.lyd.soft.util.UserUtils;
 
 @Controller
 @RequestMapping(value = "/statisticsAction")
@@ -33,8 +30,6 @@ public class StatisticsAction {
 	
 	@RequestMapping(value = "/toStatistics")
 	public String toStatistics(@RequestParam(value = "status", required = false) String status, Model model, HttpSession session) throws Exception{
-		Teacher user = UserUtils.getUserFromSession(session);
-		Integer dept_id = user.getDepartment().getId();
 		Integer bachelorCount = 0;	//学士
 		Integer masterCount = 0;	//硕士
 		Integer doctorCount = 0;	//博士

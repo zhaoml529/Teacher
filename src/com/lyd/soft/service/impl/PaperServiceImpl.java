@@ -48,12 +48,20 @@ public class PaperServiceImpl extends BaseServiceImpl<Paper> implements
 
 	@Override
 	@Transactional(propagation=Propagation.NOT_SUPPORTED, readOnly=true)
-	public List<Paper> findByTeaId(String teacherId, String[] params) throws Exception {
+	public List<Paper> findByTeaId(String role, String teacherId, String[] params) throws Exception {
 		List<Paper> list = null;
 		if(BeanUtils.isBlank(params[0])){
-			list = findByPage("Paper", new String[]{"teacher", "isDelete"}, new String[]{teacherId, "0"}, new String[]{"createDate"}, new String[]{params[1]});			
+			if("manager".equals(role)){
+				list = findByPage("Paper", new String[]{"isDelete"}, new String[]{"0"}, new String[]{"createDate"}, new String[]{params[1]});
+			}else{
+				list = findByPage("Paper", new String[]{"teacher.teacherId", "isDelete"}, new String[]{teacherId, "0"}, new String[]{"createDate"}, new String[]{params[1]});			
+			}
 		}else{
-			list = findByPage("Paper", new String[]{"teacher", "type", "isDelete"}, new String[]{teacherId, params[0], "0"}, new String[]{"createDate"}, new String[]{params[1]});			
+			if("manager".equals(role)){
+				list = findByPage("Paper", new String[]{"type", "isDelete"}, new String[]{params[0], "0"}, new String[]{"createDate"}, new String[]{params[1]});
+			}else{
+				list = findByPage("Paper", new String[]{"teacher.teacherId", "type", "isDelete"}, new String[]{teacherId, params[0], "0"}, new String[]{"createDate"}, new String[]{params[1]});			
+			}
 		}
 		return list;
 	}

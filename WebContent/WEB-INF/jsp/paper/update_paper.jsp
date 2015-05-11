@@ -45,6 +45,7 @@
           
           <form:form action="${ctx }/paperAction/doUpdate" modelAttribute="paper" method="POST">
           <input type="hidden" name="id" value="${paper.id }"/>
+          <input type="hidden" name="deptId" value="${paper.deptId }"/>
           <input type="hidden" name="teacher.teacherId" value="${user.teacherId }"/>
           <input type="hidden" name="type" value="${paper.type }"/>
           <input type="hidden" name="createDate" value="<fmt:formatDate value='${paper.createDate }' type='both'/>"/>

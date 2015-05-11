@@ -48,6 +48,9 @@ public class Book implements Serializable {
 	@JoinColumn(name="TEACHER_ID")
 	private Teacher teacher;	
 	
+	@Column(name = "DEPT_ID")
+	private Integer deptId;		//部门编号
+	
 	@Column(name = "TITLE")
 	@NotBlank(message = "{book.title.not.empty}")
 	private String title;			//著作名称
@@ -195,6 +198,14 @@ public class Book implements Serializable {
 
 	public void setRemark(String remark) {
 		this.remark = remark;
+	}
+
+	public Integer getDeptId() {
+		return deptId;
+	}
+
+	public void setDeptId(Integer deptId) {
+		this.deptId = deptId;
 	}
 	
 }

@@ -73,7 +73,11 @@ public class AwardingAction {
 		}else{
 			params[1] = "DESC";
 		}
-		awardList = this.awardService.findByTeaId(user.getTeacherId().toString(), params);
+		if("manager".equals(user.getRole())){
+			awardList = this.awardService.findByTeaId("manager", user.getTeacherId().toString(), params);
+		}else{
+			awardList = this.awardService.findByTeaId("teacher", user.getTeacherId().toString(), params);
+		}
 		Pagination pagination = PaginationThreadUtils.get();
 		model.addAttribute("page", pagination.getPageStr());
 		model.addAttribute("awardList", awardList);
@@ -93,7 +97,7 @@ public class AwardingAction {
 		}
 		
 		Teacher teacher = UserUtils.getUserFromSession(session);
-		award.setTeacher(teacher);
+		award.setDeptId(teacher.getDepartment().getId());
 		award.setCreateDate(new Date());
 		award.setIsDelete(0);
 		this.awardService.doAdd(award);

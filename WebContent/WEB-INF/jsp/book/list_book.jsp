@@ -60,6 +60,7 @@
 		  <form:form action="${ctx }/bookAction/toList_page?type=${type }" id="pageForm" method="POST">
           <div class="table-responsive" style="margin: -25px 0 0 0;">
           <!-- Split button -->
+          <c:if test="${user.role == 'teacher' }">
 			<div class="btn-group pull-right" style="margin-bottom: 5px">
 			  <button type="button" class="btn btn-success btn-sm" onclick="javascript:window.location.href='${ctx }/bookAction/toAdd?type=${type }'">添加</button>
 			  <button type="button" class="btn btn-success dropdown-toggle" style="height: 30px" data-toggle="dropdown" aria-expanded="false">
@@ -73,10 +74,14 @@
 			    <li><a href="${ctx }/bookAction/toList_page?type=${type }">刷新列表</a></li>
 			  </ul>
 			</div>
+		  </c:if>
 		  <table class="table table-striped table-hover table-bordered">
 		  	<tr>
 		  		<td>#</td>
 		  		<td>论著名称</td>
+			  	<c:if test="${user.role == 'manager' }">
+		  			<td>所属教师</td>
+		  		</c:if>
 		  		<td>论著类别</td>
 		  		<td>出版时间</td>
 		  		<td>论著字数</td>
@@ -89,7 +94,7 @@
 		  	<c:choose>
 		  		<c:when test="${bookList== null || fn:length(bookList) == 0}">
 		  			<tr class="danger">
-		  				<td colspan="8" align="center">暂无数据</td>
+		  				<td colspan="${user.role = 'manager'?'9':'8' }" align="center">暂无数据</td>
 		  			</tr>
 		  		</c:when>
 		  		<c:otherwise>
@@ -97,14 +102,24 @@
 					  	<tr>
 					  		<td><a href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="详情" onclick="details('${book.id}')">${book.id }</a></td>
 					  		<td>${book.title }</td>
+ 							<c:if test="${user.role == 'manager' }">
+					  			<td>${book.teacher.teacherName }</td>
+					  		</c:if>
 					  		<td>${book.style }</td>
 					  		<td><fmt:formatDate value="${book.publishDate }" type="date"/></td>
 					  		<td>${book.wordCount } 万字</td>
 					  		<td>${book.isEditor == 0?'否':'是' }</td>
 					  		<td>${book.createDate }</td>
 					  		<td>
-					  			<button type="button" class="btn btn-warning btn-xs" onclick="toUpdate('${book.id}');" >修改</button>
-					  			<button type="button" class="btn btn-danger btn-xs" onclick="doDel('${book.type }', '${book.id}');">删除</button>
+					  		<c:choose>
+				  				<c:when test="${user.role == 'manager' }">
+				  					<button type="button" class="btn btn-success btn-xs" onclick="details('${book.id}')" >查看</button>
+				  				</c:when>
+				  				<c:otherwise>
+						  			<button type="button" class="btn btn-warning btn-xs" onclick="toUpdate('${book.id}');" >修改</button>
+						  			<button type="button" class="btn btn-danger btn-xs" onclick="doDel('${book.type }', '${book.id}');">删除</button>
+				  				</c:otherwise>
+					  		</c:choose>
 					  		</td>
 					  	</tr>
 					</c:forEach>

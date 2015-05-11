@@ -42,6 +42,9 @@ public class Awarding implements Serializable {
 	@JoinColumn(name="TEACHER_ID")
 	private Teacher teacher;	
 	
+	@Column(name = "DEPT_ID")
+	private Integer deptId;		//部门编号
+	
 	@Column(name = "COURSE")
 	@NotBlank(message = "{award.name.not.empty}")
 	private String name;				//获奖名称
@@ -177,6 +180,14 @@ public class Awarding implements Serializable {
 
 	public void setRemark(String remark) {
 		this.remark = remark;
+	}
+
+	public Integer getDeptId() {
+		return deptId;
+	}
+
+	public void setDeptId(Integer deptId) {
+		this.deptId = deptId;
 	}
 	
 }

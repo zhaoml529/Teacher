@@ -45,6 +45,7 @@
           <form:form action="${ctx }/subjectAction/doUpdate" modelAttribute="subject" method="POST">
           <input type="hidden" name="teacher.teacherId" value="${user.teacherId }"/>
           <input type="hidden" name="id" value="${subject.id }"/>
+          <input type="hidden" name="deptId" value="${subject.deptId }"/>
           <input type="hidden" name="subId" value="${subject.subId }"/>
           <input type="hidden" name="type" value="${subject.type }"/>
           <input type="hidden" name="createDate" value="<fmt:formatDate value='${subject.createDate }' type='both'/>"/>

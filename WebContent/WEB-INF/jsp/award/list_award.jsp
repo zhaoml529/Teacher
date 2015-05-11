@@ -60,6 +60,7 @@
 		  <form:form action="${ctx }/awardAction/toList_page?type=${type }" id="pageForm" method="POST">
           <div class="table-responsive" style="margin: -25px 0 0 0;">
           <!-- Split button -->
+          <c:if test="${user.role == 'teacher' }">
 			<div class="btn-group pull-right" style="margin-bottom: 5px">
 			  <button type="button" class="btn btn-success btn-sm" onclick="javascript:window.location.href='${ctx }/awardAction/toAdd?type=${type }'">添加</button>
 			  <button type="button" class="btn btn-success dropdown-toggle" style="height: 30px" data-toggle="dropdown" aria-expanded="false">
@@ -73,10 +74,14 @@
 			    <li><a href="${ctx }/awardAction/toList_page?type=${type }">刷新列表</a></li>
 			  </ul>
 			</div>
+		  </c:if>
 		  <table class="table table-striped table-hover table-bordered">
 		  	<tr>
 		  		<td>#</td>
 		  		<td>获奖名称</td>
+		  		<c:if test="${user.role == 'manager' }">
+		  			<td>所属教师</td>
+		  		</c:if>
 		  		<td>获奖级别</td>
 		  		<td>获得时间</td>
 		  		<td>奖项</td>
@@ -88,7 +93,7 @@
 		  	<c:choose>
 		  		<c:when test="${awardList== null || fn:length(awardList) == 0}">
 		  			<tr class="danger">
-		  				<td colspan="7" align="center">暂无数据</td>
+		  				<td colspan="${user.role = 'manager'?'8':'7' }" align="center">暂无数据</td>
 		  			</tr>
 		  		</c:when>
 		  		<c:otherwise>
@@ -96,13 +101,23 @@
 					  	<tr>
 					  		<td><a href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="详情" onclick="details('${award.id}')">${award.id }</a></td>
 					  		<td>${award.name }</td>
+					  		<c:if test="${user.role == 'manager' }">
+					  			<td>${award.teacher.teacherName }</td>
+					  		</c:if>
 					  		<td>${award.awardLevel }</td>
 					  		<td>${award.achieveDate }</td>
 					  		<td>${award.awards }</td>
 					  		<td>${award.createDate }</td>
 					  		<td>
-					  			<button type="button" class="btn btn-warning btn-xs" onclick="toUpdate('${award.id}');" >修改</button>
-					  			<button type="button" class="btn btn-danger btn-xs" onclick="doDel('${award.type }', '${award.id}');">删除</button>
+					  		<c:choose>
+				  				<c:when test="${user.role == 'manager' }">
+				  					<button type="button" class="btn btn-success btn-xs" onclick="details('${award.id}')" >查看</button>
+				  				</c:when>
+				  				<c:otherwise>
+						  			<button type="button" class="btn btn-warning btn-xs" onclick="toUpdate('${award.id}');" >修改</button>
+						  			<button type="button" class="btn btn-danger btn-xs" onclick="doDel('${award.type }', '${award.id}');">删除</button>
+				  				</c:otherwise>
+					  		</c:choose>
 					  		</td>
 					  	</tr>
 					</c:forEach>

@@ -17,5 +17,5 @@ public interface IBookService {
 	
 	public Book findById(Integer id) throws Exception;
 	
-	public List<Book> findByTeaId(String teacherId, String[] params) throws Exception;
+	public List<Book> findByTeaId(String role, String teacherId, String[] params) throws Exception;
 }

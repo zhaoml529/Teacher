@@ -21,6 +21,7 @@ public class UserUtils {
     public static void saveUserToSession(HttpSession session, Teacher user) {
         session.setAttribute(Constants.USER, user);
         session.setAttribute(Constants.USER_ID, user.getTeacherId());
+//        session.setAttribute(Constants.DEPT_ID, user.getDepartment().getId());
 //        session.setAttribute(Constants.ROLE, user.getRole());
     }
 

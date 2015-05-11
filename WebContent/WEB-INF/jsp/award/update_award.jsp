@@ -46,6 +46,7 @@
           <form:form action="${ctx }/awardAction/doUpdate" modelAttribute="award" method="POST">
           <input type="hidden" name="id" value="${award.id }"/>
           <input type="hidden" name="teacher.teacherId" value="${user.teacherId }"/>
+          <input type="hidden" name="deptId" value="${award.deptId }"/>
           <input type="hidden" name="type" value="${type }"/>
           <input type="hidden" name="createDate" value="<fmt:formatDate value='${award.createDate }' type='both'/>"/>
           <div class="table-responsive">
