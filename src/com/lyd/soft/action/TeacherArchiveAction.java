@@ -253,6 +253,7 @@ public class TeacherArchiveAction {
 	public String toApproval(@PathVariable("id") Integer id, Model model, RedirectAttributes redirectAttribute) throws Exception{
 		if(!BeanUtils.isBlank(id)){
 			TeacherArchive ta = this.itaService.findById(id.toString());
+			ta.setUpdateDate(new Date());
 			ta.setIsPass(Constants.PENDING);
 			this.itaService.doUpdate(ta);
 			redirectAttribute.addFlashAttribute(Constants.MESSAGE, "申请审批成功！请等待系部管理员审核...");
