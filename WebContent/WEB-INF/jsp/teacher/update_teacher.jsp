@@ -66,7 +66,7 @@
 				  			</select>
 		  				</c:when>
 		  				<c:otherwise>
-		  					<input type="text" name="role" value="${user.department.name }" class="form-control" disabled="disabled" required/>
+		  					<input type="text" name="department.id" value="${user.department.name }" class="form-control" disabled="disabled" required/>
 		  				</c:otherwise>
 		  			</c:choose>
 		  		</td>
