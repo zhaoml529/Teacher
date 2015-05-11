@@ -66,7 +66,8 @@
 				  			</select>
 		  				</c:when>
 		  				<c:otherwise>
-		  					<input type="text" name="department.id" value="${user.department.name }" class="form-control" readonly="readonly" required/>
+		  					<input type="hidden" name="department.id" value="${user.department.id }"/>
+		  					<input type="text" value="${user.department.name }" class="form-control" readonly="readonly" required/>
 		  				</c:otherwise>
 		  			</c:choose>
 		  		</td>
