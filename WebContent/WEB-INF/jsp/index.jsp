@@ -38,7 +38,7 @@
 		    theme: 'flat'
 		}
 	  	Messenger().post({
-  		  message: msg+"${user.teacherName}<br/>您上次登录时间为 :${user.lgoinDate}",
+  		  message: msg+"${user.teacherName}<br/>您上次登录时间为 : "+moment("${user.lgoinDate}").format("YYYY-MM-DD HH:mm:ss"),
 	  	  hideAfter: 6,
 	  	  status: 500,
 	  	  showCloseButton: true,
