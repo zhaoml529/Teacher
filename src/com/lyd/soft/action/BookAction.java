@@ -99,7 +99,7 @@ public class BookAction {
 		this.bookService.doAdd(book);
 		redirectAttributes.addAttribute("type", book.getType());
 		redirectAttributes.addFlashAttribute(Constants.MESSAGE, "添加成功！");
-		return "redirect:/bookAction/toList_page?type="+book.getType();
+		return "redirect:/bookAction/toList_page";
 	}
 	
 	@RequestMapping(value = "/doUpdate")
@@ -120,7 +120,7 @@ public class BookAction {
 		model.addAttribute("book", book);
 		redirectAttributes.addAttribute("type", book.getType());
 		redirectAttributes.addFlashAttribute(Constants.MESSAGE, "修改成功！");
-		return "redirect:/bookAction/toList_page?type="+book.getType();
+		return "redirect:/bookAction/toList_page";
 	}
 	
 	@RequestMapping(value = "/details/{id}")
