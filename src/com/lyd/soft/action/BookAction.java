@@ -76,7 +76,7 @@ public class BookAction {
 		if("manager".equals(user.getRole())){
 			bookList = this.bookService.findByTeaId("manager", user.getTeacherId().toString(), params);
 		}else{
-			bookList = this.bookService.findByTeaId("teaching", user.getTeacherId().toString(), params);
+			bookList = this.bookService.findByTeaId("teacher", user.getTeacherId().toString(), params);
 		}
 		Pagination pagination = PaginationThreadUtils.get();
 		model.addAttribute("page", pagination.getPageStr());
