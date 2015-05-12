@@ -93,7 +93,7 @@
 		  	<c:choose>
 		  		<c:when test="${awardList== null || fn:length(awardList) == 0}">
 		  			<tr class="danger">
-		  				<td colspan="${user.role = 'manager'?'8':'7' }" align="center">暂无数据</td>
+		  				<td colspan="${user.role == 'manager'?'8':'7' }" align="center">暂无数据</td>
 		  			</tr>
 		  		</c:when>
 		  		<c:otherwise>

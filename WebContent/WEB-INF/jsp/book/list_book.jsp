@@ -94,7 +94,7 @@
 		  	<c:choose>
 		  		<c:when test="${bookList== null || fn:length(bookList) == 0}">
 		  			<tr class="danger">
-		  				<td colspan="${user.role = 'manager'?'9':'8' }" align="center">暂无数据</td>
+		  				<td colspan="${user.role == 'manager'?'9':'8' }" align="center">暂无数据</td>
 		  			</tr>
 		  		</c:when>
 		  		<c:otherwise>
