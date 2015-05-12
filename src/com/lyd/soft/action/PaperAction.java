@@ -83,7 +83,7 @@ public class PaperAction {
 		if("manager".equals(user.getRole())){
 			paperList = this.paperService.findByTeaId("manager", user.getTeacherId().toString(), params);
 		}else{
-			paperList = this.paperService.findByTeaId("teaching", user.getTeacherId().toString(), params);
+			paperList = this.paperService.findByTeaId("teacher", user.getTeacherId().toString(), params);
 		}
 		Pagination pagination = PaginationThreadUtils.get();
 		model.addAttribute("page", pagination.getPageStr());
