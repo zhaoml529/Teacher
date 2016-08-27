@@ -31,10 +31,10 @@
    		        label: "副教授"
    		      },
    		      {
-   		        value: "${technicalMap['讲 师']}",
+   		        value: "${technicalMap['讲师']}",
    		        color: "#FDB45C",
    		        highlight: "#FFC870",
-   		        label: "讲 师"
+   		        label: "讲师"
    		      },
    		      {
    		        value: "${technicalMap['助理讲师']}",
@@ -244,7 +244,7 @@
                   <div class="templatemo-chart-box col-lg-4 col-md-4 col-sm-4 col-xs-12">
                     <canvas id="technicalPosition"></canvas>
                     <h4>技术职务等级</h4>
-                    <span class="text-muted">统计： 教授、副教授、讲 师、助理讲师</span>  
+                    <span class="text-muted">统计： 教授、副教授、讲师、助理讲师</span>  
                   </div>
                   
                   <div class="templatemo-chart-box col-lg-4 col-md-4 col-sm-4 col-xs-12">           

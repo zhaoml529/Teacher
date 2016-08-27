@@ -22,7 +22,6 @@
 	        todayHighlight: true,
 	        pickerPosition: "bottom-left"
 	    });
-	    
 	    $("[data-toggle='tooltip']").tooltip();
 	  })
   </script>

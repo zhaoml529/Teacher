@@ -3,6 +3,6 @@
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
 <footer class="templatemo-footer navbar-fixed-bottom">
     <div class="templatemo-copyright">
-      <p>Copyright &copy; 2084 Your Company Name Collect from <a href="#" title="" target="_blank">教师档案</a> - More About </p>
+      <p>Copyright &copy; 2015 Your Company Name Collect from <a href="#" title="" target="_blank">教师档案</a> - More About </p>
     </div>
 </footer>
