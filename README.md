@@ -3,4 +3,4 @@
 
 首页
 --------
-![](https://github.com/zhaoml529/Teacher/tree/master/WebContent/WEB-INF/images/image.jpg)  
+![](https://github.com/zhaoml529/Teacher/blob/master/WebContent/WEB-INF/images/image.jpg)  
