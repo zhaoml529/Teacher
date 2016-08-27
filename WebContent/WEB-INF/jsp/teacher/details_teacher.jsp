@@ -37,7 +37,7 @@
           			<td>${teacher.teacherId }</td>
           		</tr>
           		<tr>
-          			<td>角色</td>
+          			<th>角色</th>
           			<td>
             			<c:choose>
             				<c:when test="${teacher.role == 'teacher' }">
